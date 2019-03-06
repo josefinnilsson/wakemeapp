@@ -4,6 +4,8 @@ const request = require('request')
 const path = require('path')
 const User = require('./user.js')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+const authenticate = require('./authentication.js')
 
 const app = express()
 const router = express.Router()
@@ -87,6 +89,31 @@ router.get('/getRealTime/:station_id/:bus/:metro/:train/:tram/:ship', function(r
     })
 })
 
-
+router.post('/authenticate', (req, res) => {
+    const { email, password } = req.body
+    User.findOne( { email }, (err, user) => {
+        if (err) {
+            console.log(error)
+            res.status(500).json('{ Internal server error }')
+        } else if (!user) {
+            res.status(401).json('{ Incorrect credentials }')
+        } else {
+            user.checkPassword(password, (err, correct) => {
+                if (err) {
+                    console.log(error)
+                    res.status(500).json('{ Internal server error }')
+                } else if (!correct) {
+                    res.status(401).json('{ Incorrent credentials }')
+                } else {
+                    const payload = { email }
+                    const token = jwt.sign(payload, process.env.SECRET, {
+                        expiresIn: '1h'
+                    })
+                    res.cookie('token', token, { httpOnly: true }).sendStatus(200)
+                }
+            })
+        }
+    })
+})
 
 module.exports = router
