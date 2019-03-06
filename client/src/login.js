@@ -47,16 +47,16 @@ class Login extends Component {
         return (
             <div className="login">
             <h1>Sign in</h1>
-            <form id="login_form" onSubmit={this.handleSubmit}>
-            <label>Email</label>
-            <input type="emai" name="email" value={this.state.email} onChange={this.handleEmailChange} required/>
-            <label>Password</label>
-            <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}required/>
-            <input type="submit" value="Log in"/>
-            </form>
+                <form id="login_form" onSubmit={this.handleSubmit}>
+                    <label>Email</label>
+                    <input type="emai" name="email" value={this.state.email} onChange={this.handleEmailChange} required/>
+                    <label>Password</label>
+                    <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}required/>
+                    <input type="submit" value="Log in"/>
+                </form>
             </div>
 
-            )
+        )
     }
 }
 
