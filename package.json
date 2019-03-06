@@ -1,0 +1,22 @@
+{
+  "name": "wakemeapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "(cd client && npm) && (cd api && npm)",
+    "start": "concurrently \"cd client && PORT=3000 npm start\" \"cd api && PORT=3001 npm start\"",
+    "build": "concurrently \"cd client && npm build\" \"cd api && npm build\"",
+    "start:prod": "cd api && npm start:prod",
+    "heroku-postbuild": "npm build"
+  },
+  "engines": {
+    "node": "8.15.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^4.1.0"
+  }
+}
