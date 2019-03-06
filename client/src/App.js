@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
+import Dashboard from './dashboard/dashboard'
 import './App.css';
 
 class App extends Component {
@@ -7,6 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+          <Route path='/' component={Dashboard}/>
         </header>
       </div>
     )
