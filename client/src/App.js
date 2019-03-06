@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom'
 import Dashboard from './dashboard/dashboard'
 import './App.css';
 import Login from './login'
+import Authenticated from './authenticated'
 
 class App extends Component {
 
