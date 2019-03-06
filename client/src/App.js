@@ -12,7 +12,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
             <Route path='/' component={Dashboard}/>
-            <Route path="/login" component={Login}/>
+            <Route path="/login" component={Authenticated(Login)}/>
         </header>
       </div>
     )
