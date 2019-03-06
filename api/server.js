@@ -2,32 +2,45 @@ const body_parser = require('body-parser')
 const express = require('express')
 const request = require('request')
 const path = require('path')
+const User = require('./user.js')
+const mongoose = require('mongoose')
 
 const app = express()
 const router = express.Router()
 const static_files = express.static(path.join(__dirname, '../../client/build'))
+const mongo_uri = 'mongodb://localhost/wakemeapp_db'
 
 app.use(body_parser.json())
 app.use(body_parser.urlencoded({extended: false}))
 app.use(router)
 app.use(static_files)
 app.set('port', (process.env.PORT || 3001))
+mongoose.connect(mongo_uri, err => {
+    if (err) {
+        throw err
+    } else {
+        console.log(`Successfully connected to ${mongo_uri}`)
+    }
+})
 
 app.listen(app.get('port'), () => {
   console.log(`Listening on ${app.get('port')}`)
 })
 
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
     res.json('Server up and running')
 })
 
-router.get('/test', function(req, res, next) {
-    const names = [
-        {name: "test1"},
-        {name: "test2"},
-        {name: "test3"},
-    ]
-    res.json(names)
+router.post('/register', (req, res) => {
+    const { name, email, password } = req.body
+    const user = new User({ name, email, password })
+    user.save(function(err) {
+        if (err) {
+            res.status(500).send("An error occured while registring, please try again.")
+        } else {
+            res.status(200).send("Welcome to Wake Me App!\n")
+        }
+    })
 })
 
 /*
