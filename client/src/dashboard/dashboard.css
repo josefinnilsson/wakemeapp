@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 420px;
+  height: 420px;
+}
+
+.calendar {
+  width: 200px;
+  height: 200px;
+  background: orange;
+  margin: 5px;
+}
+
+.weather {
+  width: 200px;
+  height: 200px;
+  background: orange;
+  margin: 5px;
+}
+
+.news {
+  width: 200px;
+  height: 200px;
+  background: orange;
+  margin: 5px;
+}
+
+.sl {
+  width: 200px;
+  height: 200px;
+  background: orange;
+  margin: 5px;
+}
