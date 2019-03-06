@@ -30,4 +30,50 @@ router.get('/test', function(req, res, next) {
     res.json(names)
 })
 
+/*
+A promise that gets station information when the user search for a station
+*/
+router.get('/getStationData/:search_string', function(req, res, next) {
+	let api_key = process.env.PLATSUPPSLAG
+    let search_string = req.params.search_string
+    const options = {
+        url: 'https://api.sl.se/api2/typeahead.json?key=' + api_key + '&searchstring=' + search_string + '&stationsonly=true&maxresults=10'
+    }
+    return new Promise(resolve => {
+        request(options, (err, res, body) => {
+            resolve(body)
+        })
+    }).then(body => {
+        res.json(JSON.stringify(JSON.parse(body).ResponseData))
+    }).catch(error => {
+        console.log(error)
+    })
+})
+
+/*
+A promise that gets real time information about a station's departures
+*/
+router.get('/getRealTime/:station_id/:bus/:metro/:train/:tram/:ship', function(req, res, next) {
+    let api_key = process.env.REALTIME
+    let station_id = parseInt(req.params.station_id)
+
+    const options = {
+        url: 'http://api.sl.se/api2/realtimedeparturesV4.json?key=' + api_key + '&siteid=' + station_id
+        + '&timewindow=5&transport' + '&bus=' + req.params.bus + '&metro=' + req.params.metro
+        + '&train='+ req.params.train + '&tram=' + req.params.tram + '&ship=' + req.params.ship
+    }
+
+    return new Promise(resolve => {
+        request(options, (err, res, body) => {
+            resolve(body)
+        })
+    }).then(body => {
+        res.json(JSON.stringify(JSON.parse(body).ResponseData))
+    }).catch(error => {
+        console.log(error)
+    })
+})
+
+
+
 module.exports = router
