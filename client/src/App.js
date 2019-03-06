@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import Dashboard from './dashboard/dashboard'
 import './App.css';
+import Login from './login'
 
 class App extends Component {
 
@@ -9,7 +10,8 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Route path='/' component={Dashboard}/>
+            <Route path='/' component={Dashboard}/>
+            <Route path="/login" component={Login}/>
         </header>
       </div>
     )
