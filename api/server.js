@@ -116,4 +116,8 @@ router.post('/authenticate', (req, res) => {
     })
 })
 
+router.get('/validToken', authenticate, (req, res) => {
+    res.sendStatus(200)
+})
+
 module.exports = router
