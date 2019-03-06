@@ -17,6 +17,10 @@ app.listen(app.get('port'), () => {
   console.log(`Listening on ${app.get('port')}`)
 })
 
+router.get('/', function(req, res, next) {
+    res.json('Server up and running')
+})
+
 router.get('/test', function(req, res, next) {
     const names = [
         {name: "test1"},
