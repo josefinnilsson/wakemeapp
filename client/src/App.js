@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import './App.css'
 import Dashboard from './dashboard/dashboard'
-import SL from './sl/sl'
+import DeparturesExtended from './sl/departures/departuresExtended'
 
 class App extends Component {
 
@@ -10,8 +10,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Route path='/' component={Dashboard}/>
-          <Route path='/sl' component={SL}/>
+          <Route exact path='/' component={Dashboard}/>
+          <Route path="/departures" component={DeparturesExtended}/>
+
         </header>
       </div>
     )
