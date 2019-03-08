@@ -4,12 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "(cd client && npm install) && (cd api && npm install)",
-    "start": "concurrently \"cd client && PORT=3000 npm run start && watch\" \"cd api && PORT=3001 npm run start\"",
-    "build": "concurrently \"cd client && npm run build\" \"cd api && npm run build\"",
-    "start:prod": "cd api && npm run start:prod",
-    "heroku-postbuild": "(cd client && npm install) && (cd api && npm install --only-dev --no-shrinkwrap && npm run build)"
+    "start": "concurrently \"cd client && PORT=3000 npm start\" \"cd api && PORT=3001 npm start\"",
+    "heroku-postbuild": "(cd client && npm install --only=dev) && (cd api && npm install && npm run build)"
   },
   "engines": {
     "node": "8.15.0"
