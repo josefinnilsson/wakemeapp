@@ -48,8 +48,10 @@ class SL extends Component {
     if (localStorage.getItem('has_departures') === null) {
       this.handleRefresh()
     }
-
-    let departure_info = JSON.parse(localStorage.getItem('departure_info'))
+    let departure_info = []
+    if (localStorage.getItem('has_departures') !== null) {
+      departure_info = JSON.parse(localStorage.getItem('departure_info'))
+    }
     let departures = []
     for(let i = 0; i < departure_info.length; i++) {
       let departure = departure_info[i]
