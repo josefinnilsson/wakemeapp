@@ -25,7 +25,7 @@ export const login = user_data => dispatch => {
     }).catch(err => {
         dispatch({
             type: GET_ERRORS,
-            payload: err.response.data
+            payload: err
         })
     })
 }

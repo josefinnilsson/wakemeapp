@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd client && PORT=3000 npm start\" \"cd api && PORT=3001 npm start\"",
-    "heroku-postbuild": "(cd client && npm install --only=dev) && (cd api && npm install && npm run build)"
+    "start-dev": "concurrently \"cd client && PORT=3000 npm start\" \"cd api && PORT=3001 npm start\"",
+    "start": "cd api && npm start"
   },
   "engines": {
     "node": "8.15.0"

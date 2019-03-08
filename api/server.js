@@ -31,8 +31,9 @@ app.listen(app.get('port'), () => {
   console.log(`Listening on ${app.get('port')}`)
 })
 
-router.get('/', (req, res, next) => {
-    res.json('Server up and running')
+app.use(express.static(path.join(__dirname, '/../client/build')));
+app.get('/', (req, res, next) => {
+    res.sendFile(path.join(__dirname + '/../client/public/index.html'))
 })
 
 router.post('/register', (req, res) => {
