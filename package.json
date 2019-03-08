@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "is-empty": "^1.2.0",
     "is_empty": "0.0.11",
