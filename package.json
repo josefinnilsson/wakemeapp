@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start-dev": "concurrently \"cd client && PORT=3000 npm start\" \"cd api && PORT=3001 npm start\"",
-    "start": "cd api && npm run build && npm start"
+    "start": "cd api && npm start",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "engines": {
     "node": "8.15.0"
