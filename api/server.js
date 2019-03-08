@@ -6,6 +6,7 @@ const User = require('./user.js')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const authenticate = require('./authentication.js')
+const passport = require('passport')
 
 const app = express()
 const router = express.Router()
@@ -17,6 +18,7 @@ app.use(body_parser.urlencoded({extended: false}))
 app.use(router)
 app.use(static_files)
 app.set('port', (process.env.PORT || 3001))
+app.use(passport.initialize())
 mongoose.connect(mongo_uri, err => {
     if (err) {
         throw err
@@ -90,7 +92,7 @@ router.get('/getRealTime/:station_id/:bus/:metro/:train/:tram/:ship', function(r
 })
 
 router.post('/authenticate', (req, res) => {
-    const { email, password } = req.body
+    const { errors, isValid, email, password } = req.body
     User.findOne( { email }, (err, user) => {
         if (err) {
             console.log(error)
@@ -105,19 +107,20 @@ router.post('/authenticate', (req, res) => {
                 } else if (!correct) {
                     res.status(401).json('{ Incorrent credentials }')
                 } else {
-                    const payload = { email }
+                    const payload = { id: user.id, email: user.email }
                     const token = jwt.sign(payload, process.env.SECRET, {
-                        expiresIn: '1h'
+                        expiresIn: 31556926 //1 year
                     })
-                    res.cookie('token', token, { httpOnly: true }).sendStatus(200)
+                    res.json({success: true, token: 'Bearer ' + token})
                 }
             })
         }
     })
 })
 
-router.get('/validToken', authenticate, (req, res) => {
-    res.sendStatus(200)
+router.post('/signout', (req, res) => {
+    console.log(req.body)
 })
+
 
 module.exports = router
