@@ -1,4 +1,13 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { login } from '../actions/authActions'
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+})
 
 class Login extends Component {
     constructor(props) {
@@ -6,11 +15,20 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
+            errors: {}
         }
 
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    componentWillReceiveProps(next_props) {
+        if (next_props.auth.is_authenticated) {
+            this.props.history.push('/')
+        }
+        if (next_props.errors)
+            this.setState({ errors: next_props.errors })
     }
 
     handleEmailChange(e) {
@@ -23,33 +41,21 @@ class Login extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        fetch('/authenticate', {
-            method: 'POST',
-            body: JSON.stringify(this.state),
-            headers: {
-              'Content-Type': 'application/json'
-          }
-        })
-        .then(res => {
-            if (res.status === 200) {
-              this.props.history.push('/');
-          } else {
-              throw new Error(res.error)
-          }
-        })
-        .catch(err => {
-            console.error(err);
-            alert('Error signing in');
-        })
+        const user = {
+            email: this.state.email,
+            password: this.state.password
+        }
+        this.props.login(user)
     }
 
     render() {
         return (
             <div className="login">
-            <h1>Sign in</h1>
+                <h1>Sign in</h1>
+                Don't have an account? <Link to="/register">Register</Link>
                 <form id="login_form" onSubmit={this.handleSubmit}>
                     <label>Email</label>
-                    <input type="emai" name="email" value={this.state.email} onChange={this.handleEmailChange} required/>
+                    <input type="email" name="email" value={this.state.email} onChange={this.handleEmailChange} required/>
                     <label>Password</label>
                     <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}required/>
                     <input type="submit" value="Log in"/>
@@ -60,4 +66,9 @@ class Login extends Component {
     }
 }
 
-export default Login
+Login.propTypes = {
+    login: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+}
+
+export default connect(mapStateToProps, { login })(Login)
