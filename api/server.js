@@ -2,32 +2,49 @@ const body_parser = require('body-parser')
 const express = require('express')
 const request = require('request')
 const path = require('path')
+const User = require('./user.js')
+const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+const authenticate = require('./authentication.js')
+const passport = require('passport')
 
 const app = express()
 const router = express.Router()
 const static_files = express.static(path.join(__dirname, '../../client/build'))
+const mongo_uri = 'mongodb://localhost/wakemeapp_db'
 
 app.use(body_parser.json())
 app.use(body_parser.urlencoded({extended: false}))
 app.use(router)
 app.use(static_files)
 app.set('port', (process.env.PORT || 3001))
+app.use(passport.initialize())
+mongoose.connect(mongo_uri, err => {
+    if (err) {
+        throw err
+    } else {
+        console.log(`Successfully connected to ${mongo_uri}`)
+    }
+})
 
 app.listen(app.get('port'), () => {
   console.log(`Listening on ${app.get('port')}`)
 })
 
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
     res.json('Server up and running')
 })
 
-router.get('/test', function(req, res, next) {
-    const names = [
-        {name: "test1"},
-        {name: "test2"},
-        {name: "test3"},
-    ]
-    res.json(names)
+router.post('/register', (req, res) => {
+    const { name, email, password } = req.body
+    const user = new User({ name, email, password })
+    user.save(function(err) {
+        if (err) {
+            res.status(500).send("An error occured while registring, please try again.")
+        } else {
+            res.status(200).send("Welcome to Wake Me App!\n")
+        }
+    })
 })
 
 /*
@@ -74,6 +91,36 @@ router.get('/getRealTime/:station_id/:bus/:metro/:train/:tram/:ship', function(r
     })
 })
 
+router.post('/authenticate', (req, res) => {
+    const { errors, isValid, email, password } = req.body
+    User.findOne( { email }, (err, user) => {
+        if (err) {
+            console.log(error)
+            res.status(500).json('{ Internal server error }')
+        } else if (!user) {
+            res.status(401).json('{ Incorrect credentials }')
+        } else {
+            user.checkPassword(password, (err, correct) => {
+                if (err) {
+                    console.log(error)
+                    res.status(500).json('{ Internal server error }')
+                } else if (!correct) {
+                    res.status(401).json('{ Incorrent credentials }')
+                } else {
+                    const payload = { id: user.id, email: user.email }
+                    const token = jwt.sign(payload, process.env.SECRET, {
+                        expiresIn: 31556926 //1 year
+                    })
+                    res.json({success: true, token: 'Bearer ' + token})
+                }
+            })
+        }
+    })
+})
+
+router.post('/signout', (req, res) => {
+    console.log(req.body)
+})
 
 
 module.exports = router
