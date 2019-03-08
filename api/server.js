@@ -19,7 +19,7 @@ app.use(router)
 app.use(static_files)
 app.set('port', (process.env.PORT || 3001))
 app.use(passport.initialize())
-mongoose.connect(mongo_uri, err => {
+mongoose.connect(process.env.MONGODB_URI || mongo_uri, err => {
     if (err) {
         throw err
     } else {
