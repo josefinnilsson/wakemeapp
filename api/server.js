@@ -86,7 +86,9 @@ let sortDepartures = (body) => {
 
     // Sort on display time, e.g. '1 min'
     departures.sort(function (a, b) {
-        return ('' + a.DisplayTime).localeCompare(b.DisplayTime);
+        let a_time = parseInt(a.DisplayTime.split(' ')[0])
+        let b_time = parseInt(b.DisplayTime.split(' ')[0])
+        return ('' + a_time).localeCompare(b_time, undefined, {numeric: true});
     })
 
     // Get all departures that are 'Nu'
