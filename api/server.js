@@ -123,5 +123,23 @@ router.post('/signout', (req, res) => {
     console.log(req.body)
 })
 
+router.get('/nasa', (req, res) => {
+    let api_key = process.env.NASA
+    let hd = true
+
+    const options = {
+        url: `https://api.nasa.gov/planetary/apod?hd=${hd}&api_key=${api_key}`
+    }
+
+    return new Promise(resolve => {
+        request(options, (err, res, body) => {
+            resolve(body)
+        })
+    }).then(body => {
+        res.json(JSON.parse(body).hdurl)
+    }).catch(error => {
+        console.log(error)
+    })
+})
 
 module.exports = router
