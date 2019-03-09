@@ -136,7 +136,7 @@ router.get('/nasa', (req, res) => {
             resolve(body)
         })
     }).then(body => {
-        res.json(JSON.stringify(JSON.parse(body).hdurl))
+        res.json(JSON.parse(body).hdurl)
     }).catch(error => {
         console.log(error)
     })
