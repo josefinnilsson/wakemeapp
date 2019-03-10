@@ -7,12 +7,14 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const authenticate = require('./authentication.js')
 const passport = require('passport')
+const secure = require('express-force-https')
 
 const app = express()
 const router = express.Router()
 const static_files = express.static(path.join(__dirname, '../../client/build'))
 const mongo_uri = 'mongodb://localhost/wakemeapp_db'
 
+app.use(secure)
 app.use(body_parser.json())
 app.use(body_parser.urlencoded({extended: false}))
 app.use(router)
@@ -240,5 +242,6 @@ router.get('/nasa', (req, res) => {
         console.log(error)
     })
 })
+
 
 module.exports = router
