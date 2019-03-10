@@ -77,7 +77,7 @@ router.get('/getRealTime/:station_id/:bus/:metro/:train/:tram/:ship', (req, res,
 
     const options = {
         url: 'http://api.sl.se/api2/realtimedeparturesV4.json?key=' + api_key + '&siteid=' + station_id
-        + '&timewindow=5&transport' + '&bus=' + req.params.bus + '&metro=' + req.params.metro
+        + '&timewindow=20&transport' + '&bus=' + req.params.bus + '&metro=' + req.params.metro
         + '&train='+ req.params.train + '&tram=' + req.params.tram + '&ship=' + req.params.ship
     }
 
@@ -86,11 +86,68 @@ router.get('/getRealTime/:station_id/:bus/:metro/:train/:tram/:ship', (req, res,
             resolve(body)
         })
     }).then(body => {
-        res.json(JSON.stringify(JSON.parse(body).ResponseData))
+        let departures = sortDepartures(body)
+
+        res.json(departures)
     }).catch(error => {
         console.log(error)
     })
 })
+
+let sortDepartures = (body) => {
+    let data = JSON.parse(body).ResponseData
+    let departures = data.Buses
+    departures = departures.concat(data.Metros)
+    departures = departures.concat(data.Trains)
+    departures = departures.concat(data.Trams)
+    departures = departures.concat(data.Ships)
+
+    // Sort on display time, e.g. '1 min'
+    departures.sort(function (a, b) {
+        let a_time = parseInt(a.DisplayTime.split(' ')[0])
+        let b_time = parseInt(b.DisplayTime.split(' ')[0])
+        return ('' + a_time).localeCompare(b_time, undefined, {numeric: true});
+    })
+
+    // Get all departures that are 'Nu'
+    let now_departures = []
+    for(let i = departures.length - 1; i >= 0; i--) {
+        if (departures[i].DisplayTime === 'Nu')
+            now_departures.push(departures[i])
+        else
+            break;
+    }
+
+    // Remove all departures that are 'Nu'
+    departures = departures.filter((a) => {
+        return a.DisplayTime !== 'Nu'
+    })
+
+    // Add all 'Nu' departures at beginning of array
+    for (let i = 0; i < now_departures.length; i++) {
+        departures.unshift(now_departures[i])
+    }
+
+    // Display time that lacks real time are handled separately
+    let timeRegex = RegExp('[0-9][0-9]:[0-9][0-9]$');
+    let no_real_time = []
+    let indices = []
+    for (let i = 0; i < departures.length; i++) {
+        let display_time = departures[i].DisplayTime
+        if (timeRegex.test(display_time)) {
+            no_real_time.push(departures[i])
+            indices.push(i)
+        }
+    }
+
+    departures = departures.filter((a) => {
+        return !timeRegex.test(a.DisplayTime)
+    })
+
+    let all_departures = [departures, no_real_time]
+
+    return all_departures
+}
 
 /*
 A promise of weather data for the current location of the client's browser

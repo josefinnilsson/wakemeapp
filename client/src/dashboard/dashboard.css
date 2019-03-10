@@ -6,34 +6,35 @@
 .dashboard_wrapper {
   display: flex;
   flex-wrap: wrap;
-  width: 420px;
-  height: 420px;
+  width: 620px;
+  height: 620px;
 }
 
 .calendar {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   background: orange;
   margin: 5px;
 }
 
 .weather {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   background: orange;
   margin: 5px;
 }
 
 .news {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   background: orange;
   margin: 5px;
 }
 
 .sl {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   background: orange;
   margin: 5px;
+  overflow-y: scroll;
 }
