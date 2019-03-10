@@ -243,10 +243,5 @@ router.get('/nasa', (req, res) => {
     })
 })
 
-router.get('/unsplash', (req, res) => {
-    const collection = '540518/spectrums'
-    const url = `https://source.unsplash.com/collection/${collection}/`
-    res.json({ url })
-})
 
 module.exports = router
