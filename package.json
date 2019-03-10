@@ -4,12 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "(cd client && npm install) && (cd api && npm install)",
-    "start": "concurrently \"cd client && PORT=3000 npm run start && watch\" \"cd api && PORT=3001 npm run start\"",
-    "build": "concurrently \"cd client && npm run build\" \"cd api && npm run build\"",
-    "start:prod": "cd api && npm run start:prod",
-    "heroku-postbuild": "npm run build"
+    "start-dev": "concurrently \"cd client && PORT=3000 npm start\" \"cd api && PORT=3001 npm start\"",
+    "start": "(cd api && node server.js)",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "engines": {
     "node": "8.15.0"
@@ -17,7 +14,31 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
-    "react-router-dom": "^4.3.1"
+    "is-empty": "^1.2.0",
+    "is_empty": "0.0.11",
+    "jwt-decode": "^2.2.0",
+    "mongoose": "^5.4.17",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "react": "^16.8.4",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "bcrypt": "^3.0.4",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
+    "nodemon": "^1.18.10",
+    "request": "^2.88.0",
+    "react-scripts": "2.1.5"
   }
 }
