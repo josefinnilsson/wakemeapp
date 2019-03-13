@@ -9,7 +9,8 @@ const jwt = require('jsonwebtoken')
 const authenticate = require('./authentication.js')
 const passport = require('passport')
 const secure = require('express-force-https')
-const sanitize = require("mongo-sanitize");
+const sanitize = require('mongo-sanitize')
+const Calendar = require('./calendar.js')
 
 const app = express()
 const router = express.Router()
