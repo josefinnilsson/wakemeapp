@@ -25,6 +25,7 @@ class Login extends Component {
 
     componentWillReceiveProps(next_props) {
         if (next_props.auth.is_authenticated) {
+            localStorage.setItem('email', this.state.email)
             this.props.history.push('/')
         }
         if (next_props.errors)

@@ -3,6 +3,7 @@ const express = require('express')
 const request = require('request')
 const path = require('path')
 const User = require('./user.js')
+const UserSettings = require('./userSettings.js')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const authenticate = require('./authentication.js')
@@ -41,7 +42,19 @@ app.get('/', (req, res, next) => {
 router.post('/register', (req, res) => {
     const { name, email, password } = req.body
     const user = new User({ name, email, password })
-    user.save(function(err) {
+    user.save(function(err, user) {
+        const _id = new mongoose.Types.ObjectId(user._id) // same id as corresponding user
+        const stationName = ''
+        const stationId = -1
+        const bus = false
+        const metro = false
+        const train = false
+        const tram = false
+        const ship = false
+        const userSettings = new UserSettings({ _id, stationName, stationId, bus, metro, train, tram, ship })
+        userSettings.save((err2) => {
+            console.log(err2)
+        })
         if (err) {
             res.status(500).send("An error occured while registring, please try again.")
         } else {
@@ -50,6 +63,23 @@ router.post('/register', (req, res) => {
     })
 })
 
+router.get('/getUserSettings/:email', (req, res) => {
+    const email = req.params.email
+    User.findOne ( { email} , (err, user) => {
+        const _id = user._id
+        UserSettings.findOne ( { _id }, (err, user_settings) => {
+            let data = {}
+            data.station_name = user_settings.stationName
+            data.station_id = user_settings.stationId
+            data.bus = user_settings.bus
+            data.metro = user_settings.metro
+            data.train = user_settings.train
+            data.tram = user_settings.tram
+            data.ship = user_settings.ship
+            res.json(data)
+        })
+    })
+})
 /*
 A promise that gets station information when the user search for a station
 */
