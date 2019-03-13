@@ -330,7 +330,24 @@ router.get('/unsplash', (req, res) => {
 })
 
 router.get('/calendar', (req, res) => {
-    CalendarAPI.authorize(CalendarAPI.listEvents)
+    CalendarAPI.authorize(res)
+    .then(result => {
+        if (result === 'NO_TOKEN') {
+            console.log('no token')
+        } else {
+            CalendarAPI.listEvents()
+            console.log('token')
+        }
+    })
+})
+
+router.get('/calendar_callback', (req, res) => {
+    console.log('CALLBACK')
+    const code = req.query.code
+    if (!code)
+        return console.log('Error getting authentication code')
+    CalendarAPI.createToken(code)
+    .then(CalendarAPI.listEvents())
 })
 
 module.exports = router
