@@ -10,7 +10,7 @@ const authenticate = require('./authentication.js')
 const passport = require('passport')
 const secure = require('express-force-https')
 const sanitize = require('mongo-sanitize')
-const Calendar = require('./calendar.js')
+const CalendarAPI = require('./calendar.js')
 
 const app = express()
 const router = express.Router()
@@ -327,6 +327,10 @@ router.get('/unsplash', (req, res) => {
     const collection = '540518/spectrums'
     const url = `https://source.unsplash.com/collection/${collection}/`
     res.json({ url })
+})
+
+router.get('/calendar', (req, res) => {
+    CalendarAPI.authorize(CalendarAPI.listEvents)
 })
 
 module.exports = router
