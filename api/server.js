@@ -65,7 +65,7 @@ router.post('/register', (req, res) => {
 
 router.get('/getUserSettings/:email', (req, res) => {
     const email = req.params.email
-    User.findOne ( { email} , (err, user) => {
+    User.findOne ( { email } , (err, user) => {
         const _id = user._id
         UserSettings.findOne ( { _id }, (err, user_settings) => {
             let data = {}
@@ -77,6 +77,21 @@ router.get('/getUserSettings/:email', (req, res) => {
             data.tram = user_settings.tram
             data.ship = user_settings.ship
             res.json(data)
+        })
+    })
+})
+
+router.post('/updateUserSettings/:email', (req, res) => {
+    const email = req.params.email
+    const { stationName, stationId, bus, metro, train, tram, ship } = req.body
+
+    User.findOne( { email }, (err, user) => {
+        const query = {'_id': user._id}
+        const { stationName, stationId, bus, metro, train, tram, ship } = req.body
+        UserSettings.findOneAndUpdate(query, { stationName, stationId, bus, metro, train, tram, ship }, (err, userSettings) => {
+            if (err)
+                return res.send(500, {error: err})
+            return res.send ('Successfully saved user settings')
         })
     })
 })
@@ -94,7 +109,7 @@ router.get('/getStationData/:search_string', (req, res, next) => {
             resolve(body)
         })
     }).then(body => {
-        res.json(JSON.stringify(JSON.parse(body).ResponseData))
+        res.json(JSON.parse(body).ResponseData)
     }).catch(error => {
         console.log(error)
     })
