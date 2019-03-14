@@ -4,64 +4,67 @@ const {google} = require('googleapis')
 const fs = require('fs')
 const oAuth = google.auth.OAuth2
 const TOKEN_PATH = 'token.json'
-const oAuth2Client = new oAuth(process.env.CLIENT_ID, process.env.CLIENT_SECRET, 'http://localhost:3001/calendar_callback')
 
 const CalendarAPI = {
     authorize: function(res) {
+        const oAuth2Client = new oAuth(process.env.CLIENT_ID, process.env.CLIENT_SECRET, 'http://localhost:3001/calendar_callback')
         return new Promise(resolve => {
             fs.readFile(TOKEN_PATH, (err, token) => {
                 if (err) {
-                    CalendarAPI.getAccessToken(res)
+                    CalendarAPI.getAccessToken(res, oAuth2Client)
                     resolve('NO_TOKEN')
                 } else {
                     oAuth2Client.setCredentials(JSON.parse(token))
-                    resolve('TOKEN')
+                    resolve(oAuth2Client)
                 }
             })
         })
     },
-    getAccessToken: function(res) {
+    getAccessToken: function(res, oAuth2Client) {
         const authUrl = oAuth2Client.generateAuthUrl({
             access_type: 'offline', scope: 'https://www.googleapis.com/auth/calendar.readonly'
         })
-        res.send(authUrl)
+        res.redirect(authUrl)
     },
-    createToken: function(code) {
+    createToken: function(code, oAuth2Client) {
+        const oAuth2Client2 = new oAuth(process.env.CLIENT_ID, process.env.CLIENT_SECRET, 'http://localhost:3001/calendar_callback')
         return new Promise((resolve, reject) => {
-            oAuth2Client.getToken(code, (err, token) => {
+            oAuth2Client2.getToken(code, (err, token) => {
                 if (err)
-                    reject('Error retrieving access token')
+                    reject(err)
                 else {
-                    oAuth2Client.setCredentials(token)
+                    oAuth2Client2.setCredentials(token)
                     fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
                         if (err)
                             reject('Token err')
                     })
-                    resolve('Created token sucessfully')
+                    resolve(oAuth2Client2)
                 }
             })
         })
     },
-    listEvents: function() {
-        const calendar = google.calendar('v3')
+    listEvents: function(auth, res) {
+        const calendar = google.calendar({ version: 'v3', auth: auth})
         calendar.events.list({
             calendarId: 'primary',
             timeMin: (new Date()).toISOString(),
-            maxResults: 10,
+            maxResults: 20,
             singleEvents: true,
             orderBy: 'startTime'
-        }, (err, res) => {
+        }, (err, response) => {
             if (err)
-                return console.log('API error: ', err)
-            const events = res.data.items
+                res.status(500).send('API error: ', err)
+            const events = response.data.items
             if (events.length) {
-                console.log('Next 10 events: ')
+                let events_json = []
                 events.map((event, i) => {
                     const start = event.start.dateTime || event.start.date
-                    console.log(`${start} - ${event.summary}`)
+                    const json = {start: start, summary: event.summary}
+                    events_json.push(json)
                 })
+                res.json(events_json)
             } else {
-                console.log('No events found')
+                res.json('No events found')
             }
         })
     }
