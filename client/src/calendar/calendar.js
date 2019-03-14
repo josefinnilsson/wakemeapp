@@ -22,6 +22,8 @@ class Calendar extends Component {
         if (data.url) {
           window.open(data.url, '_blank')
         } else {
+          localStorage.setItem('calendar_events', JSON.stringify(data.events))
+          localStorage.setItem('has_events', true)
           this.setState({
             status: 'LOADED',
             events: data
@@ -35,7 +37,13 @@ class Calendar extends Component {
       return (<button id='refresh_calendar' onClick={this.handleRefresh}>Refresh calendar</button>)
     }
 
-    const events = this.state.events
+    let events = []
+    if (localStorage.getItem('has_events')) {
+      events = JSON.parse(localStorage.getItem('calendar_events'))
+    } else {
+      this.handleRefresh()
+    }
+
     let event_table = []
     events.forEach(event => {
       const key = event.start + event.summary
