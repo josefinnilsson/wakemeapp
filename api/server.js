@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken')
 const authenticate = require('./authentication.js')
 const passport = require('passport')
 const secure = require('express-force-https')
+const sanitize = require("mongo-sanitize");
 
 const app = express()
 const router = express.Router()
@@ -40,7 +41,7 @@ app.get('/', (req, res, next) => {
 })
 
 router.post('/register', (req, res) => {
-    const { name, email, password } = req.body
+    const { name, email, password } = sanitize(req.body)
     const user = new User({ name, email, password })
     user.save(function(err, user) {
         const _id = new mongoose.Types.ObjectId(user._id) // same id as corresponding user
@@ -82,8 +83,7 @@ router.get('/getUserSettings/:email', (req, res) => {
 })
 
 router.post('/updateUserSettings/:email', (req, res) => {
-    const email = req.params.email
-    const { stationName, stationId, bus, metro, train, tram, ship } = req.body
+    const email = sanitize(req.params.email)
 
     User.findOne( { email }, (err, user) => {
         const query = {'_id': user._id}
@@ -124,7 +124,7 @@ router.get('/getRealTime/:station_id/:bus/:metro/:train/:tram/:ship', (req, res,
 
     const options = {
         url: 'http://api.sl.se/api2/realtimedeparturesV4.json?key=' + api_key + '&siteid=' + station_id
-        + '&timewindow=20&transport' + '&bus=' + req.params.bus + '&metro=' + req.params.metro
+        + '&timewindow=30&transport' + '&bus=' + req.params.bus + '&metro=' + req.params.metro
         + '&train='+ req.params.train + '&tram=' + req.params.tram + '&ship=' + req.params.ship
     }
 
