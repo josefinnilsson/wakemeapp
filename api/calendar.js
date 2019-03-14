@@ -24,7 +24,7 @@ const CalendarAPI = {
         const authUrl = oAuth2Client.generateAuthUrl({
             access_type: 'offline', scope: 'https://www.googleapis.com/auth/calendar.readonly'
         })
-        res.redirect(authUrl)
+        res.json({url: authUrl})
     },
     createToken: function(code, oAuth2Client) {
         const oAuth2Client2 = new oAuth(process.env.CLIENT_ID, process.env.CLIENT_SECRET, 'http://localhost:3001/calendar_callback')
