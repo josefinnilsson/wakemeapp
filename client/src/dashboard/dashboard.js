@@ -23,7 +23,9 @@ class Dashboard extends Component {
     return (
       <div className='container'>
       <BackgroundToggle/>
+      <div>
       <button onClick={this.onLogout}>Logout</button>
+      <button onClick={() => this.props.history.push('/userSettings')}>Settings</button> 
         <div className='dashboard_wrapper'>
           <div className='calendar'>
             <Calendar key={1}/>
@@ -38,6 +40,7 @@ class Dashboard extends Component {
             <Weather key={4}/>
           </div>
         </div>
+      </div>
       </div>
     )
   }
