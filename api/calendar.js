@@ -65,7 +65,7 @@ const CalendarAPI = {
                     const json = {start: start, summary: event.summary}
                     events_json.push(json)
                 })
-                res.json(events_json)
+                res.json({events: events_json})
             } else {
                 res.json('No events found')
             }
