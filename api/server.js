@@ -333,21 +333,28 @@ router.get('/calendar', (req, res) => {
     CalendarAPI.authorize(res)
     .then(result => {
         if (result === 'NO_TOKEN') {
-            console.log('no token')
         } else {
-            CalendarAPI.listEvents()
-            console.log('token')
+            CalendarAPI.listEvents(result, res)
         }
     })
 })
 
 router.get('/calendar_callback', (req, res) => {
-    console.log('CALLBACK')
     const code = req.query.code
-    if (!code)
-        return console.log('Error getting authentication code')
+    console.log('callback', req.query.code)
     CalendarAPI.createToken(code)
-    .then(CalendarAPI.listEvents())
+    .then(CalendarAPI.authorize(res))
+    .then(result => {
+        if (result === 'NO_TOKEN') {
+            console.log('NO TOKEN')
+        } else {
+            console.log('LIST EVENTS')
+            CalendarAPI.listEvents(result, res)
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    })
 })
 
 module.exports = router
