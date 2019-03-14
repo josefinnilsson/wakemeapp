@@ -45,11 +45,14 @@ const CalendarAPI = {
     },
     listEvents: function(auth, res) {
         const calendar = google.calendar({ version: 'v3', auth: auth})
+        const today = new Date()
+        const end = `${today.getYear()+1900}-0${today.getMonth()+1}-${today.getDate()}T23:59:59Z`
+        const start = `${today.getYear()+1900}-0${today.getMonth()+1}-${today.getDate()}T00:00:00Z`
         calendar.events.list({
             calendarId: 'primary',
-            timeMin: (new Date()).toISOString(),
-            maxResults: 20,
             singleEvents: true,
+            timeMin: start,
+            timeMax: end,
             orderBy: 'startTime'
         }, (err, response) => {
             if (err)
