@@ -59,7 +59,7 @@ class SL extends Component {
       <div>
         <button id='refresh_departures' onClick={this.handleRefresh}>Refresh departures</button>
         <Link to={'/departures'} style={{textDecoration: 'none', color: 'black'}}>
-        {departure_info.length === 0 ? (<p>Update your user settings</p>) : ''}
+        {localStorage.getItem('user_station_id') === '-1' ? (<p>Update your user settings</p>) : (departures.length <= 0 ? (<p>No departures the coming 30 minutes</p>) : '')}
           <table>
             <tbody>
               {departures.slice(0, 10)}
