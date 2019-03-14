@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom'
-import './calendar.css';
+import { Link } from 'react-router-dom'
+import './calendar.css'
+import Event from './event'
 
 class Calendar extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class Calendar extends Component {
         } else {
           this.setState({
             status: 'LOADED',
-            events: JSON.stringify(data)
+            events: data
           })
         }
       })
@@ -34,13 +35,23 @@ class Calendar extends Component {
       return (<button id='refresh_calendar' onClick={this.handleRefresh}>Refresh calendar</button>)
     }
 
+    const events = this.state.events
+    let event_table = []
+    events.forEach(event => {
+      const key = event.start + event.summary
+      event_table.push(<Event key={key} start={event.start} summary={event.summary}/>)
+    })
+
     return (
       <div>
         <RefreshCalendar/>
-        <div>
-          <p>{this.state.events}</p>
-          <p>{this.state.events}</p>
-        </div>
+        <Link to={'/calendar'} style={{textDecoration: 'none', color: 'black'}}>
+          <table>
+            <tbody>
+              {event_table}
+            </tbody>
+          </table>
+        </Link>
       </div>
     )
   }
