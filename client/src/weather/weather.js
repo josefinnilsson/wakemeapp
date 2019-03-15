@@ -19,7 +19,6 @@ class Weather extends Component {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         })
-        this.handleRefresh()
       }, error => {console.log(error)})
   }
 

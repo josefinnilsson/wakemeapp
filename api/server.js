@@ -9,7 +9,9 @@ const jwt = require('jsonwebtoken')
 const authenticate = require('./authentication.js')
 const passport = require('passport')
 const secure = require('express-force-https')
-const sanitize = require("mongo-sanitize");
+const sanitize = require('mongo-sanitize')
+const CalendarAPI = require('./calendar.js')
+const cors = require('cors')
 
 const app = express()
 const router = express.Router()
@@ -21,6 +23,7 @@ app.use(body_parser.json())
 app.use(body_parser.urlencoded({extended: false}))
 app.use(router)
 app.use(static_files)
+app.use(cors())
 app.set('port', (process.env.PORT || 3001))
 app.use(passport.initialize())
 mongoose.connect(process.env.MONGODB_URI || mongo_uri, err => {
@@ -326,6 +329,32 @@ router.get('/unsplash', (req, res) => {
     const collection = '540518/spectrums'
     const url = `https://source.unsplash.com/collection/${collection}/`
     res.json({ url })
+})
+
+router.get('/calendar', (req, res) => {
+    CalendarAPI.authorize(res, req)
+    .then(result => {
+        if (result !== 'NO_TOKEN') {
+            CalendarAPI.listEvents(result, res)
+        }
+    })
+})
+
+router.get('/calendar_callback', (req, res) => {
+    let host = ''
+    if (req.headers.host === 'localhost:3001') {
+        host = 'http://localhost:3000'
+    } else {
+        host = 'https://wakemeapp.herokuapp.com'
+    }
+    const code = req.query.code
+    CalendarAPI.createToken(code, req)
+    .then(() => {
+        res.redirect()
+    })
+    .catch(err => {
+        console.log(err)
+    })
 })
 
 module.exports = router
