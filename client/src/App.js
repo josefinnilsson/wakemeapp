@@ -8,6 +8,7 @@ import jwt_decode from 'jwt-decode'
 import Login from './authentication/login'
 import Register from './authentication/register'
 import Authenticated from './authentication/authenticated'
+import PrivacyPolicy from './staticPages/privacyPolicy'
 import { setCurrentUser, logout } from './actions/authActions'
 import setAuthToken from './utils/setAuthToken'
 import { Provider } from 'react-redux'
@@ -37,6 +38,7 @@ class App extends Component {
               <Switch><Authenticated exact path="/" component={Dashboard}/></Switch>
               <Route path="/departures" component={DeparturesExtended}/>
               <Route path="/userSettings" component={UserSettings}/>
+              <Route path='/privacy' component={PrivacyPolicy}/>
           </header>
         </div>
       </Provider>
