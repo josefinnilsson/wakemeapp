@@ -118,7 +118,7 @@ class UserSettings extends Component {
               <label>Search station</label><input type='text' ref='search_string' minLength='3'/>
               <input type='submit' value='search'/>
             </form>
-            {localStorage.getItem('user_station_id') !== '-1' && stations.length > 0 ? <StationDropdown/> : ''}
+            {localStorage.getItem('user_station_id') === '-1' ? (stations.length > 0 ? <StationDropdown/> : '') : stations.length > 0 ? <StationDropdown/> : ''}
             <form onSubmit={this.handleSaveSubmit}>
               <label>Bus</label>
               <input type='checkbox' value='bus' ref='bus' defaultChecked={localStorage.getItem('user_bus') === 'true'}/><br/>
