@@ -305,6 +305,7 @@ router.post('/authenticate', (req, res) => {
 
 router.get('/signout', (req, res) => {
     CalendarAPI.revoke()
+    res.json({message: 'revoked'})
 })
 
 router.get('/nasa', (req, res) => {
