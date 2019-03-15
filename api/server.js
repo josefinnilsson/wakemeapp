@@ -228,6 +228,7 @@ router.get('/getLocationData/:latitude/:longitude', (req, res, next) => {
         })
     }).then(body => {
         let data = JSON.parse(body)
+        console.log(data)
         let city = {}
         city.name = data.results[0].address_components[0].long_name
         res.json(city)
@@ -273,6 +274,33 @@ router.get('/weather/:latitude/:longitude', (req, res, next) => {
         res.json(data)
     }).catch(error => {
         console.log(error)
+    })
+})
+
+router.get('/news/:type', (req, res) => {
+    console.log(req.params.type)
+    const options = {
+        url: 'http://api.texttv.nu/api/get/' + req.params.type + '?app=wakemeapp'
+    }
+
+    return new Promise(resolve => {
+        request(options, (err, res, body) => {
+            resolve(body)
+        })
+    }).then(body => {
+        let data = JSON.parse(body)
+        let news_html = data[0].content[0]
+        news_html = news_html.split('<a href="/440">440</a></span>')[1]
+        news_html = news_html.split('<span class="Y bgY"> </span><span class="Y bgY">')[0]
+        let news_array = news_html.split('\n')
+        let news_cleaned = []
+        for (let i = 0; i < news_array.length; i++) {
+            let news = news_array[i].replace('<span class="W">', '')
+            news = news.replace('</span>','')
+            news_cleaned.push(news)
+        }
+        console.log(news_cleaned)
+        res.json(news_html)
     })
 })
 
