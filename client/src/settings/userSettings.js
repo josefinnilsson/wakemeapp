@@ -10,7 +10,6 @@ class UserSettings extends Component {
     super(props)
 
     this.state = {
-      search_string: '',
       stations: [],
       active_station: localStorage.getItem('user_station_name'),
       active_station_id: 0,
@@ -95,7 +94,7 @@ class UserSettings extends Component {
         <div>
           <Dropdown>
                 <Dropdown.Toggle id="dropdown-basic">
-                    {this.state.active_station}
+                    Stations
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     {stations}
@@ -103,24 +102,30 @@ class UserSettings extends Component {
             </Dropdown>
         </div>
       )
-    // AT LEAST SEARCH FOR THREE CHARS
+
     return (
       <div className='container'>
         <div>
           <Link to='/'><button>Back to dashboard</button></Link>
           <div>
-            <h3>Settings</h3>
+            <h2>Settings</h2>
+            <p>Current station: {this.state.active_station !== '' ? this.state.active_station : ' - '}</p>
             <form onSubmit={this.handleSearchSubmit}>
-              <label>Search station</label><input type='text' ref='search_string'/>
+              <label>Search station</label><input type='text' ref='search_string' minLength='3'/>
               <input type='submit' value='search'/>
             </form>
-            {localStorage.getItem('user_station_id') !== '-1' || stations.length > 0 ? <StationDropdown/> : ''}
+            {localStorage.getItem('user_station_id') !== '-1' && stations.length > 0 ? <StationDropdown/> : ''}
             <form onSubmit={this.handleSaveSubmit}>
-              <label>Bus</label><input type='checkbox' value='bus' ref='bus'/><br/>
-              <label>Metro</label><input type='checkbox' value='metro' ref='metro'/><br/>
-              <label>Train</label><input type='checkbox' value='train' ref='train'/><br/>
-              <label>Tram</label><input type='checkbox' value='tram' ref='tram'/><br/>
-              <label>Ship</label><input type='checkbox' value='ship' ref='ship'/><br/>
+              <label>Bus</label>
+              <input type='checkbox' value='bus' ref='bus' defaultChecked={localStorage.getItem('user_bus') === 'true'}/><br/>
+              <label>Metro</label>
+              <input type='checkbox' value='metro' ref='metro' defaultChecked={localStorage.getItem('user_metro') === 'true'}/><br/>
+              <label>Train</label>
+              <input type='checkbox' value='train' ref='train' defaultChecked={localStorage.getItem('user_train') === 'true'}/><br/>
+              <label>Tram</label>
+              <input type='checkbox' value='tram' ref='tram' defaultChecked={localStorage.getItem('user_tram') === 'true'}/><br/>
+              <label>Ship</label>
+              <input type='checkbox' value='ship' ref='ship' defaultChecked={localStorage.getItem('user_ship') === 'true'}/><br/>
               <input type='submit' value='Save'/>
             </form>
           </div>
