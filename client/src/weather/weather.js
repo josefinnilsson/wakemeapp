@@ -19,6 +19,7 @@ class Weather extends Component {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         })
+        this.handleRefresh()
       }, error => {console.log(error)})
   }
 
@@ -37,6 +38,16 @@ class Weather extends Component {
           status: 'LOADED',
           weather: data
         })
+        fetch('/getLocationData/' + lat + '/' + long)
+          .then(response => {
+            return response.json()
+          })
+          .then(city => {
+            localStorage.setItem('current_location', city.name)
+            this.setState({
+              current_location: city.name
+            })
+          })
       })
   }
 
@@ -49,6 +60,9 @@ class Weather extends Component {
     let weather = ''
     if (localStorage.getItem('has_weather_details'))
       weather = JSON.parse(localStorage.getItem('weather'))
+    let city = ''
+    if (localStorage.getItem('current_location') !== '')
+      city = localStorage.getItem('current_location')
     // temp check for when data doesn't exist
     if (weather === '' || weather === null)
       return (<div><RefreshWeather/></div>)
@@ -61,7 +75,7 @@ class Weather extends Component {
             How to get weather icons when they exist
             <img src={weather.icon} alt='weather icon' height='25' width='25'></img>
           */}
-          <p>{weather.name + ': ' }</p>
+          <p>{city + ': ' }</p>
           <p>{weather.weather[0].description}</p>
           <p>{weather.main.temp + ' \u00b0C'}</p>
         </div>
