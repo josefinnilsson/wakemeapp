@@ -341,11 +341,16 @@ router.get('/calendar', (req, res) => {
 })
 
 router.get('/calendar_callback', (req, res) => {
-    console.log('CALLBACK')
+    let host = ''
+    if (req.headers.host === 'localhost:3001') {
+        host = 'http://localhost:3000'
+    } else {
+        host = 'https://wakemeapp.herokuapp.com'
+    }
     const code = req.query.code
     CalendarAPI.createToken(code, req)
     .then(() => {
-        res.redirect('http://localhost:3000')
+        res.redirect()
     })
     .catch(err => {
         console.log(err)
