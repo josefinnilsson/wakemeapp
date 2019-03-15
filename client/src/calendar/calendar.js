@@ -20,7 +20,7 @@ class Calendar extends Component {
       })
       .then(data => {
         if (data.url) {
-          window.open(data.url, '_blank')
+          window.open(data.url)
         } else {
           localStorage.setItem('calendar_events', JSON.stringify(data.events))
           localStorage.setItem('has_events', true)
@@ -46,7 +46,7 @@ class Calendar extends Component {
     }
 
     let event_table = []
-    if (events !== 'No events found') {
+    if (events !== 'No events found' && events !== null) {
       events.forEach(event => {
         const key = event.start + event.summary
         event_table.push(<Event key={key} start={event.start} summary={event.summary}/>)
