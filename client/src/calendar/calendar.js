@@ -20,7 +20,7 @@ class Calendar extends Component {
       })
       .then(data => {
         if (data.url) {
-          window.open(data.url)
+          window.location = data.url
         } else {
           localStorage.setItem('calendar_events', JSON.stringify(data.events))
           localStorage.setItem('has_events', true)
