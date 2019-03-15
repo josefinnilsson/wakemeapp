@@ -334,25 +334,18 @@ router.get('/unsplash', (req, res) => {
 router.get('/calendar', (req, res) => {
     CalendarAPI.authorize(res)
     .then(result => {
-        if (result === 'NO_TOKEN') {
-        } else {
+        if (result !== 'NO_TOKEN') {
             CalendarAPI.listEvents(result, res)
         }
     })
 })
 
 router.get('/calendar_callback', (req, res) => {
+    console.log('CALLBACK')
     const code = req.query.code
-    console.log('callback', req.query.code)
     CalendarAPI.createToken(code)
-    .then(CalendarAPI.authorize(res))
-    .then(result => {
-        if (result === 'NO_TOKEN') {
-            console.log('NO TOKEN')
-        } else {
-            console.log('LIST EVENTS')
-            CalendarAPI.listEvents(result, res)
-        }
+    .then(() => {
+        res.redirect('http://localhost:3000')
     })
     .catch(err => {
         console.log(err)
