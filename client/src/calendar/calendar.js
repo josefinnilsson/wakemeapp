@@ -41,8 +41,6 @@ class Calendar extends Component {
     const calendar_events = localStorage.getItem('calendar_events')
     if (calendar_events !== 'undefined') {
       events = JSON.parse(calendar_events)
-    } else {
-      this.handleRefresh()
     }
 
     let event_table = []
@@ -52,7 +50,7 @@ class Calendar extends Component {
         event_table.push(<Event key={key} start={event.start} summary={event.summary}/>)
       })
     } else {
-      event_table.push(<tr key={'no_events'}><td>'No events found'</td></tr>)
+      event_table.push(<tr key={'no_events'}><td>You have no events today</td></tr>)
     }
 
     return (
