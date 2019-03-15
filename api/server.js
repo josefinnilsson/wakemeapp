@@ -350,7 +350,7 @@ router.get('/calendar_callback', (req, res) => {
     const code = req.query.code
     CalendarAPI.createToken(code, req)
     .then(() => {
-        res.redirect()
+        res.redirect(host)
     })
     .catch(err => {
         console.log(err)
