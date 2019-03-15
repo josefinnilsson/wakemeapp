@@ -3,7 +3,7 @@
 ## About
 Wake Me App is an application that shows you the information you need in the morning: your events for the day, the current weather, the status of your favourite SL station and the latest news.
 
-### Try it Out
+### Try It Out
 Go to [wakemeapp.herokuapp.com](https://wakemeapp.herokuapp.com) and start by creating a user (your password is stored hashed and salted). Then do some setup by visiting the settings page and configuring your desired SL station and authenticate your Google Calendar by clicking the 'refresh calendar' button in the calendar component. Now you will be able to see your personal information (if you can't, just click the refresh buttons).
 
 ## Mid Project Review
