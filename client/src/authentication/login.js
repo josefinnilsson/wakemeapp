@@ -9,6 +9,10 @@ const mapStateToProps = state => ({
     errors: state.errors
 })
 
+const items_to_remove = ['email', 'user_station_name', 'user_station_id', 'user_bus', 'user_metro', 'user_train',
+            'user_tram', 'user_ship', 'departure_info', 'has_departures', 'no_real_time', 'calendar_events',
+            'has_event']
+
 class Login extends Component {
     constructor(props) {
         super(props)
@@ -26,7 +30,10 @@ class Login extends Component {
     componentWillReceiveProps(next_props) {
         if (next_props.auth.is_authenticated) {
 
-            localStorage.clear()
+            for (let i = 0; i < items_to_remove.length; i++) {
+                localStorage.removeItem(items_to_remove[i])
+            }
+
             localStorage.setItem('email', this.state.email)
             fetch('/getUserSettings/' + this.state.email)
             .then(response => {
