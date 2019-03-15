@@ -40,6 +40,10 @@ app.get('/', (req, res, next) => {
     res.sendFile(path.join(__dirname + '/../client/public/index.html'))
 })
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/../client/build/index.html'));
+})
+
 router.post('/register', (req, res) => {
     const { name, email, password } = sanitize(req.body)
     const user = new User({ name, email, password })
