@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken')
 const authenticate = require('./authentication.js')
 const passport = require('passport')
 const secure = require('express-force-https')
+const sanitize = require("mongo-sanitize");
 
 const app = express()
 const router = express.Router()
@@ -40,7 +41,7 @@ app.get('/', (req, res, next) => {
 })
 
 router.post('/register', (req, res) => {
-    const { name, email, password } = req.body
+    const { name, email, password } = sanitize(req.body)
     const user = new User({ name, email, password })
     user.save(function(err, user) {
         const _id = new mongoose.Types.ObjectId(user._id) // same id as corresponding user
@@ -63,9 +64,12 @@ router.post('/register', (req, res) => {
     })
 })
 
+/*
+Get user settings from db
+*/
 router.get('/getUserSettings/:email', (req, res) => {
     const email = req.params.email
-    User.findOne ( { email} , (err, user) => {
+    User.findOne ( { email } , (err, user) => {
         const _id = user._id
         UserSettings.findOne ( { _id }, (err, user_settings) => {
             let data = {}
@@ -80,6 +84,24 @@ router.get('/getUserSettings/:email', (req, res) => {
         })
     })
 })
+
+/*
+Update user settings in db
+*/
+router.post('/updateUserSettings/:email', (req, res) => {
+    const email = req.params.email
+
+    User.findOne( { email }, (err, user) => {
+        const query = {'_id': user._id}
+        const { stationName, stationId, bus, metro, train, tram, ship } = sanitize(req.body)
+        UserSettings.findOneAndUpdate(query, { stationName, stationId, bus, metro, train, tram, ship }, (err, userSettings) => {
+            if (err)
+                return res.send(500, {error: err})
+            return res.send ('Successfully saved user settings')
+        })
+    })
+})
+
 /*
 A promise that gets station information when the user search for a station
 */
@@ -94,7 +116,7 @@ router.get('/getStationData/:search_string', (req, res, next) => {
             resolve(body)
         })
     }).then(body => {
-        res.json(JSON.stringify(JSON.parse(body).ResponseData))
+        res.json(JSON.parse(body).ResponseData)
     }).catch(error => {
         console.log(error)
     })
@@ -109,7 +131,7 @@ router.get('/getRealTime/:station_id/:bus/:metro/:train/:tram/:ship', (req, res,
 
     const options = {
         url: 'http://api.sl.se/api2/realtimedeparturesV4.json?key=' + api_key + '&siteid=' + station_id
-        + '&timewindow=20&transport' + '&bus=' + req.params.bus + '&metro=' + req.params.metro
+        + '&timewindow=30&transport' + '&bus=' + req.params.bus + '&metro=' + req.params.metro
         + '&train='+ req.params.train + '&tram=' + req.params.tram + '&ship=' + req.params.ship
     }
 

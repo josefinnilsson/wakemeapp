@@ -15,6 +15,10 @@ class SL extends Component {
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 
+  componentDidMount() {
+    this.handleRefresh()
+  }
+
   handleRefresh() {
     let station_id = localStorage.getItem('user_station_id')
     let transport_mode = '/' + localStorage.getItem('user_bus') +
@@ -23,11 +27,7 @@ class SL extends Component {
                          '/' + localStorage.getItem('user_tram') +
                          '/' + localStorage.getItem('user_ship')
     
-    //REMOVE next two lines when user settings is applied
-    station_id = 9192
-    transport_mode = '/true/true/false/false/false'
-
-    let url2 = '/getRealTime/' + station_id + transport_mode
+    let url2 = '/getRealTime/' + parseInt(station_id) + transport_mode
     fetch(url2)
       .then(response => {
         return response.json()})
@@ -45,9 +45,6 @@ class SL extends Component {
 
   render() {
     //Temporary check to make fewer api-calls, should maybe use init status later
-    if (localStorage.getItem('has_departures') === null) {
-      this.handleRefresh()
-    }
     let departure_info = []
     if (localStorage.getItem('has_departures') !== null) {
       departure_info = JSON.parse(localStorage.getItem('departure_info'))
@@ -62,6 +59,7 @@ class SL extends Component {
       <div>
         <button id='refresh_departures' onClick={this.handleRefresh}>Refresh departures</button>
         <Link to={'/departures'} style={{textDecoration: 'none', color: 'black'}}>
+        {localStorage.getItem('user_station_id') === '-1' ? (<p>Update your user settings</p>) : (departures.length <= 0 ? (<p>No departures the coming 30 minutes</p>) : '')}
           <table>
             <tbody>
               {departures.slice(0, 10)}
