@@ -67,7 +67,7 @@ const CalendarAPI = {
                 })
                 res.json({events: events_json})
             } else {
-                res.json('No events found')
+                res.json({events: 'No events found'})
             }
         })
     }

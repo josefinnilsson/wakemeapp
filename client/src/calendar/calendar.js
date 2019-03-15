@@ -38,17 +38,22 @@ class Calendar extends Component {
     }
 
     let events = []
-    if (localStorage.getItem('has_events')) {
-      events = JSON.parse(localStorage.getItem('calendar_events'))
+    const calendar_events = localStorage.getItem('calendar_events')
+    if (calendar_events !== 'undefined') {
+      events = JSON.parse(calendar_events)
     } else {
       this.handleRefresh()
     }
 
     let event_table = []
-    events.forEach(event => {
-      const key = event.start + event.summary
-      event_table.push(<Event key={key} start={event.start} summary={event.summary}/>)
-    })
+    if (events !== 'No events found') {
+      events.forEach(event => {
+        const key = event.start + event.summary
+        event_table.push(<Event key={key} start={event.start} summary={event.summary}/>)
+      })
+    } else {
+      event_table.push(<tr key={'no_events'}><td>'No events found'</td></tr>)
+    }
 
     return (
       <div>
