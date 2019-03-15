@@ -204,6 +204,29 @@ let sortDepartures = (body) => {
 }
 
 /*
+A promise of location data for the current location of the client's browser
+*/
+router.get('/getLocationData/:latitude/:longitude', (req, res, next) => {
+    let api_key = process.env.GOOGLE
+    const options = {
+        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + req.params.latitude +
+        ',' + req.params.longitude + '&result_type=sublocality_level_1&key=' + api_key
+    }
+    return new Promise(resolve => {
+        request(options, (err, res, body) => {
+            if (err)
+                console.log(err)
+            resolve(body)
+        })
+    }).then(body => {
+        let data = JSON.parse(body)
+        let city = {}
+        city.name = data.results[0].address_components[0].long_name
+        res.json(city)
+    })
+})
+
+/*
 A promise of weather data for the current location of the client's browser
 */
 router.get('/weather/:latitude/:longitude', (req, res, next) => {
