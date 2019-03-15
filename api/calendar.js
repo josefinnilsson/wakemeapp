@@ -4,10 +4,20 @@ const {google} = require('googleapis')
 const fs = require('fs')
 const oAuth = google.auth.OAuth2
 const TOKEN_PATH = 'token.json'
+let host = ''
+
+function setHost(req) {
+    if (req.headers.host === 'localhost:3001') {
+        host = 'http://localhost:3001'
+    } else {
+        host = 'https://wakemeapp.herokuapp.com'
+    }
+}
 
 const CalendarAPI = {
-    authorize: function(res) {
-        const oAuth2Client = new oAuth(process.env.CLIENT_ID, process.env.CLIENT_SECRET, 'http://localhost:3001/calendar_callback')
+    authorize: function(res, req) {
+        setHost(req)
+        const oAuth2Client = new oAuth(process.env.CLIENT_ID, process.env.CLIENT_SECRET, `${host}/calendar_callback`)
         return new Promise(resolve => {
             fs.readFile(TOKEN_PATH, (err, token) => {
                 if (err) {
@@ -26,8 +36,9 @@ const CalendarAPI = {
         })
         res.json({url: authUrl})
     },
-    createToken: function(code, oAuth2Client) {
-        const oAuth2Client2 = new oAuth(process.env.CLIENT_ID, process.env.CLIENT_SECRET, 'http://localhost:3001/calendar_callback')
+    createToken: function(code, req) {
+        setHost(req)
+        const oAuth2Client2 = new oAuth(process.env.CLIENT_ID, process.env.CLIENT_SECRET, `${host}/calendar_callback`)
         return new Promise((resolve, reject) => {
             oAuth2Client2.getToken(code, (err, token) => {
                 if (err)

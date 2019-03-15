@@ -332,7 +332,7 @@ router.get('/unsplash', (req, res) => {
 })
 
 router.get('/calendar', (req, res) => {
-    CalendarAPI.authorize(res)
+    CalendarAPI.authorize(res, req)
     .then(result => {
         if (result !== 'NO_TOKEN') {
             CalendarAPI.listEvents(result, res)
@@ -343,7 +343,7 @@ router.get('/calendar', (req, res) => {
 router.get('/calendar_callback', (req, res) => {
     console.log('CALLBACK')
     const code = req.query.code
-    CalendarAPI.createToken(code)
+    CalendarAPI.createToken(code, req)
     .then(() => {
         res.redirect('http://localhost:3000')
     })
