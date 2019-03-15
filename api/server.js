@@ -344,7 +344,7 @@ router.get('/calendar/:email', (req, res) => {
 router.get('/calendar_callback', (req, res) => {
     let host = ''
     if (req.headers.host === 'localhost:3001') {
-        host = 'http://localhost:3000'
+        host = 'http://localhost:3000/cal'
     } else {
         host = 'https://wakemeapp.herokuapp.com'
     }

@@ -35,7 +35,10 @@ class App extends Component {
           <header className="App-header">
               <Route exact path="/login" component={Login}/>
               <Route exact path="/register" component={Register}/>
-              <Switch><Authenticated exact path="/" component={Dashboard}/></Switch>
+              <Switch>
+                <Authenticated exact path="/" component={Dashboard}/>
+              </Switch>
+              <Route exact path='/cal' component={Dashboard}/>
               <Route path="/departures" component={DeparturesExtended}/>
               <Route path="/userSettings" component={UserSettings}/>
               <Route path='/privacy' component={PrivacyPolicy}/>

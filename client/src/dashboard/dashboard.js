@@ -17,9 +17,13 @@ class Dashboard extends Component {
   onLogout = e => {
     e.preventDefault()
     this.props.logout()
+
   }
 
   render() {
+    let update = false
+    if (this.props.location.pathname === '/cal')
+      update = true
     return (
       <div className='container'>
       <BackgroundToggle/>
@@ -28,7 +32,7 @@ class Dashboard extends Component {
       <button onClick={() => this.props.history.push('/userSettings')}>Settings</button> 
         <div className='dashboard_wrapper'>
           <div className='calendar'>
-            <Calendar key={1}/>
+            <Calendar key={1} update={update} history={this.props.history}/>
           </div>
           <div className='sl'>
             <SL key={2}/>

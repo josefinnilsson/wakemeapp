@@ -24,6 +24,8 @@ class Calendar extends Component {
         } else {
           localStorage.setItem('calendar_events', JSON.stringify(data.events))
           localStorage.setItem('has_events', true)
+          if (this.state.status === 'INIT')
+            this.props.history.push('/')
           this.setState({
             status: 'LOADED',
             events: data
@@ -32,7 +34,11 @@ class Calendar extends Component {
       })
     }
 
-    render() {
+  render() {
+    if (this.props.update && this.state.status === 'INIT') {
+      this.handleRefresh()
+    }
+
     const RefreshCalendar = () => {
       return (<button id='refresh_calendar' onClick={this.handleRefresh}>Refresh calendar</button>)
     }
