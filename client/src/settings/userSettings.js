@@ -10,6 +10,7 @@ class UserSettings extends Component {
     super(props)
 
     this.state = {
+      user_saved: false,
       stations: [],
       active_station: localStorage.getItem('user_station_name'),
       active_station_id: 0,
@@ -75,6 +76,9 @@ class UserSettings extends Component {
         localStorage.setItem('user_train', train)
         localStorage.setItem('user_tram', tram)
         localStorage.setItem('user_ship', ship)
+        this.setState({
+          user_saved: true
+        })
       })
       .catch(err => {
         console.log(err)
@@ -126,7 +130,7 @@ class UserSettings extends Component {
               <input type='checkbox' value='tram' ref='tram' defaultChecked={localStorage.getItem('user_tram') === 'true'}/><br/>
               <label>Ship</label>
               <input type='checkbox' value='ship' ref='ship' defaultChecked={localStorage.getItem('user_ship') === 'true'}/><br/>
-              <input type='submit' value='Save'/>
+              <input type='submit' value='Save'/>{this.state.user_saved ? (<p>Settings saved!</p>): ''}
             </form>
           </div>
         </div>
