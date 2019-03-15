@@ -59,7 +59,8 @@ router.post('/register', (req, res) => {
         const train = false
         const tram = false
         const ship = false
-        const userSettings = new UserSettings({ _id, stationName, stationId, bus, metro, train, tram, ship })
+        const token = '-'
+        const userSettings = new UserSettings({ _id, stationName, stationId, bus, metro, train, tram, ship, token })
         userSettings.save((err2) => {
             console.log(err2)
         })
@@ -302,8 +303,8 @@ router.post('/authenticate', (req, res) => {
     })
 })
 
-router.post('/signout', (req, res) => {
-    console.log(req.body)
+router.get('/signout', (req, res) => {
+    CalendarAPI.revoke()
 })
 
 router.get('/nasa', (req, res) => {
@@ -331,8 +332,8 @@ router.get('/unsplash', (req, res) => {
     res.json({ url })
 })
 
-router.get('/calendar', (req, res) => {
-    CalendarAPI.authorize(res, req)
+router.get('/calendar/:email', (req, res) => {
+    CalendarAPI.authorize(res, req, req.params.email)
     .then(result => {
         if (result !== 'NO_TOKEN') {
             CalendarAPI.listEvents(result, res)

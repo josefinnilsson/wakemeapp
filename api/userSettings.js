@@ -10,6 +10,7 @@ const UserSettingsSchema = new mongoose.Schema({
     train:              { type: Boolean, required: false },
     tram:               { type: Boolean, required: false },
     ship:               { type: Boolean, required: false },
+    token:              { type: String, required: false}
 })
 
 module.exports = mongoose.model('User_setting', UserSettingsSchema)

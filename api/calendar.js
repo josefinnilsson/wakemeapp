@@ -4,7 +4,12 @@ const {google} = require('googleapis')
 const fs = require('fs')
 const oAuth = google.auth.OAuth2
 const TOKEN_PATH = 'token.json'
+const User = require('./user.js')
+const UserSettings = require('./userSettings.js')
 let host = ''
+let email = ''
+
+let oAuth2Client = null
 
 function setHost(req) {
     if (req.headers.host === 'localhost:3001') {
@@ -12,15 +17,21 @@ function setHost(req) {
     } else {
         host = 'https://wakemeapp.herokuapp.com'
     }
+    oAuth2Client = new oAuth(process.env.CLIENT_ID, process.env.CLIENT_SECRET, `${host}/calendar_callback`)
+}
+
+function setEmail(user_email) {
+    email = user_email
 }
 
 const CalendarAPI = {
-    authorize: function(res, req) {
+    authorize: function(res, req, email) {
         setHost(req)
-        const oAuth2Client = new oAuth(process.env.CLIENT_ID, process.env.CLIENT_SECRET, `${host}/calendar_callback`)
+        setEmail(email)
         return new Promise(resolve => {
-            fs.readFile(TOKEN_PATH, (err, token) => {
-                if (err) {
+            UserToken.getToken()
+            .then(token => {
+                if (token === '-') {
                     CalendarAPI.getAccessToken(res, oAuth2Client)
                     resolve('NO_TOKEN')
                 } else {
@@ -32,24 +43,21 @@ const CalendarAPI = {
     },
     getAccessToken: function(res, oAuth2Client) {
         const authUrl = oAuth2Client.generateAuthUrl({
-            access_type: 'offline', scope: 'https://www.googleapis.com/auth/calendar.readonly'
+            access_type: 'online', scope: 'https://www.googleapis.com/auth/calendar.readonly'
         })
         res.json({url: authUrl})
     },
     createToken: function(code, req) {
-        setHost(req)
-        const oAuth2Client2 = new oAuth(process.env.CLIENT_ID, process.env.CLIENT_SECRET, `${host}/calendar_callback`)
         return new Promise((resolve, reject) => {
-            oAuth2Client2.getToken(code, (err, token) => {
-                if (err)
+            oAuth2Client.getToken(code, (err, token) => {
+                if (err) {
                     reject(err)
-                else {
-                    oAuth2Client2.setCredentials(token)
-                    fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-                        if (err)
-                            reject('Token err')
+                } else {
+                    oAuth2Client.setCredentials(token)
+                    UserToken.update(token)
+                    .then(() => {
+                        resolve(oAuth2Client)
                     })
-                    resolve(oAuth2Client2)
                 }
             })
         })
@@ -83,6 +91,46 @@ const CalendarAPI = {
                 } else {
                     res.json({events: 'No events found'})
                 }
+            })
+        })
+    },
+    revoke: function() {
+        if (oAuth2Client !== null) {
+            oAuth2Client.revokeCredentials()
+            .then(() => {
+                UserToken.update('-')
+            })
+        }
+    }
+}
+
+
+const UserToken = {
+    update: (token_obj) => {
+        return new Promise (resolve => {
+            User.findOne( { email }, (err, user) => {
+                const query = {'_id': user._id}
+                let token = token_obj
+                if (token !== '-')
+                    token = JSON.stringify(token_obj)
+                UserSettings.findOneAndUpdate(query, { token }, (err, userSettings) => {
+                    if (err) {
+                        resolve({message: err})
+                        return
+                    }
+                    resolve({message: 'Successful'})
+                })
+            })
+        })
+    },
+
+    getToken: () => {
+        return new Promise (resolve => {
+            User.findOne( { email }, (err, user) => {
+                const _id = user._id
+                UserSettings.findOne( { _id }, (err, userSettings) => {
+                    resolve(userSettings.token)
+                })
             })
         })
     }

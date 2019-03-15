@@ -14,7 +14,7 @@ class Calendar extends Component {
     }
 
     handleRefresh() {
-      fetch('/calendar')
+      fetch('/calendar/' + localStorage.getItem('email'))
       .then(response => {
         return response.json()
       })
