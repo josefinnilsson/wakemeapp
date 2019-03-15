@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import jwt_decode from 'jwt-decode'
+import './App.css'
+import UserSettings from './settings/userSettings'
 import Dashboard from './dashboard/dashboard'
-import './App.css';
+import DeparturesExtended from './sl/departures/departuresExtended'
+import jwt_decode from 'jwt-decode'
 import Login from './authentication/login'
 import Register from './authentication/register'
 import Authenticated from './authentication/authenticated'
@@ -33,6 +35,8 @@ class App extends Component {
               <Route exact path="/login" component={Login}/>
               <Route exact path="/register" component={Register}/>
               <Switch><Authenticated exact path="/" component={Dashboard}/></Switch>
+              <Route path="/departures" component={DeparturesExtended}/>
+              <Route path="/userSettings" component={UserSettings}/>
           </header>
         </div>
       </Provider>

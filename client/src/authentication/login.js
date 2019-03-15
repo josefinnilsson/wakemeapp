@@ -25,7 +25,20 @@ class Login extends Component {
 
     componentWillReceiveProps(next_props) {
         if (next_props.auth.is_authenticated) {
-            this.props.history.push('/')
+            localStorage.setItem('email', this.state.email)
+            fetch('/getUserSettings/' + this.state.email)
+            .then(response => {
+              return response.json()})
+            .then(data => {
+              localStorage.setItem('user_station_name', data.station_name)
+              localStorage.setItem('user_station_id', data.station_id)
+              localStorage.setItem('user_bus', data.bus)
+              localStorage.setItem('user_metro', data.metro)
+              localStorage.setItem('user_train', data.train)
+              localStorage.setItem('user_tram', data.tram)
+              localStorage.setItem('user_ship', data.ship)
+              this.props.history.push('/')
+          })
         }
         if (next_props.errors)
             this.setState({ errors: next_props.errors })
@@ -61,7 +74,6 @@ class Login extends Component {
                     <input type="submit" value="Log in"/>
                 </form>
             </div>
-
         )
     }
 }

@@ -7,6 +7,7 @@ import Weather from '../weather/weather'
 import './dashboard.css'
 import { logout } from '../actions/authActions'
 import { connect } from 'react-redux'
+import BackgroundToggle from '../settings/backgroundToggle'
 
 const mapStateToProps = state => ({
   auth: state.auth
@@ -21,7 +22,10 @@ class Dashboard extends Component {
   render() {
     return (
       <div className='container'>
+      <BackgroundToggle/>
+      <div>
       <button onClick={this.onLogout}>Logout</button>
+      <button onClick={() => this.props.history.push('/userSettings')}>Settings</button> 
         <div className='dashboard_wrapper'>
           <div className='calendar'>
             <Calendar key={1}/>
@@ -36,6 +40,7 @@ class Dashboard extends Component {
             <Weather key={4}/>
           </div>
         </div>
+      </div>
       </div>
     )
   }
