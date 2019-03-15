@@ -64,6 +64,9 @@ router.post('/register', (req, res) => {
     })
 })
 
+/*
+Get user settings from db
+*/
 router.get('/getUserSettings/:email', (req, res) => {
     const email = req.params.email
     User.findOne ( { email } , (err, user) => {
@@ -82,12 +85,15 @@ router.get('/getUserSettings/:email', (req, res) => {
     })
 })
 
+/*
+Update user settings in db
+*/
 router.post('/updateUserSettings/:email', (req, res) => {
-    const email = sanitize(req.params.email)
+    const email = req.params.email
 
     User.findOne( { email }, (err, user) => {
         const query = {'_id': user._id}
-        const { stationName, stationId, bus, metro, train, tram, ship } = req.body
+        const { stationName, stationId, bus, metro, train, tram, ship } = sanitize(req.body)
         UserSettings.findOneAndUpdate(query, { stationName, stationId, bus, metro, train, tram, ship }, (err, userSettings) => {
             if (err)
                 return res.send(500, {error: err})
@@ -95,6 +101,7 @@ router.post('/updateUserSettings/:email', (req, res) => {
         })
     })
 })
+
 /*
 A promise that gets station information when the user search for a station
 */
