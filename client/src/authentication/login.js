@@ -30,6 +30,7 @@ class Login extends Component {
             .then(response => {
               return response.json()})
             .then(data => {
+              localStorage.clear()
               localStorage.setItem('user_station_name', data.station_name)
               localStorage.setItem('user_station_id', data.station_id)
               localStorage.setItem('user_bus', data.bus)
