@@ -38,7 +38,7 @@ class App extends Component {
               <Switch><Authenticated exact path="/" component={Dashboard}/></Switch>
               <Route path="/departures" component={DeparturesExtended}/>
               <Route path="/userSettings" component={UserSettings}/>
-              <Route path='/privacyPolicy' component={PrivacyPolicy}/>
+              <Route path='/privacy' component={PrivacyPolicy}/>
           </header>
         </div>
       </Provider>
