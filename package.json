@@ -30,6 +30,7 @@
     "is_empty": "0.0.11",
     "jsonwebtoken": "^8.5.0",
     "jwt-decode": "^2.2.0",
+    "mongo-sanitize": "^1.0.1",
     "mongoose": "^5.4.17",
     "nodemon": "^1.18.10",
     "passport": "^0.4.0",
