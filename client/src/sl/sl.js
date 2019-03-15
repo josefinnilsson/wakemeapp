@@ -21,6 +21,9 @@ class SL extends Component {
 
   handleRefresh() {
     let station_id = localStorage.getItem('user_station_id')
+    if (station_id === '-1')
+      return
+
     let transport_mode = '/' + localStorage.getItem('user_bus') +
                          '/' + localStorage.getItem('user_metro') +
                          '/' + localStorage.getItem('user_train') +
