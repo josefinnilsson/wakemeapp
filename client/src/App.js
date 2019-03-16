@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import './App.css'
+import './App.scss'
 import UserSettings from './settings/userSettings'
 import Dashboard from './dashboard/dashboard'
 import DeparturesExtended from './sl/departures/departuresExtended'
