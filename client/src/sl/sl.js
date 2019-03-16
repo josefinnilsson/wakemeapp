@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import './sl.css'
+import './sl.scss'
 import Departures from './departures/departures'
 
 class SL extends Component {

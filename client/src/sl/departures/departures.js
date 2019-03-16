@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../sl.css';
+import '../sl.scss';
 
 class Departures extends Component {
   render() {

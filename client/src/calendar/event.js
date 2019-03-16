@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './calendar.css';
+import './calendar.scss';
 
 class Event extends Component {
   formatTime(time) {

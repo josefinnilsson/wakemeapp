@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import './userSettings.css'
+import './userSettings.scss'
 import Dropdown from 'react-bootstrap/Dropdown'
 import axios from 'axios'
 

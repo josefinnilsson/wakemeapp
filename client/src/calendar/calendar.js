@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import './calendar.css'
+import './calendar.scss'
 import Event from './event'
 
 class Calendar extends Component {
