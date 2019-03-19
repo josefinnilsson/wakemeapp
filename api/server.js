@@ -218,7 +218,7 @@ router.get('/getLocationData/:latitude/:longitude', (req, res, next) => {
     let api_key = process.env.GOOGLE
     const options = {
         url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + req.params.latitude +
-        ',' + req.params.longitude + '&result_type=sublocality_level_1&key=' + api_key
+        ',' + req.params.longitude + '&key=' + api_key
     }
     return new Promise(resolve => {
         request(options, (err, res, body) => {
@@ -228,9 +228,8 @@ router.get('/getLocationData/:latitude/:longitude', (req, res, next) => {
         })
     }).then(body => {
         let data = JSON.parse(body)
-        console.log(data)
         let city = {}
-        city.name = data.results[0].address_components[0].long_name
+        city.name = data.results[7].address_components[0].long_name
         res.json(city)
     })
 })
