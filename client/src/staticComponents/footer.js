@@ -4,15 +4,15 @@ import './staticComponents.scss'
 class Footer extends Component {
   render() {
     return (
-      <footer class="page-footer font-small teal pt-4">
-        <div class="container-fluid text-center text-md-left">
-          <div class="row">
-            <div class="col-md-6 mt-md-0 mt-3">
+      <footer className="page-footer font-small teal pt-4">
+        <div className="container-fluid text-center text-md-left">
+          <div className="row">
+            <div className="col-md-6 mt-md-0 mt-3">
               <h5>About</h5>
               <p>Wake Me App was developed by Helena Alinder & Josefin Nilsson as project for DH2642 Interaction Programming and the Dynamic Web.</p>
             </div>
-            <hr class="clearfix w-100 d-md-none pb-3"/>
-            <div class="col-md-6 mb-md-0 mb-3">
+            <hr className="clearfix w-100 d-md-none pb-3"/>
+            <div className="col-md-6 mb-md-0 mb-3">
               <h5>Acknowledgements</h5>
               <p>The application uses the following APIs:&nbsp;
               <a href="https://developers.google.com/calendar/">Google Calendar</a>,&nbsp;

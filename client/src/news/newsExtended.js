@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import ReactHtmlParser from 'react-html-parser'
 
 class NewsExtended extends Component {
   constructor(props) {
@@ -14,7 +13,6 @@ class NewsExtended extends Component {
 
     let news_url = this.props.match.params.url
     let all_news = JSON.parse(localStorage.getItem('news')).articles
-    let news = null
     for(let i = 0; i < all_news.length; i++) {
       if (all_news[i].url === 'https://www.svd.se/' + news_url) {
         this.setState({
