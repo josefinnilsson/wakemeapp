@@ -14,6 +14,7 @@ import setAuthToken from './utils/setAuthToken'
 import { Provider } from 'react-redux'
 import store from './store'
 import Header from './staticComponents/header'
+import Footer from './staticComponents/footer'
 
 if (localStorage.jwt_token) {
   const token = localStorage.jwt_token
@@ -45,6 +46,7 @@ class App extends Component {
               </Switch>
               <Route path='/privacy' component={PrivacyPolicy}/>
           </header>
+          <Footer/>
         </div>
       </Provider>
     )
