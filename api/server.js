@@ -277,10 +277,10 @@ router.get('/weather/:latitude/:longitude', (req, res, next) => {
     })
 })
 
-router.get('/news/:type', (req, res) => {
-    console.log(req.params.type)
+router.get('/news', (req, res) => {
+    let api_key = process.env.SVD
     const options = {
-        url: 'http://api.texttv.nu/api/get/' + req.params.type + '?app=wakemeapp'
+        url: 'https://newsapi.org/v2/everything?sources=svenska-dagbladet&apiKey=' + api_key
     }
 
     return new Promise(resolve => {
@@ -289,18 +289,7 @@ router.get('/news/:type', (req, res) => {
         })
     }).then(body => {
         let data = JSON.parse(body)
-        let news_html = data[0].content[0]
-        news_html = news_html.split('<a href="/440">440</a></span>')[1]
-        news_html = news_html.split('<span class="Y bgY"> </span><span class="Y bgY">')[0]
-        let news_array = news_html.split('\n')
-        let news_cleaned = []
-        for (let i = 0; i < news_array.length; i++) {
-            let news = news_array[i].replace('<span class="W">', '')
-            news = news.replace('</span>','')
-            news_cleaned.push(news)
-        }
-        console.log(news_cleaned)
-        res.json(news_html)
+        res.json(data)
     })
 })
 
