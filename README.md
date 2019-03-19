@@ -9,15 +9,15 @@ Go to [wakemeapp.herokuapp.com](https://wakemeapp.herokuapp.com) and start by cr
 ## Mid Project Review
 The first half of the project we have focused on the backend part of the project gathering and parsing data from the various APIs we are using. Hence there still is a lot of work to be done design wise.
 
-### What Have Done
+### What We Have Done
 - Created user creation and authentication functionality connected to a MongoDB database.
 - Created a calendar component that uses OAuth to authorize usage of the users Google Calendar and then shows the users' calendar events.
 - Created a SL component that shows the next departures on a station chosen by the user. The stations and types of transportation can be configured on the settings page.
 - Created a weather component that, if the user have allowed the application to know current location, shows the weather were the user is located right now.
+- Created a news component that shows the latest news from Svenska Dagbladet.
 - Created a functionality that allows the user to switch between three different themes: minimalistic, NASA and Unsplash.
 
 ### What We Will Do
-- Create a news component that will show the latest news.
 - Add static components such as header and footer.
 - Add a drag-and-drop functionality to the compoenents to move them around.
 - Style the whole application.
