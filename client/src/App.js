@@ -38,11 +38,11 @@ class App extends Component {
               <Route exact path="/login" component={Login}/>
               <Route exact path="/register" component={Register}/>
               <Switch>
+                <Authenticated exact path='/cal' component={Dashboard}/>
+                <Authenticated path="/departures" component={DeparturesExtended}/>
+                <Authenticated path="/userSettings" component={UserSettings}/>
                 <Authenticated exact path="/" component={Dashboard}/>
               </Switch>
-              <Route exact path='/cal' component={Dashboard}/>
-              <Route path="/departures" component={DeparturesExtended}/>
-              <Route path="/userSettings" component={UserSettings}/>
               <Route path='/privacy' component={PrivacyPolicy}/>
           </header>
         </div>
