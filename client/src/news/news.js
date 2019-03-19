@@ -41,9 +41,11 @@ class News extends Component {
     }
 
     return (
-      <div className='news'>
+      <div>
         <RefreshNews/>
-        {news_div}
+        <div className='news'>
+          {news_div}
+        </div>
       </div>
     )
   }
