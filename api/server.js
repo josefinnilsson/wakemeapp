@@ -228,6 +228,7 @@ router.get('/getLocationData/:latitude/:longitude', (req, res, next) => {
         })
     }).then(body => {
         let data = JSON.parse(body)
+        console.log(data)
         let city = {}
         city.name = data.results[0].address_components[0].long_name
         res.json(city)
@@ -273,6 +274,22 @@ router.get('/weather/:latitude/:longitude', (req, res, next) => {
         res.json(data)
     }).catch(error => {
         console.log(error)
+    })
+})
+
+router.get('/news', (req, res) => {
+    let api_key = process.env.SVD
+    const options = {
+        url: 'https://newsapi.org/v2/everything?sources=svenska-dagbladet&apiKey=' + api_key
+    }
+
+    return new Promise(resolve => {
+        request(options, (err, res, body) => {
+            resolve(body)
+        })
+    }).then(body => {
+        let data = JSON.parse(body)
+        res.json(data)
     })
 })
 
