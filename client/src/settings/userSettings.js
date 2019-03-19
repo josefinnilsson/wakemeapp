@@ -3,7 +3,14 @@ import { Link } from 'react-router-dom'
 import './userSettings.scss'
 import Dropdown from 'react-bootstrap/Dropdown'
 import axios from 'axios'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { logout } from '../actions/authActions'
+import BackgroundToggle from '../settings/backgroundToggle'
 
+const mapStateToProps = state => ({
+  auth: state.auth
+})
 
 class UserSettings extends Component {
   constructor(props) {
@@ -92,6 +99,12 @@ class UserSettings extends Component {
     })
   }
 
+  onLogout = e => {
+    e.preventDefault()
+    this.props.logout()
+
+  }
+
   render() {
     const stations = this.state.stations
     const StationDropdown = () => (
@@ -110,7 +123,9 @@ class UserSettings extends Component {
     return (
       <div className='container'>
         <div>
+          <button onClick={this.onLogout}>Logout</button>
           <Link to='/'><button>Back to dashboard</button></Link>
+          <BackgroundToggle/>
           <div>
             <h2>Settings</h2>
             <p>Current station: {this.state.active_station !== '' ? this.state.active_station : ' - '}</p>
@@ -139,4 +154,8 @@ class UserSettings extends Component {
   }
 }
 
-export default UserSettings
+UserSettings.propTypes = {
+  logout: PropTypes.func.isRequired
+}
+
+export default connect(mapStateToProps, { logout })(UserSettings)
