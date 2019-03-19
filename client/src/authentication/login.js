@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 
 const items_to_remove = ['email', 'user_station_name', 'user_station_id', 'user_bus', 'user_metro', 'user_train',
             'user_tram', 'user_ship', 'departure_info', 'has_departures', 'no_real_time', 'calendar_events',
-            'has_event']
+            'has_event', 'news']
 
 class Login extends Component {
     constructor(props) {

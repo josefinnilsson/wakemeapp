@@ -13,8 +13,6 @@ class News extends Component {
   }
 
   handleRefresh() {
-    localStorage.removeItem('saved_news')
-
     fetch('/news')
       .then(response => {
         return response.json()
