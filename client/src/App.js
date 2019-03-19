@@ -4,6 +4,7 @@ import './App.scss'
 import UserSettings from './settings/userSettings'
 import Dashboard from './dashboard/dashboard'
 import DeparturesExtended from './sl/departures/departuresExtended'
+import NewsExtended from './news/newsExtended'
 import jwt_decode from 'jwt-decode'
 import Login from './authentication/login'
 import Register from './authentication/register'
@@ -42,6 +43,7 @@ class App extends Component {
               <Route path="/departures" component={DeparturesExtended}/>
               <Route path="/userSettings" component={UserSettings}/>
               <Route path='/privacy' component={PrivacyPolicy}/>
+              <Route path='/news/:url' component={NewsExtended}/>
           </header>
         </div>
       </Provider>
