@@ -14,6 +14,8 @@ import { setCurrentUser, logout } from './actions/authActions'
 import setAuthToken from './utils/setAuthToken'
 import { Provider } from 'react-redux'
 import store from './store'
+import Header from './staticComponents/header'
+import Footer from './staticComponents/footer'
 
 if (localStorage.jwt_token) {
   const token = localStorage.jwt_token
@@ -33,18 +35,20 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
+        <Header/>
           <header className="App-header">
               <Route exact path="/login" component={Login}/>
               <Route exact path="/register" component={Register}/>
               <Switch>
+                <Authenticated exact path='/cal' component={Dashboard}/>
+                <Authenticated path="/departures" component={DeparturesExtended}/>
+                <Authenticated path="/userSettings" component={UserSettings}/>
                 <Authenticated exact path="/" component={Dashboard}/>
               </Switch>
-              <Route exact path='/cal' component={Dashboard}/>
-              <Route path="/departures" component={DeparturesExtended}/>
-              <Route path="/userSettings" component={UserSettings}/>
               <Route path='/privacy' component={PrivacyPolicy}/>
               <Route path='/news/:url' component={NewsExtended}/>
           </header>
+          <Footer/>
         </div>
       </Provider>
     )
