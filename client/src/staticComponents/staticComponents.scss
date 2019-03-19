@@ -1,0 +1,28 @@
+$header: rgb(243, 243, 243);
+
+.navbar {
+    background-color: $header;
+    margin-bottom: 2%;
+}
+
+a {
+    color: rgb(0, 0, 0);
+}
+
+a:hover {
+    color: rgb(0, 0, 0);
+    opacity: 0.6;
+}
+
+.settings {
+    height: 2rem;
+    width: 2rem;
+}
+
+.settings:hover {
+    opacity: 0.6;
+}
+
+a.title {
+    font-size: 1.5rem;
+}

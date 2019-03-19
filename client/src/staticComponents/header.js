@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
 import './staticComponents.scss'
+import settings from '../assets/settings.svg'
 
 class Header extends Component {
   render() {
-
     return (
-        <div className="container">
-            <div className="col-md-12">
-                <h1>Wake Me App</h1>
+        <nav className="navbar">
+            <div className="container-fluid">
+                <div className="navbar-header">
+                    <a className="navbar-brand title" href="/">Wake Me App</a>
+                </div>
+                <a href="/userSettings"><img src={settings} alt="settings" className="settings"/></a>
             </div>
-        </div>
+        </nav>
     )
-  }
+ }
 }
 
 export default Header
