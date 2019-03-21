@@ -34,9 +34,11 @@ class News extends Component {
     let news_div = []
     if (localStorage.getItem('news') !== null) {
       news = JSON.parse(localStorage.getItem('news')).articles
-      for (let i = 0; i < news.length; i++) {
-        let link = '/news/' + news[i].url.split('.se/')[1]
-        news_div.push(<Link key={news[i].url} to={link}><p>{news[i].title}</p></Link>)
+      if (typeof news !== 'undefined') {
+        for (let i = 0; i < news.length; i++) {
+          let link = '/news/' + news[i].url.split('.se/')[1]
+          news_div.push(<Link key={news[i].url} to={link}><p>{news[i].title}</p></Link>)
+        }
       }
     }
 

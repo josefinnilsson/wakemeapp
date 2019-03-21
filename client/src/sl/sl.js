@@ -55,7 +55,7 @@ class SL extends Component {
     let departures = []
     for(let i = 0; i < departure_info.length; i++) {
       let departure = departure_info[i]
-      departures.push(<Departures key={departure.JourneyNumber} transport={departure.TransportMode} line={departure.LineNumber}
+      departures.push(<Departures key={departure.JourneyNumber + i} transport={departure.TransportMode} line={departure.LineNumber}
         destination={departure.Destination} exp_time={departure.DisplayTime}/>)
     }
     return (
