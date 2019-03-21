@@ -6,6 +6,14 @@ import Weather from '../weather/weather'
 import './dashboard.scss'
 
 class Dashboard extends Component {
+  componentDidMount() {
+    let url = JSON.parse(localStorage.getItem('background_url'))
+    if (typeof url === undefined) {
+      url = ''
+    }
+    document.body.style.backgroundImage = `url(${url})`
+  }
+
   render() {
     let update = false
     if (this.props.location.pathname === '/cal')

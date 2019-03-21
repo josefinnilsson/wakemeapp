@@ -5,14 +5,15 @@ class BackgroundToggle extends Component {
     onThemeChange(e) {
         this.setState({ background: e })
         if (e === 'NONE') {
-            console.log('none')
             document.body.style.backgroundImage = ""
+            localStorage.setItem('background_url', '')
         } else if (e === 'NASA') {
             fetch('/nasa')
             .then(response => {
                 return response.json()
             })
             .then(data => {
+                localStorage.setItem('background_url', JSON.stringify(data))
                 document.body.style.backgroundImage = `url(${data})`
             })
         } else {
@@ -21,6 +22,8 @@ class BackgroundToggle extends Component {
                 return response.json()
             })
             .then(data => {
+                console.log(data)
+                localStorage.setItem('background_url', JSON.stringify(data.url))
                 document.body.style.backgroundImage = `url(${data.url})`
             })
         }
@@ -30,7 +33,7 @@ class BackgroundToggle extends Component {
         return (
             <div>
             <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                <Dropdown.Toggle id="dropdown-basic">
                     Theme
                 </Dropdown.Toggle>
 

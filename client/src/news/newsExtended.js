@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import './news.scss'
 
 class NewsExtended extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class NewsExtended extends Component {
   render() {
 
     return (
-      <div className='container'>
+      <div className='container news_extended'>
         <div>
           <Link to='/'><button>Back to dashboard</button></Link>
           <h3>{this.state.title}</h3>

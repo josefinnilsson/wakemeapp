@@ -33,6 +33,14 @@ class UserSettings extends Component {
     this.handleStationChange = this.handleStationChange.bind(this)
   }
 
+  componentDidMount() {
+    let url = JSON.parse(localStorage.getItem('background_url'))
+    if (typeof url === undefined) {
+      url = ''
+    }
+    document.body.style.backgroundImage = `url(${url})`
+  }
+
   handleSearchSubmit(e) {
     e.preventDefault()
     fetch('/getStationData/' + this.refs.search_string.value)
