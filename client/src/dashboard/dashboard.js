@@ -20,7 +20,7 @@ class Dashboard extends Component {
           <div className='sl'>
             <SL key={2}/>
           </div>
-          <div className='news'>
+          <div className='news_wrapper'>
             <News key={3}/>
           </div>
           <div className='weather'>
