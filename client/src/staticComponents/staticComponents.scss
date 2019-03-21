@@ -2,7 +2,6 @@ $header: rgb(243, 243, 243);
 
 .navbar {
     background-color: $header;
-    margin-bottom: 2%;
 }
 
 a {
@@ -27,7 +26,11 @@ a.title {
     font-size: 1.5rem;
 }
 
-footer {
+.page-footer {
     background-color: $header;
-    margin-top: 2%;
+    padding: 0 !important;
+}
+
+h5 {
+    font-size: 1rem;
 }
