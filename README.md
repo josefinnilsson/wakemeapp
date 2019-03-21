@@ -16,11 +16,12 @@ The first half of the project we have focused on the backend part of the project
 - Created a weather component that, if the user have allowed the application to know current location, shows the weather were the user is located right now.
 - Created a news component that shows the latest news from Svenska Dagbladet.
 - Created a functionality that allows the user to switch between three different themes: minimalistic, NASA and Unsplash.
+- Created static components such as header and footer.
 
 ### What We Will Do
-- Add static components such as header and footer.
 - Add a drag-and-drop functionality to the compoenents to move them around.
 - Style the whole application.
+- Style mobile view.
 - Add error- and information messages to the user interface.
 
 ## Project structure
@@ -30,6 +31,7 @@ This repository holds both the frontend and backend for Wake Me App. The applica
 First, [install Node](https://docs.npmjs.com/getting-started/installing-node). Then standing in the root directory run:
 * `npm install` to install the frontend and backend dependencies.
 * `npm run start-dev` to start the server and client. The application can be visited at [localhost:3000](https://localhost:3000) and the server at [localhost:3001](https://localhost:3001).
+***Note: Running the application locally requires you to have the correct environmental variables set up.***
 
 ## Deploying
 The app is hosted on [Heroku](https://heroku.com) and uses automatic deploys that tracks the master branch of this repository. So in order to deploy the app, just push to master and the code will be visible at [wakemeapp.herokuapp.com](https://wakemeapp.herokuapp.com).
