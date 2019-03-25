@@ -39,6 +39,9 @@ const CalendarAPI = {
                     resolve(oAuth2Client)
                 }
             })
+            .catch(err => {
+                console.log(err)
+            })
         })
     },
     getAccessToken: function(res, oAuth2Client) {
@@ -57,6 +60,9 @@ const CalendarAPI = {
                     UserToken.update(token)
                     .then(() => {
                         resolve(oAuth2Client)
+                    })
+                    .catch(err => {
+                        console.log(err)
                     })
                 }
             })
@@ -99,6 +105,9 @@ const CalendarAPI = {
             oAuth2Client.revokeCredentials()
             .then(() => {
                 UserToken.update('-')
+                .catch(err => {
+                    console.log(err)
+                })
             })
         }
     }
@@ -107,30 +116,38 @@ const CalendarAPI = {
 
 const UserToken = {
     update: (token_obj) => {
-        return new Promise (resolve => {
+        return new Promise ((resolve, reject) => {
             User.findOne( { email }, (err, user) => {
-                const query = {'_id': user._id}
-                let token = token_obj
-                if (token !== '-')
-                    token = JSON.stringify(token_obj)
-                UserSettings.findOneAndUpdate(query, { token }, (err, userSettings) => {
-                    if (err) {
-                        resolve({message: err})
-                        return
-                    }
-                    resolve({message: 'Successful'})
-                })
+                if (err) {
+                    reject(err)
+                } else {
+                    const query = {'_id': user._id}
+                    let token = token_obj
+                    if (token !== '-')
+                        token = JSON.stringify(token_obj)
+                    UserSettings.findOneAndUpdate(query, { token }, (err, userSettings) => {
+                        if (err) {
+                            resolve({message: err})
+                            return
+                        }
+                        resolve({message: 'Successful'})
+                    })
+                }
             })
         })
     },
 
     getToken: () => {
-        return new Promise (resolve => {
+        return new Promise ((resolve, reject) => {
             User.findOne( { email }, (err, user) => {
-                const _id = user._id
-                UserSettings.findOne( { _id }, (err, userSettings) => {
-                    resolve(userSettings.token)
-                })
+                if (err) {
+                    reject(err)
+                } else {
+                    const _id = user._id
+                    UserSettings.findOne( { _id }, (err, userSettings) => {
+                        resolve(userSettings.token)
+                    })
+                }
             })
         })
     }
