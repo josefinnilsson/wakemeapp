@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { register } from '../actions/authActions'
 import PropTypes from 'prop-types'
+import {Form, Button} from 'react-bootstrap'
 
 const mapStateToProps = state => ({
     auth: state.auth,
@@ -61,17 +62,28 @@ class Register extends Component {
     render() {
         return (
             <div className="register">
-                <h1>Register</h1>
-                Already have an account? <Link to="/login">Log in</Link>
-                <form id="register_form" onSubmit={this.handleSubmit}>
-                    <label>Name</label>
-                    <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} required/>
-                    <label>Email</label>
-                    <input type="email" name="email" value={this.state.email} onChange={this.handleEmailChange} required/>
-                    <label>Password</label>
-                    <input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} required/>
-                    <input type="submit" value="Log in"/>
-                </form>
+                <h1 className="title">Wake Me App</h1>
+                <div className="login_form_wrapper">
+                    <div className="login_form">
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Group controlId="form_name">
+                                <Form.Control type="text" placeholder="Name" value={this.state.name} onChange={this.handlNameChange} required/>
+                            </Form.Group>
+                            <Form.Group controlId="form_email">
+                                <Form.Control type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} required/>
+                            </Form.Group>
+                            <Form.Group controlId="form_password">
+                                <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}required/>
+                            </Form.Group>
+                            <div className="login_button">
+                                <Button variant="primary" type="submit">Register</Button>
+                            </div>
+                            <div className="register_text">
+                                <p><Link to="/login">Already have an account? Log in!</Link></p>
+                            </div>
+                        </Form>
+                    </div>
+                </div>
             </div>
         )
     }
