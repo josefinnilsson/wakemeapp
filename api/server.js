@@ -362,6 +362,7 @@ router.get('/calendar/:email', (req, res) => {
     })
     .catch(err => {
         console.log(err)
+        res.json({message: err})
     })
 })
 
