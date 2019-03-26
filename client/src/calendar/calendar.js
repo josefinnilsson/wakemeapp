@@ -21,8 +21,6 @@ class Calendar extends Component {
       .then(data => {
         if (data.url) {
           window.location = data.url
-        } else if (data.error_message !== null) {
-          console.log('error , ' + data.error_message)
         } else {
           localStorage.setItem('calendar_events', JSON.stringify(data.events))
           localStorage.setItem('has_events', true)
