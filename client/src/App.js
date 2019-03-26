@@ -23,7 +23,8 @@ if (localStorage.jwt_token) {
   const decoded = jwt_decode(token)
   store.dispatch(setCurrentUser(decoded))
   const current_time = Date.now() / 1000
-  if (decoded.exp < current_time) {
+  console.log('email in jwt_token check: ' + localStorage.getItem('email'))
+  if (decoded.exp < current_time || localStorage.getItem('email') === null) {
     store.dispatch(logout())
     window.location.href = "./login"
   }
