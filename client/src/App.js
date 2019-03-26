@@ -31,12 +31,18 @@ if (localStorage.jwt_token) {
 }
 
 class App extends Component {
-
   render() {
+    let auth = false
+    const location = window.location.pathname
+    if (location === '/login' || location === '/register') {
+      auth = true
+    }
+    const header = auth ? '' : <Header/>
+    const footer = auth ? '' : <Footer/>
     return (
       <Provider store={store}>
         <div className="App">
-        <Header/>
+        {header}
           <header className="App-header">
               <Route exact path="/login" component={Login}/>
               <Route exact path="/register" component={Register}/>
@@ -49,7 +55,7 @@ class App extends Component {
               <Route path='/privacy' component={PrivacyPolicy}/>
               <Route path='/news/:url' component={NewsExtended}/>
           </header>
-          <Footer/>
+          {footer}
         </div>
       </Provider>
     )

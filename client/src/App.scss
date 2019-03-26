@@ -1,7 +1,50 @@
-$background-color: rgb(250,250,250);
+$background-color: rgba(253,141,107,0.1);
+$accent_color: rgba(253,141,107,0.5);
 
 body {
     background-repeat: no-repeat;
     background-size: cover;
     background-color: $background-color;
+}
+
+h1 {
+    font-size: 5em;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 500;
+}
+
+p, a, input, button {
+    font-family: 'Roboto', sans-serif;
+}
+
+button.btn.btn-primary {
+    background-color: $accent_color;
+    border: none;
+}
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"],
+.uneditable-input {
+  border: none;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus
+.uneditable-input:focus {
+  border-color: $accent_color;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px $accent_color;
+  outline: 0 none;
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 3.5em;
+        padding-top: 10%;
+    }
 }

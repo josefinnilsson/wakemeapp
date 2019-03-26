@@ -1,0 +1,70 @@
+$form_background: rgba(253,130,115,0.2);
+$accent_color: rgba(253,130,115,0.8);
+$accent_color_dark: rgb(253,130,115);
+$shadow_color: rgba(253,141,107,0.35);
+
+.logo {
+    width: 7.5em;
+    height: 7.5em;
+    padding: 1%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.login_form_wrapper {
+    width: 25%;
+    margin: 0 auto;
+    margin-top: 5%;
+    padding-top: 2%;
+    background-color: $form_background;
+    -webkit-box-shadow: 0px 0px 14px -2px $shadow_color;
+    -moz-box-shadow: 0px 0px 14px -2px $shadow_color;
+    box-shadow: 0px 0px 14px -2px $shadow_color;
+}
+
+.login_form {
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+h1.title {
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    color: $accent_color_dark;
+}
+
+.form-group {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 75%;
+}
+
+button.btn.btn-primary {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 50%;
+}
+
+.register_text {
+    margin-top: 2%;
+    text-align: center;
+    a {
+        color: $accent_color_dark;
+    }
+    a:hover {
+        color: $accent_color_dark;
+    }
+}
+
+@media (max-width: 480px) {
+    .login_form_wrapper {
+        width: 90%;
+        margin-top: 15%;
+    }
+}
