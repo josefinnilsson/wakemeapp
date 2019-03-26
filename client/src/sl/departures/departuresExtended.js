@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-// import '../sl.css'
+import '../sl.scss'
 import Departures from './departures'
 
 class DeparturesExtended extends Component {
@@ -25,6 +25,7 @@ class DeparturesExtended extends Component {
       <div className='container'>
         <div>
           <Link to='/'><button>Back to dashboard</button></Link>
+          <div className='departures_extended'>
           <h3>Departures</h3>
           <table>
             <tbody>
@@ -37,6 +38,7 @@ class DeparturesExtended extends Component {
               {no_real_time_departures}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     )

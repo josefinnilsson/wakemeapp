@@ -1,8 +1,12 @@
 .news {
-    height: 270px;
-    overflow-y: scroll;
+  height: 270px;
+  overflow-y: scroll;
+}
+
+.news_extended_wrapper {
+  width: 50%;
 }
 
 .news_extended {
-    width: 50%;
+  background: rgba(256,256,256,0.7);
 }
