@@ -100,16 +100,15 @@ const CalendarAPI = {
             })
         })
     },
-    revoke: function() {
+    revoke: function(email) {
+        setEmail(email)
         if (oAuth2Client !== null) {
             oAuth2Client.revokeCredentials()
-            .then(() => {
-                UserToken.update('-')
-                .catch(err => {
-                    console.log(err)
-                })
-            })
         }
+        UserToken.update('-')
+        .catch(err => {
+            console.log(err)
+        })
     }
 }
 

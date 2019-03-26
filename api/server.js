@@ -319,8 +319,9 @@ router.post('/authenticate', (req, res) => {
     })
 })
 
-router.get('/signout', (req, res) => {
-    CalendarAPI.revoke()
+router.get('/signout/:email', (req, res) => {
+    console.log(req.params.email)
+    CalendarAPI.revoke(req.params.email)
     res.json({message: 'revoked'})
 })
 
