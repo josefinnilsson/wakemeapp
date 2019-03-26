@@ -32,7 +32,8 @@ $shadow_color: rgba(253,141,107,0.35);
 
 h1.title {
     text-align: center;
-    padding-top: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
     color: $accent_color_dark;
 }
 
@@ -58,5 +59,12 @@ button.btn.btn-primary {
     }
     a:hover {
         color: $accent_color_dark;
+    }
+}
+
+@media (max-width: 480px) {
+    .login_form_wrapper {
+        width: 90%;
+        margin-top: 15%;
     }
 }
