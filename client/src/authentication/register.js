@@ -67,7 +67,7 @@ class Register extends Component {
                     <div className="login_form">
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group controlId="form_name">
-                                <Form.Control type="text" placeholder="Name" value={this.state.name} onChange={this.handlNameChange} required/>
+                                <Form.Control type="text" placeholder="Name" value={this.state.name} onChange={this.handleNameChange} required/>
                             </Form.Group>
                             <Form.Group controlId="form_email">
                                 <Form.Control type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} required/>
