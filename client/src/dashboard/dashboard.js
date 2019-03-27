@@ -7,7 +7,7 @@ import './dashboard.scss'
 
 class Dashboard extends Component {
   componentDidMount() {
-    const background_url = localStorage.getItem('backgronud_url')
+    const background_url = localStorage.getItem('background_url')
     let url = ''
     if (background_url)
       url = JSON.parse(background_url)
