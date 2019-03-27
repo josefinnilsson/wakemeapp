@@ -1,5 +1,6 @@
 $background-color: rgba(253,141,107,0.1);
 $accent_color: rgba(253,141,107,0.5);
+$accent_color_dark: rgb(253,130,115);
 
 body {
     background-repeat: no-repeat;
@@ -11,6 +12,28 @@ h1 {
     font-size: 5em;
     font-family: 'Fira Sans', sans-serif;
     font-weight: 500;
+    color: $accent_color_dark;
+}
+
+h2 {
+  font-size: 3em;
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 500;
+  color: $accent_color_dark;
+}
+
+h3 {
+  font-size: 2em;
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 500;
+  color: $accent_color_dark;
+}
+
+h6, label {
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: $accent_color_dark;
 }
 
 p, a, input, button {
