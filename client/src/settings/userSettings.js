@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { logout } from '../actions/authActions'
 import BackgroundToggle from '../settings/backgroundToggle'
 import {Form, Button} from 'react-bootstrap'
+import Select from 'react-select'
 
 const mapStateToProps = state => ({
   auth: state.auth
@@ -18,7 +19,7 @@ class UserSettings extends Component {
 
     this.state = {
       user_saved: false,
-      stations: [],
+      all_stations: [],
       active_station: localStorage.getItem('user_station_name'),
       active_station_id: 0,
       bus: false,
@@ -30,9 +31,7 @@ class UserSettings extends Component {
     }
 
     this.handleSaveSubmit = this.handleSaveSubmit.bind(this)
-    this.handleSearchSubmit = this.handleSearchSubmit.bind(this)
     this.handleStationChange = this.handleStationChange.bind(this)
-    this.handleSearchChange = this.handleSearchChange.bind(this)
     this.handleBusChange = this.handleBusChange.bind(this)
     this.handleMetroChange = this.handleMetroChange.bind(this)
     this.handleTrainChange = this.handleTrainChange.bind(this)
@@ -41,29 +40,13 @@ class UserSettings extends Component {
   }
 
   componentDidMount() {
-    const background_url = localStorage.getItem('backgronud_url')
-    let url = ''
-    if (background_url)
-      url = JSON.parse(background_url)
-    if (typeof url === undefined) {
-      url = ''
-    }
-    document.body.style.backgroundImage = `url(${url})`
-  }
-
-  handleSearchSubmit(e) {
-    e.preventDefault()
-    fetch('/getStationData/' + this.state.search)
+    fetch('/getAllStations')
       .then(response => {
         return response.json()
       })
-      .then(stations => {
-        let dropdown_items = []
-        for (let i = 0; i < stations.length; i++) {
-          dropdown_items.push(<h6 className="list_item" key={stations[i].SiteId + i} onClick={(name, id) => this.handleStationChange(stations[i].Name, stations[i].SiteId)}>{stations[i].Name}</h6>)
-        }
+      .then(result => {
         this.setState({
-          stations: dropdown_items
+          all_stations: result
         })
       })
   }
@@ -110,15 +93,11 @@ class UserSettings extends Component {
     })
   }
 
-  handleStationChange(name, id) {
+  handleStationChange(e) {
     this.setState({
-      active_station: name,
-      active_station_id: id
+      active_station: e.label,
+      active_station_id: e.value
     })
-  }
-
-  handleSearchChange(e) {
-    this.setState({ search: e.target.value })
   }
 
   handleBusChange(e) {
@@ -144,43 +123,38 @@ class UserSettings extends Component {
   onLogout = e => {
     e.preventDefault()
     this.props.logout()
-
   }
 
   render() {
-    const stations = this.state.stations
-
     return (
-      <div>
-        <h2>Settings</h2>
+      <div className="settings_wrapper">
         <div className="settings_form_wrapper">
           <div className="settings_form">
-            <h3>Departures</h3>
-            <h6>Current station: {this.state.active_station !== '' ? this.state.active_station : ' None'}</h6>
-            <Form onSubmit={this.handleSearchSubmit}>
-              <Form.Group controlId="form_search">
-                <Form.Control type="text" placeholder="Station" minLength="3" value={this.state.search} onChange={this.handleSearchChange}/>
-              </Form.Group>
-              <Button variant="primary" type="submit">Search</Button>
-            </Form>
-            {stations}
-            <div className="transportation_options">
-              <Form onSubmit={this.handleSaveSubmit}>
-                <Form.Check inline label="Bus" type={'checkbox'} id={'bus'} onChange={this.handleBusChange}/>
-                <Form.Check inline label="Metro" type={'checkbox'} id={'metro'} onChange={this.handleMetroChange}/>
-                <Form.Check inline label="Train" type={'checkbox'} id={'train'} onChange={this.handleTrainChange}/>
-                <Form.Check inline label="Tram" type={'checkbox'} id={'tram'} onChange={this.handleTramChange}/>
-                <Form.Check inline label="Ship" type={'checkbox'} id={'ship'} onChange={this.handleShipChange}/>
-                <Button variant="primary" type="submit">Save</Button>
-              </Form>
-            </div>
-
             <h3>Theme</h3>
             <BackgroundToggle/>
           </div>
         </div>
-        <button onClick={this.onLogout}>Logout</button>
-        <Link to='/'><button>Back to dashboard</button></Link>
+        <div className="settings_form_wrapper">
+          <div className="settings_form">
+            <h3>Departures</h3>
+            <h6>Current station: {this.state.active_station !== '' ? this.state.active_station : ' None'}</h6>
+
+            <Select className="select_station" defaultValue={this.state.active_station} options={this.state.all_stations} onChange={this.handleStationChange}/>
+            <div className="transportation_options">
+              <Form onSubmit={this.handleSaveSubmit}>
+              <div className="check_boxes">
+                <Form.Check inline label="Bus" type={'checkbox'} id={'bus'} onChange={this.handleBusChange}/>
+                <Form.Check inline label="Metro" type={'checkbox'} id={'metro'} onChange={this.handleMetroChange}/>
+                <Form.Check inline label="Ship" type={'checkbox'} id={'ship'} onChange={this.handleShipChange}/>
+                <Form.Check inline label="Train" type={'checkbox'} id={'train'} onChange={this.handleTrainChange}/>
+                <Form.Check inline label="Tram" type={'checkbox'} id={'tram'} onChange={this.handleTramChange}/>
+              </div>
+                <Button className="save_btn" variant="primary" type="submit">Save</Button>
+              </Form>
+            </div>
+          </div>
+        </div>
+        <Button className="logout_btn" variant="primary" type="submit" onClick={this.onLogout}>Logout</Button>
       </div>
     )
   }
