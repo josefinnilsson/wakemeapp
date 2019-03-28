@@ -47,27 +47,49 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/../client/build/index.html'));
 })
 
+const checkUser = function(email) {
+    return new Promise(resolve => {
+        User.find({ email: email }, (err, docs) => {
+            if (docs.length) {
+                resolve(true)
+            } else {
+                resolve(false)
+            }
+        })
+    })
+}
+
 router.post('/register', (req, res) => {
     const { name, email, password } = sanitize(req.body)
-    const user = new User({ name, email, password })
-    user.save(function(err, user) {
-        const _id = new mongoose.Types.ObjectId(user._id) // same id as corresponding user
-        const stationName = ''
-        const stationId = -1
-        const bus = false
-        const metro = false
-        const train = false
-        const tram = false
-        const ship = false
-        const token = '-'
-        const userSettings = new UserSettings({ _id, stationName, stationId, bus, metro, train, tram, ship, token })
-        userSettings.save((err2) => {
-            console.log(err2)
-        })
-        if (err) {
-            res.status(500).send("An error occured while registring, please try again.")
+    checkUser(email)
+    .then(user_exists => {
+        if (user_exists) {
+            res.status(500).send('Email already exists')
         } else {
-            res.status(200).send("Welcome to Wake Me App!\n")
+            const user = new User({ name, email, password })
+            user.save(function(err, user) {
+                if (err) {
+                    return res.status(500).send("An error occured while registring, please try again.")
+                } else {
+                    const _id = new mongoose.Types.ObjectId(user._id) // same id as corresponding user
+                    const stationName = ''
+                    const stationId = -1
+                    const bus = false
+                    const metro = false
+                    const train = false
+                    const tram = false
+                    const ship = false
+                    const token = '-'
+                    const userSettings = new UserSettings({ _id, stationName, stationId, bus, metro, train, tram, ship, token })
+                    userSettings.save((err) => {
+                        if (err) {
+                            res.status(500).send("An error occured while registring, please try again.")
+                        } else {
+                            res.status(200).send("Welcome to Wake Me App!\n")
+                        }
+                    })
+                }
+            })
         }
     })
 })
