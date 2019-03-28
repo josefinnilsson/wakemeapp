@@ -22,7 +22,7 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            errors: {}
+            error: false,
         }
 
         this.handleEmailChange = this.handleEmailChange.bind(this)
@@ -53,15 +53,15 @@ class Login extends Component {
           })
         }
         if (next_props.errors)
-            this.setState({ errors: next_props.errors })
+            this.setState({ error: true })
     }
 
     handleEmailChange(e) {
-        this.setState({ email: e.target.value })
+        this.setState({ email: e.target.value, error: false })
     }
 
     handlePasswordChange(e) {
-        this.setState({ password: e.target.value })
+        this.setState({ password: e.target.value, error: false })
     }
 
     handleSubmit(e) {
@@ -85,9 +85,12 @@ class Login extends Component {
                             <Form.Group controlId="form_email">
                                 <Form.Control type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} required/>
                             </Form.Group>
-                            <Form.Group controlId="form_password">
+                            <Form.Group controlId="form_password" className="bottom">
                                 <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}required/>
                             </Form.Group>
+                            <div className="error_wrap">
+                                <p className="error">{this.state.error && "Email and password do not match."}</p>
+                            </div>
                             <div className="login_button">
                                 <Button variant="primary" type="submit">Login</Button>
                             </div>
