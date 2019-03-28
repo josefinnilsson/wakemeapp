@@ -17,7 +17,7 @@ class Register extends Component {
             name: '',
             email: '',
             password: '',
-            errors: {}
+            error: '',
         }
 
         this.handleNameChange = this.handleNameChange.bind(this)
@@ -28,7 +28,7 @@ class Register extends Component {
 
     componentWillReceiveProps(next_props) {
         if (next_props.errors) {
-            this.setState({ errors: next_props.errors })
+            this.setState({ error: next_props.errors })
         }
     }
 
@@ -42,7 +42,7 @@ class Register extends Component {
     }
 
     handleEmailChange(e) {
-        this.setState({ email: e.target.value })
+        this.setState({ email: e.target.value, error: '' })
     }
 
     handlePasswordChange(e) {
@@ -60,6 +60,12 @@ class Register extends Component {
     }
 
     render() {
+        let error = ''
+        if (this.state.error === 'Email already exists') {
+            error = 'A user with that email already exists.'
+        } else if (this.state.error !== '') {
+            error = 'An error occured, try again.'
+        }
         return (
             <div className="register">
                 <h1 className="title">Wake Me App</h1>
@@ -72,9 +78,12 @@ class Register extends Component {
                             <Form.Group controlId="form_email">
                                 <Form.Control type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} required/>
                             </Form.Group>
-                            <Form.Group controlId="form_password">
+                            <Form.Group controlId="form_password" className="bottom">
                                 <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}required/>
                             </Form.Group>
+                            <div className="error_wrap">
+                                <p className="error">{error}</p>
+                            </div>
                             <div className="login_button">
                                 <Button variant="primary" type="submit">Register</Button>
                             </div>
