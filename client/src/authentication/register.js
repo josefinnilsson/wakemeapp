@@ -78,19 +78,19 @@ class Register extends Component {
                     <div className="login_form">
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group controlId="form_name" className="no_margin">
-                                <Form.Control type="text" placeholder="Name" value={this.state.name} onChange={this.handleNameChange} required className={classnames("", {invalid: errors.name})}/>
+                                <Form.Control type="text" placeholder="Name" value={this.state.name} onChange={this.handleNameChange} className={classnames("", {invalid: errors.name})}/>
                                 <div className="error_wrap"><p className="error small">{errors.name}</p></div>
                             </Form.Group>
                             <Form.Group controlId="form_email" className="no_margin">
-                                <Form.Control type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} required className={classnames("", {invalid: errors.email})}/>
+                                <Form.Control type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} className={classnames("", {invalid: errors.email})}/>
                             <div className="error_wrap"><p className="error small">{errors.email}</p></div>
                             </Form.Group>
                             <Form.Group controlId="form_password" className="no_margin">
-                                <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}required className={classnames("", {invalid: errors.password})}/>
+                                <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} className={classnames("", {invalid: errors.password})}/>
                                 <div className="error_wrap"><p className="error small">{errors.password}</p></div>
                             </Form.Group>
                             <Form.Group controlId="form_confirm_password" className="no_margin">
-                                <Form.Control type="password" placeholder="Confirm password" value={this.state.confirm_password} onChange={this.handleConfirmPasswordChange}required className={classnames("", {invalid: errors.confirm_password})}/>
+                                <Form.Control type="password" placeholder="Confirm password" value={this.state.confirm_password} onChange={this.handleConfirmPasswordChange} className={classnames("", {invalid: errors.confirm_password})}/>
                                 <div className="error_wrap"><p className="error small">{errors.confirm_password}</p></div>
                             </Form.Group>
                             <div className="login_button">
