@@ -91,7 +91,10 @@ class Register extends Component {
                             </Form.Group>
                             <Form.Group controlId="form_confirm_password" className="no_margin">
                                 <Form.Control type="password" placeholder="Confirm password" value={this.state.confirm_password} onChange={this.handleConfirmPasswordChange} className={classnames("", {invalid: errors.confirm_password})}/>
-                                <div className="error_wrap"><p className="error small">{errors.confirm_password}</p></div>
+                                <div className="error_wrap">
+                                    <p className="error small">{errors.confirm_password}</p>
+                                    <p className="error small">{errors.general}</p>
+                                </div>
                             </Form.Group>
                             <div className="login_button">
                                 <Button variant="primary" type="submit">Register</Button>
