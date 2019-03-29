@@ -6,6 +6,7 @@ import { login } from '../actions/authActions'
 import './authentication.scss'
 import logo from '../assets/logo.svg'
 import {Form, Button} from 'react-bootstrap'
+import classnames from 'classnames'
 
 const mapStateToProps = state => ({
     auth: state.auth,
@@ -22,7 +23,7 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            errors: {}
+            errors: '',
         }
 
         this.handleEmailChange = this.handleEmailChange.bind(this)
@@ -31,6 +32,10 @@ class Login extends Component {
     }
 
     componentWillReceiveProps(next_props) {
+        if (next_props.errors) {
+            console.log('propr errors ' + next_props.errors)
+            this.setState({ errors: next_props.errors })
+        }
         if (next_props.auth.is_authenticated) {
 
             for (let i = 0; i < items_to_remove.length; i++) {
@@ -52,8 +57,6 @@ class Login extends Component {
               this.props.history.push('/')
           })
         }
-        if (next_props.errors)
-            this.setState({ errors: next_props.errors })
     }
 
     handleEmailChange(e) {
@@ -65,7 +68,6 @@ class Login extends Component {
     }
 
     handleSubmit(e) {
-        console.log("submit")
         e.preventDefault()
         const user = {
             email: this.state.email,
@@ -75,6 +77,7 @@ class Login extends Component {
     }
 
     render() {
+        const { errors } = this.state
         return (
             <div className="login">
                 <h1 className="title">Wake Me App</h1>
@@ -83,10 +86,18 @@ class Login extends Component {
                     <div className="login_form">
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group controlId="form_email">
-                                <Form.Control type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} required/>
+                                <Form.Control type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} className={classnames("", {invalid: errors.email})}/>
+                                <div className="error_wrap">
+                                    <p className="error small">{errors.email}</p>
+                                </div>
                             </Form.Group>
-                            <Form.Group controlId="form_password">
-                                <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}required/>
+                            <Form.Group controlId="form_password" className="bottom">
+                                <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} className={classnames("", {invalid: errors.password})}/>
+                                <div className="error_wrap">
+                                    <p className="error small">{errors.password}</p>
+                                    <p className="error small">{errors.credentials}</p>
+                                    <p className="error small">{errors.general}</p>
+                                </div>
                             </Form.Group>
                             <div className="login_button">
                                 <Button variant="primary" type="submit">Login</Button>

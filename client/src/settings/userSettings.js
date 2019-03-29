@@ -143,7 +143,7 @@ class UserSettings extends Component {
               <h4>Theme</h4>
               <BackgroundToggle/>
             </div>
-            </div>
+        </div>
         <div className="settings_form_wrapper">
           <div className="settings_form">
             <h4>Departures</h4>

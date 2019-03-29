@@ -1,6 +1,7 @@
 $background-color: rgba(250, 180, 116, 0.05);
 $accent_color: rgba(253,130,115, 0.7);
 $accent_color_dark: rgb(253,130,115);
+$error_color: rgba(245, 42, 42, 1);
 
 body {
     background-repeat: no-repeat;
@@ -43,6 +44,11 @@ h6, label {
 
 p, a, input, button {
     font-family: 'Roboto', sans-serif;
+}
+
+p.error {
+    color: $error_color;
+    margin: 0;
 }
 
 button.btn.btn-primary {
