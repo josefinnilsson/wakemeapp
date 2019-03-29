@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { register } from '../actions/authActions'
 import PropTypes from 'prop-types'
 import {Form, Button} from 'react-bootstrap'
+import classnames from 'classnames'
+
 
 const mapStateToProps = state => ({
     auth: state.auth,
@@ -17,18 +19,20 @@ class Register extends Component {
             name: '',
             email: '',
             password: '',
-            error: '',
+            confirm_password: '',
+            errors: '',
         }
 
         this.handleNameChange = this.handleNameChange.bind(this)
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
+        this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentWillReceiveProps(next_props) {
         if (next_props.errors) {
-            this.setState({ error: next_props.errors })
+            this.setState({ errors: next_props.errors })
         }
     }
 
@@ -42,11 +46,15 @@ class Register extends Component {
     }
 
     handleEmailChange(e) {
-        this.setState({ email: e.target.value, error: '' })
+        this.setState({ email: e.target.value })
     }
 
     handlePasswordChange(e) {
         this.setState({ password: e.target.value })
+    }
+
+    handleConfirmPasswordChange(e) {
+        this.setState({ confirm_password: e.target.value })
     }
 
     handleSubmit(e) {
@@ -54,36 +62,37 @@ class Register extends Component {
         const user = {
             name: this.state.name,
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            confirm_password: this.state.confirm_password
         }
         this.props.register(user, this.props.history)
     }
 
     render() {
-        let error = ''
-        if (this.state.error === 'Email already exists') {
-            error = 'A user with that email already exists.'
-        } else if (this.state.error !== '') {
-            error = 'An error occured, try again.'
-        }
+        const { errors } = this.state
+
         return (
             <div className="register">
                 <h1 className="title">Wake Me App</h1>
                 <div className="login_form_wrapper">
                     <div className="login_form">
                         <Form onSubmit={this.handleSubmit}>
-                            <Form.Group controlId="form_name">
-                                <Form.Control type="text" placeholder="Name" value={this.state.name} onChange={this.handleNameChange} required/>
+                            <Form.Group controlId="form_name" className="no_margin">
+                                <Form.Control type="text" placeholder="Name" value={this.state.name} onChange={this.handleNameChange} required className={classnames("", {invalid: errors.name})}/>
+                                <div className="error_wrap"><p className="error small">{errors.name}</p></div>
                             </Form.Group>
-                            <Form.Group controlId="form_email">
-                                <Form.Control type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} required/>
+                            <Form.Group controlId="form_email" className="no_margin">
+                                <Form.Control type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} required className={classnames("", {invalid: errors.email})}/>
+                            <div className="error_wrap"><p className="error small">{errors.email}</p></div>
                             </Form.Group>
-                            <Form.Group controlId="form_password" className="bottom">
-                                <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}required/>
+                            <Form.Group controlId="form_password" className="no_margin">
+                                <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}required className={classnames("", {invalid: errors.password})}/>
+                                <div className="error_wrap"><p className="error small">{errors.password}</p></div>
                             </Form.Group>
-                            <div className="error_wrap">
-                                <p className="error">{error}</p>
-                            </div>
+                            <Form.Group controlId="form_confirm_password" className="no_margin">
+                                <Form.Control type="password" placeholder="Confirm password" value={this.state.confirm_password} onChange={this.handleConfirmPasswordChange}required className={classnames("", {invalid: errors.confirm_password})}/>
+                                <div className="error_wrap"><p className="error small">{errors.confirm_password}</p></div>
+                            </Form.Group>
                             <div className="login_button">
                                 <Button variant="primary" type="submit">Register</Button>
                             </div>
