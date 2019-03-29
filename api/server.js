@@ -107,7 +107,7 @@ router.post('/register', (req, res) => {
         const user = new User({ name, email, password })
         user.save(function(err, user) {
             if (err) {
-                return res.status(500).send("An error occured while registring, please try again.")
+                return res.status(500).send({ general: 'An error occured while registring, please try again.' })
             } else {
                 const _id = new mongoose.Types.ObjectId(user._id) // same id as corresponding user
                 const stationName = ''
@@ -121,13 +121,61 @@ router.post('/register', (req, res) => {
                 const userSettings = new UserSettings({ _id, stationName, stationId, bus, metro, train, tram, ship, token })
                 userSettings.save((err) => {
                     if (err) {
-                        res.status(500).send("An error occured while registring, please try again.")
+                        return res.status(500).send({ general: 'An error occured while registring, please try again.' })
                     } else {
-                        res.status(200).send("Welcome to Wake Me App!\n")
+                        return res.status(200)
                     }
                 })
             }
         })
+    })
+})
+
+const validateLoginInput = function(data) {
+    let errors = {}
+    data.email = !isEmpty(data.email) ? data.email : ''
+    data.password = !isEmpty(data.password) ? data.password : ''
+
+    if (Validator.isEmpty(data.email))
+        errors.email = 'Email is required'
+    else if(!Validator.isEmail(data.email))
+        errors.email = 'Invalid email'
+
+    if (Validator.isEmpty(data.password))
+        errors.password = 'Password is required'
+
+    return {
+        errors,
+        is_valid: isEmpty(errors)
+    }
+}
+
+router.post('/authenticate', (req, res) => {
+    const { errors, is_valid } = validateLoginInput(req.body)
+    if (!is_valid) {
+        return res.status(400).json(errors)
+    }
+    const { email, password } = req.body
+    User.findOne( { email }, (err, user) => {
+        if (err) {
+            return res.status(500).json({ general: 'Internal server error' })
+        } else if (!user) {
+            return res.status(401).json({ credentials: 'Incorrect credentials' })
+        } else {
+            user.checkPassword(password, (err, correct) => {
+                if (err) {
+                    return res.status(500).json({ general: 'Internal server error' })
+                } else if (!correct) {
+                    return res.status(400).json({ general: 'Incorrect credentials' })
+                } else {
+                    const payload = { id: user.id, email: user.email }
+                    const token = jwt.sign(payload, process.env.SECRET, {
+                        expiresIn: 31556926 //1 year
+                    })
+                    return res.json({success: true, token: 'Bearer ' + token})
+                }
+            })
+        }
     })
 })
 
@@ -348,33 +396,6 @@ router.get('/news', (req, res) => {
     }).then(body => {
         let data = JSON.parse(body)
         res.json(data)
-    })
-})
-
-router.post('/authenticate', (req, res) => {
-    const { errors, isValid, email, password } = req.body
-    User.findOne( { email }, (err, user) => {
-        if (err) {
-            console.log(error)
-            res.status(500).json('{ Internal server error }')
-        } else if (!user) {
-            res.status(401).json('{ Incorrect credentials }')
-        } else {
-            user.checkPassword(password, (err, correct) => {
-                if (err) {
-                    console.log(error)
-                    res.status(500).json('{ Internal server error }')
-                } else if (!correct) {
-                    res.status(401).json('{ Incorrent credentials }')
-                } else {
-                    const payload = { id: user.id, email: user.email }
-                    const token = jwt.sign(payload, process.env.SECRET, {
-                        expiresIn: 31556926 //1 year
-                    })
-                    res.json({success: true, token: 'Bearer ' + token})
-                }
-            })
-        }
     })
 })
 
