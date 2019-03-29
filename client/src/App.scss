@@ -1,4 +1,4 @@
-$background-color: rgba(255,232,220, 1);
+$background-color: rgba(250, 180, 116, 0.05);
 $accent_color: rgba(253,130,115, 0.7);
 $accent_color_dark: rgb(253,130,115);
 
@@ -29,9 +29,14 @@ h3 {
   color: $accent_color_dark;
 }
 
+h4 {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 500;
+  color: $accent_color_dark;
+}
+
 h6, label {
   font-family: 'Roboto', sans-serif;
-  text-transform: uppercase;
   font-weight: 500;
   color: $accent_color_dark;
 }
@@ -55,7 +60,6 @@ input[type="search"],
 }
 
 textarea:focus,
-input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
 input[type="search"]:focus
