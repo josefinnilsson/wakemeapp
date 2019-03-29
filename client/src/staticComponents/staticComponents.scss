@@ -34,3 +34,39 @@ a.title {
 h5 {
     font-size: 1rem;
 }
+
+a.navbar-brand.title {
+    text-align: center;
+    display: inline-block;
+    padding: 0;
+}
+
+.logo_header {
+    height: 2.5rem;
+    width: 2.5rem;
+    padding-right: 1%;
+}
+
+.navbar-header {
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+    position: relative;
+}
+
+.logo_title_wrapper > * {
+    vertical-align: middle;
+}
+
+@media (max-width: 480px) {
+    .navbar-header {
+        width: 75%;
+        margin: 0 auto;
+    }
+
+    .logo_header {
+        height: 2rem;
+        width: 2rem;
+        padding-right: 2%;
+    }
+}
