@@ -15,6 +15,10 @@ $shadow_color: rgba(253,141,107,0.35);
 }
 
 .login_form_wrapper {
+    border-radius: 5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent;
     width: 25%;
     margin: 0 auto;
     margin-top: 5%;
