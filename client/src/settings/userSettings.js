@@ -76,7 +76,7 @@ class UserSettings extends Component {
 
     axios.post('/updateUserSettings/' + localStorage.getItem('email'), userSettings)
       .then(res => {
-        console.log('Successfully saved user settings')
+        alert('Successfully saved user settings!')
         localStorage.setItem('user_station_name', stationName)
         localStorage.setItem('user_station_id', stationId)
         localStorage.setItem('user_bus', bus)
@@ -126,21 +126,30 @@ class UserSettings extends Component {
   }
 
   render() {
+    const colorStyles = {
+      control: (base, state) => ({
+        ...base,
+        boxShadow: "none",
+        border: "none"
+      })
+    }
 
     return (
       <div className="settings_wrapper">
+        <h2 className="settings_title">Settings</h2>
+
+        <div className="settings_form_wrapper">
+            <div className="settings_form">
+              <h4>Theme</h4>
+              <BackgroundToggle/>
+            </div>
+            </div>
         <div className="settings_form_wrapper">
           <div className="settings_form">
-            <h3>Theme</h3>
-            <BackgroundToggle/>
-          </div>
-        </div>
-        <div className="settings_form_wrapper">
-          <div className="settings_form">
-            <h3>Departures</h3>
+            <h4>Departures</h4>
             <h6>Current station: {this.state.active_station !== '' ? this.state.active_station : ' None'}</h6>
 
-            <Select className="select_station" defaultValue={this.state.active_station} options={this.state.all_stations} onChange={this.handleStationChange}/>
+            <Select className="select_station" styles={colorStyles} defaultValue={this.state.active_station} options={this.state.all_stations} onChange={this.handleStationChange}/>
             <div className="transportation_options">
               <Form onSubmit={this.handleSaveSubmit}>
               <div className="check_boxes">
@@ -150,12 +159,13 @@ class UserSettings extends Component {
                 <Form.Check inline label="Train" type={'checkbox'} id={'train'} onChange={this.handleTrainChange}/>
                 <Form.Check inline label="Tram" type={'checkbox'} id={'tram'} onChange={this.handleTramChange}/>
               </div>
-                <Button className="save_btn" variant="primary" type="submit">Save</Button>
+                <Button className="save_btn settings_btn" type="submit">Save</Button>
               </Form>
             </div>
           </div>
         </div>
         <Button className="logout_btn" variant="primary" type="submit" onClick={this.onLogout}>Logout</Button>
+
         <Footer/>
       </div>
     )
