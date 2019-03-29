@@ -1,10 +1,10 @@
 $form_background: rgba(253,130,115,0.2);
-$accent_color: rgba(253,130,115,0.8);
-$accent_color_dark: rgb(253,130,115);
+$accent_color: rgb(130,130,130);
+$accent_color_dark: rgb(205,205,205);
 $shadow_color: rgba(253,141,107,0.35);
 
 .settings_wrapper {
-    margin-top: 5%;
+    margin-top: 4%;
 }
 
 .settings_form_wrapper {
@@ -24,6 +24,7 @@ $shadow_color: rgba(253,141,107,0.35);
 }
 
 h3, h6 {
+    color:  $accent_color;
     text-align: center;
 }
 
@@ -44,7 +45,23 @@ h6.list_item:hover {
     margin: 2%;
 }
 
+label {
+    color: $accent_color;
+}
+
 .logout_btn {
-    width: 25% !important;
+    width: 12% !important;
     margin: 2%;
+}
+
+@media (max-width: 480px) {
+    .settings_form_wrapper {
+        width: 90%;
+        margin-top: 15%;
+    }
+
+    .logout_btn {
+        margin-top: 10%;
+        width: 40% !important;
+    }
 }
