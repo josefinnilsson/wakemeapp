@@ -15,7 +15,6 @@ import setAuthToken from './utils/setAuthToken'
 import { Provider } from 'react-redux'
 import store from './store'
 import Header from './staticComponents/header'
-import Footer from './staticComponents/footer'
 
 if (localStorage.jwt_token) {
   const token = localStorage.jwt_token
@@ -23,7 +22,6 @@ if (localStorage.jwt_token) {
   const decoded = jwt_decode(token)
   store.dispatch(setCurrentUser(decoded))
   const current_time = Date.now() / 1000
-  console.log('email in jwt_token check: ' + localStorage.getItem('email'))
   if (decoded.exp < current_time || localStorage.getItem('email') === null) {
     store.dispatch(logout())
     window.location.href = "./login"
@@ -38,7 +36,6 @@ class App extends Component {
       auth = true
     }
     const header = auth ? '' : <Header/>
-    const footer = auth ? '' : <Footer/>
     return (
       <Provider store={store}>
         <div className="App">
@@ -55,7 +52,6 @@ class App extends Component {
               <Route path='/privacy' component={PrivacyPolicy}/>
               <Route path='/news/:url' component={NewsExtended}/>
           </header>
-          {footer}
         </div>
       </Provider>
     )

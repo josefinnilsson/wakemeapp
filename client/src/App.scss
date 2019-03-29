@@ -1,5 +1,6 @@
-$background-color: rgba(253,141,107,0.1);
-$accent_color: rgba(253,141,107,0.5);
+$background-color: rgba(250, 180, 116, 0.05);
+$accent_color: rgba(253,130,115, 0.7);
+$accent_color_dark: rgb(253,130,115);
 $error_color: rgba(245, 42, 42, 1);
 
 body {
@@ -12,6 +13,33 @@ h1 {
     font-size: 5em;
     font-family: 'Fira Sans', sans-serif;
     font-weight: 500;
+    color: $accent_color_dark;
+}
+
+h2 {
+  font-size: 3em;
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 500;
+  color: $accent_color_dark;
+}
+
+h3 {
+  font-size: 2em;
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 500;
+  color: $accent_color_dark;
+}
+
+h4 {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 500;
+  color: $accent_color_dark;
+}
+
+h6, label {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  color: $accent_color_dark;
 }
 
 p, a, input, button {
@@ -38,7 +66,6 @@ input[type="search"],
 }
 
 textarea:focus,
-input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
 input[type="search"]:focus

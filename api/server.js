@@ -238,6 +238,38 @@ router.get('/getStationData/:search_string', (req, res, next) => {
 })
 
 /*
+A promise that gets station information when the user search for a station
+*/
+router.get('/getAllStations', (req, res, next) => {
+    let api_key = process.env.HALLPLATSER
+    const options = {
+        url: 'https://api.sl.se/api2/LineData.json?model=site&key=' + api_key
+    }
+    return new Promise(resolve => {
+        request(options, (err, res, body) => {
+            resolve(body)
+        })
+    }).then(body => {
+        let stations = JSON.parse(body).ResponseData.Result
+        let all_stations = []
+        stations.forEach(station => {
+            all_stations.push({ value: station.SiteId, label: station.SiteName })
+        })
+        let unique_value = [... new Set(all_stations.map (station => station.value))]
+        let unique_stations = unique_value.map(value => {
+                return {
+                    value: value,
+                    label: all_stations.find(station => station.value === value).label
+                }
+            })
+        res.json(unique_stations)
+    }).catch(error => {
+        console.log(error)
+    })
+})
+
+
+/*
 A promise that gets real time information about a station's departures
 */
 router.get('/getRealTime/:station_id/:bus/:metro/:train/:tram/:ship', (req, res, next) => {

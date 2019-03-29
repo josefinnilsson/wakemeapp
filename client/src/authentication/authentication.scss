@@ -1,15 +1,18 @@
-$form_background: rgba(253,130,115,0.2);
-$accent_color: rgba(253,130,115,0.8);
-$accent_color_dark: rgb(253,130,115);
-$shadow_color: rgba(253,141,107,0.35);
+$form_background: transparent;
+$button_text: rgb(255,255,255);
+$title_color: rgba(250, 145, 127, 1);
+$accent_color: rgb(138, 210, 162);
+$light_grey: rgba(240,240,240,1);
+$dark_grey: rgb(100,100,100);
+$shadow_color: rgba(240,240,240,1);
 $glow: rgba(255,100,18,0.4);
 
 .logo {
     width: 7.5em;
     height: 7.5em;
-    padding: 0;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    padding: 1%;
+    margin-top: 5%;
+    margin-bottom: 15%;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -18,14 +21,15 @@ $glow: rgba(255,100,18,0.4);
 }
 
 .login_form_wrapper {
+    border-radius: 5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent;
     width: 25%;
     margin: 0 auto;
-    margin-top: 5%;
+    margin-top: 1%;
     padding-top: 2%;
     background-color: $form_background;
-    -webkit-box-shadow: 0px 0px 14px -2px $shadow_color;
-    -moz-box-shadow: 0px 0px 14px -2px $shadow_color;
-    box-shadow: 0px 0px 14px -2px $shadow_color;
 }
 
 .login_form {
@@ -35,9 +39,9 @@ $glow: rgba(255,100,18,0.4);
 
 h1.title {
     text-align: center;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    color: $accent_color_dark;
+    margin-top: 5%;
+    margin-bottom: 0;
+    color: $title_color;
 }
 
 .form-group {
@@ -47,11 +51,17 @@ h1.title {
     width: 75%;
 }
 
+
+.form-control {
+    background: $light_grey;
+}
 .no_margin.form-group {
     margin-bottom: 0;
 }
 
 button.btn.btn-primary {
+    color: white;
+    background-color: $accent_color;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -59,13 +69,13 @@ button.btn.btn-primary {
 }
 
 .register_text {
-    margin-top: 2%;
+    margin-top: 4%;
     text-align: center;
     a {
-        color: $accent_color_dark;
+        color: $dark_grey;
     }
     a:hover {
-        color: $accent_color_dark;
+        color: $dark_grey;
     }
 }
 
