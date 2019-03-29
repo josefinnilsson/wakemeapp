@@ -44,6 +44,10 @@ h1.title {
     width: 75%;
 }
 
+.no_margin.form-group {
+    margin-bottom: 0;
+}
+
 button.btn.btn-primary {
     margin-left: auto;
     margin-right: auto;
@@ -60,6 +64,10 @@ button.btn.btn-primary {
     a:hover {
         color: $accent_color_dark;
     }
+}
+
+.error_wrap {
+    height: 20px;
 }
 
 @media (max-width: 480px) {

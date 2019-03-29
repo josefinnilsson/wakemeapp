@@ -12,6 +12,8 @@ const secure = require('express-force-https')
 const sanitize = require('mongo-sanitize')
 const CalendarAPI = require('./calendar.js')
 const cors = require('cors')
+const Validator = require('validator')
+const isEmpty = require('is-empty')
 
 const app = express()
 const router = express.Router()
@@ -47,27 +49,132 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/../client/build/index.html'));
 })
 
-router.post('/register', (req, res) => {
-    const { name, email, password } = sanitize(req.body)
-    const user = new User({ name, email, password })
-    user.save(function(err, user) {
-        const _id = new mongoose.Types.ObjectId(user._id) // same id as corresponding user
-        const stationName = ''
-        const stationId = -1
-        const bus = false
-        const metro = false
-        const train = false
-        const tram = false
-        const ship = false
-        const token = '-'
-        const userSettings = new UserSettings({ _id, stationName, stationId, bus, metro, train, tram, ship, token })
-        userSettings.save((err2) => {
-            console.log(err2)
+const checkUser = function(email) {
+    return new Promise(resolve => {
+        User.find({ email: email }, (err, docs) => {
+            if (docs.length) {
+                resolve(true)
+            } else {
+                resolve(false)
+            }
         })
+    })
+}
+
+const validateRegisterInput = function(data) {
+    let errors = {}
+    data.name = !isEmpty(data.name) ? data.name : ''
+    data.email = !isEmpty(data.email) ? data.email : ''
+    data.password = !isEmpty(data.password) ? data.password : ''
+    data.confirm_password = !isEmpty(data.confirm_password) ? data.confirm_password : ''
+
+    if (Validator.isEmpty(data.name))
+        errors.name = 'Name is required'
+
+    if (Validator.isEmpty(data.email))
+        errors.email = 'Email is required'
+    else if(!Validator.isEmail(data.email))
+        errors.email = 'Invalid email'
+
+    if (Validator.isEmpty(data.password))
+        errors.password = 'Password is required'
+
+    if (Validator.isEmpty(data.confirm_password))
+        errors.confirm_password = 'Confirm password is required'
+
+    if (!Validator.isLength(data.password, { min: 6 }))
+        errors.password = 'Password must be at least 6 characters'
+    if (!Validator.equals(data.password, data.confirm_password))
+        errors.confirm_password = 'Passwords must match'
+    return {
+        errors,
+        is_valid: isEmpty(errors)
+    }
+}
+
+router.post('/register', (req, res) => {
+    const { errors, is_valid } = validateRegisterInput(req.body)
+    if (!is_valid) {
+        return res.status(400).json(errors)
+    }
+    const { name, email, password } = sanitize(req.body)
+
+    checkUser(email)
+    .then(user_exists => {
+        if (user_exists) {
+            return res.status(400).json({ email: 'Email already exists' })
+        }
+        const user = new User({ name, email, password })
+        user.save(function(err, user) {
+            if (err) {
+                return res.status(500).send({ general: 'An error occured while registring, please try again.' })
+            } else {
+                const _id = new mongoose.Types.ObjectId(user._id) // same id as corresponding user
+                const stationName = ''
+                const stationId = -1
+                const bus = false
+                const metro = false
+                const train = false
+                const tram = false
+                const ship = false
+                const token = '-'
+                const userSettings = new UserSettings({ _id, stationName, stationId, bus, metro, train, tram, ship, token })
+                userSettings.save((err) => {
+                    if (err) {
+                        return res.status(500).send({ general: 'An error occured while registring, please try again.' })
+                    } else {
+                        return res.status(200)
+                    }
+                })
+            }
+        })
+    })
+})
+
+const validateLoginInput = function(data) {
+    let errors = {}
+    data.email = !isEmpty(data.email) ? data.email : ''
+    data.password = !isEmpty(data.password) ? data.password : ''
+
+    if (Validator.isEmpty(data.email))
+        errors.email = 'Email is required'
+    else if(!Validator.isEmail(data.email))
+        errors.email = 'Invalid email'
+
+    if (Validator.isEmpty(data.password))
+        errors.password = 'Password is required'
+
+    return {
+        errors,
+        is_valid: isEmpty(errors)
+    }
+}
+
+router.post('/authenticate', (req, res) => {
+    const { errors, is_valid } = validateLoginInput(req.body)
+    if (!is_valid) {
+        return res.status(400).json(errors)
+    }
+    const { email, password } = req.body
+    User.findOne( { email }, (err, user) => {
         if (err) {
-            res.status(500).send("An error occured while registring, please try again.")
+            return res.status(500).json({ general: 'Internal server error' })
+        } else if (!user) {
+            return res.status(401).json({ credentials: 'Incorrect credentials' })
         } else {
-            res.status(200).send("Welcome to Wake Me App!\n")
+            user.checkPassword(password, (err, correct) => {
+                if (err) {
+                    return res.status(500).json({ general: 'Internal server error' })
+                } else if (!correct) {
+                    return res.status(400).json({ general: 'Incorrect credentials' })
+                } else {
+                    const payload = { id: user.id, email: user.email }
+                    const token = jwt.sign(payload, process.env.SECRET, {
+                        expiresIn: 31556926 //1 year
+                    })
+                    return res.json({success: true, token: 'Bearer ' + token})
+                }
+            })
         }
     })
 })
@@ -289,33 +396,6 @@ router.get('/news', (req, res) => {
     }).then(body => {
         let data = JSON.parse(body)
         res.json(data)
-    })
-})
-
-router.post('/authenticate', (req, res) => {
-    const { errors, isValid, email, password } = req.body
-    User.findOne( { email }, (err, user) => {
-        if (err) {
-            console.log(error)
-            res.status(500).json('{ Internal server error }')
-        } else if (!user) {
-            res.status(401).json('{ Incorrect credentials }')
-        } else {
-            user.checkPassword(password, (err, correct) => {
-                if (err) {
-                    console.log(error)
-                    res.status(500).json('{ Internal server error }')
-                } else if (!correct) {
-                    res.status(401).json('{ Incorrent credentials }')
-                } else {
-                    const payload = { id: user.id, email: user.email }
-                    const token = jwt.sign(payload, process.env.SECRET, {
-                        expiresIn: 31556926 //1 year
-                    })
-                    res.json({success: true, token: 'Bearer ' + token})
-                }
-            })
-        }
     })
 })
 
