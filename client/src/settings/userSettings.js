@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import './userSettings.scss'
 import axios from 'axios'
 import PropTypes from 'prop-types'
@@ -8,6 +7,7 @@ import { logout } from '../actions/authActions'
 import BackgroundToggle from '../settings/backgroundToggle'
 import {Form, Button} from 'react-bootstrap'
 import Select from 'react-select'
+import Footer from '../staticComponents/footer'
 
 const mapStateToProps = state => ({
   auth: state.auth
@@ -126,6 +126,7 @@ class UserSettings extends Component {
   }
 
   render() {
+
     return (
       <div className="settings_wrapper">
         <div className="settings_form_wrapper">
@@ -155,6 +156,7 @@ class UserSettings extends Component {
           </div>
         </div>
         <Button className="logout_btn" variant="primary" type="submit" onClick={this.onLogout}>Logout</Button>
+        <Footer/>
       </div>
     )
   }
