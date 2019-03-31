@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import './calendar.scss'
-import Event from './event'
+import ListEvent from './listEvent'
 
 class Calendar extends Component {
     constructor(props) {
@@ -53,7 +53,7 @@ class Calendar extends Component {
     if (events !== 'No events found' && events !== null) {
       events.forEach(event => {
         const key = event.start + event.summary
-        event_table.push(<Event key={key} start={event.start} summary={event.summary}/>)
+        event_table.push(<ListEvent key={key} start={event.start} end={event.end} location={event.location} summary={event.summary}/>)
       })
     } else {
       event_table.push(<tr key={'no_events'}><td>You have no events today</td></tr>)
