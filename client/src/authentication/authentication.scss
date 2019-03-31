@@ -4,8 +4,7 @@ $title_color: rgba(250, 145, 127, 1);
 $accent_color: rgb(138, 210, 162);
 $light_grey: rgba(240,240,240,1);
 $dark_grey: rgb(100,100,100);
-$shadow_color: rgba(240,240,240,1);
-$glow: rgba(255,100,18,0.4);
+$glow: rgba(255,100,18, 0.4);
 
 .logo {
     width: 7.5em;
@@ -19,6 +18,8 @@ $glow: rgba(255,100,18,0.4);
     border-radius: 50%;
     animation: glowing 3500ms infinite;
 }
+
+
 
 .login_form_wrapper {
     border-radius: 5px;
@@ -83,11 +84,21 @@ button.btn.btn-primary {
     height: 20px;
 }
 
+img.logo_wrap {
+    display: block;
+}
+
 @keyframes glowing {
   50% {
-    box-shadow: inset 0 0 50px $glow,
-                0 0 80px $glow,
-                0 0 80px $glow,
+    -webkit-box-shadow: inset 2px 2px 2px 5px $glow,
+                0 0 20px $glow,
+                0 0 20px $glow;
+    -moz-box-shadow: inset 2px 2px 2px 5px $glow,
+                0 0 20px $glow,
+                0 0 20px $glow;
+    box-shadow: inset 2px 2px 2px 5px $glow,
+                0 0 20px $glow,
+                0 0 20px $glow;
     }
 }
 
