@@ -22,23 +22,33 @@ class Dashboard extends Component {
     if (this.props.location.pathname === '/cal')
       update = true
     return (
-      <div className='container'>
-      <div>
-        <div className='dashboard_wrapper'>
-          <div className='calendar'>
-            <Calendar key={1} update={update} history={this.props.history}/>
+      <div className="dashboard_wrapper">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="calendar">
+                <Calendar update={update} history={this.props.history}/>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="sl">
+                <SL/>
+              </div>
+            </div>
           </div>
-          <div className='sl'>
-            <SL key={2}/>
-          </div>
-          <div className='news_wrapper'>
-            <News key={3}/>
-          </div>
-          <div className='weather'>
-            <Weather key={4}/>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="news">
+                <News/>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="weather">
+                <Weather/>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     )
   }
