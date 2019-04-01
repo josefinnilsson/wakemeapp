@@ -10,7 +10,7 @@ class Calendar extends Component {
         this.state = {
             status: 'INIT',
             events: [],
-            authorized: false,
+            authorized: true,
         }
         this.handleRefresh = this.handleRefresh.bind(this)
         this.isAuth = this.isAuth.bind(this)
