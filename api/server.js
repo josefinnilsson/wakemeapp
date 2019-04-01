@@ -495,4 +495,14 @@ router.get('/calendar_callback', (req, res) => {
     })
 })
 
+router.get('/calendar_authenticated:email', (req, res) => {
+    CalendarAPI.isAuthorized(req.params.email)
+    .then(auth => {
+        res.json({ authorized: auth })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
 module.exports = router
