@@ -93,7 +93,6 @@ const CalendarAPI = {
                         const end = event.end.dateTime || event.end.date
                         const location = event.location || 'NO_LOCATION'
                         const link = event.htmlLink
-                        console.log(link)
                         const json = {start: start, end: end, location: location, summary: event.summary, link: link}
                         events_json.push(json)
                     })
