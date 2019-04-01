@@ -29,14 +29,19 @@ class NewsExtended extends Component {
   render() {
 
     return (
-      <div className='container news_extended_wrapper'>
-        <div>
-          <Link to='/'><button>Back to dashboard</button></Link>
-          <div className='news_extended'>
-            <h3>{this.state.title}</h3>
+      <div className='container'>
+          <div className="row">
+          <div className="col-md-3"></div>
+          <div className="col-md-6">
+          <div className="news_extended_wrapper">
+          <h3 className="news_title">{this.state.title}</h3>
+          <div className="news_extended">
             {this.state.description !== '' ? this.state.description : ''}
-            <br/><a href={this.state.url}>Läs mer</a>
+            <br/><a className="read_more" href={this.state.url}>Läs mer</a>
           </div>
+          </div>
+          </div>
+          <div className="col-md-3"></div>
         </div>
       </div>
     )
