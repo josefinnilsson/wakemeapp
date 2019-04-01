@@ -18,7 +18,6 @@ import { Provider } from 'react-redux'
 import store from './store'
 import Header from './staticComponents/header'
 import CalendarExtended from './calendar/calendarExtended'
-import WeatherExtended from './weather/weatherExtended'
 
 library.add(fas)
 
@@ -55,7 +54,6 @@ class App extends Component {
                 <Authenticated path="/departures" component={DeparturesExtended}/>
                 <Authenticated path="/userSettings" component={UserSettings}/>
                 <Authenticated exact path="/" component={Dashboard}/>
-                <Authenticated exact path="/weather" component={WeatherExtended}/>
               </Switch>
               <Route path='/privacy' component={PrivacyPolicy}/>
               <Route path='/news/:url' component={NewsExtended}/>
