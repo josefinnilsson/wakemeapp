@@ -6,7 +6,6 @@ import logo from '../assets/logo.svg'
 class Header extends Component {
   render() {
     let user_settings = false
-    console.log(window.location.pathname)
     if (window.location.pathname === '/userSettings')
         user_settings = true
 
