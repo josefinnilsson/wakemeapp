@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 import './App.scss'
 import UserSettings from './settings/userSettings'
 import Dashboard from './dashboard/dashboard'
@@ -16,6 +18,8 @@ import { Provider } from 'react-redux'
 import store from './store'
 import Header from './staticComponents/header'
 import CalendarExtended from './calendar/calendarExtended'
+
+library.add(fas)
 
 if (localStorage.jwt_token) {
   const token = localStorage.jwt_token
