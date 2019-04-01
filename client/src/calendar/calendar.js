@@ -10,7 +10,7 @@ class Calendar extends Component {
         this.state = {
             status: 'INIT',
             events: [],
-            authorized: false,
+            authorized: true,
         }
         this.handleRefresh = this.handleRefresh.bind(this)
         this.isAuth = this.isAuth.bind(this)
@@ -102,7 +102,7 @@ class Calendar extends Component {
       return (
         <div className="not_authenticated_wrapper">
           <div className="not_authenticated">
-            <h6>You haven't authenticated your calendar.</h6>
+            <h6>You haven't authenticated your calendar</h6>
             <Button onClick={this.handleRefresh}>Authenticate</Button>
           </div>
         </div>

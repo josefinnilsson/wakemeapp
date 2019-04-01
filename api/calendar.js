@@ -116,7 +116,6 @@ const CalendarAPI = {
     isAuthorized: function(email) {
         setEmail(email)
         return new Promise(resolve => {
-            console.log('hejhopp')
             UserToken.getToken()
             .then(token => {
                 if (token === '-') {
