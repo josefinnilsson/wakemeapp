@@ -45,6 +45,7 @@ class App extends Component {
               <Route exact path="/login" component={Login}/>
               <Route exact path="/register" component={Register}/>
               <Switch>
+                <Authenticated exact path="/cal" component={Dashboard}/>
                 <Authenticated exact path='/calendar' component={CalendarExtended}/>
                 <Authenticated path="/departures" component={DeparturesExtended}/>
                 <Authenticated path="/userSettings" component={UserSettings}/>
