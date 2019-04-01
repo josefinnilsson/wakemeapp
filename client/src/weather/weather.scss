@@ -1,0 +1,42 @@
+$box_background: rgba(254, 180, 116, 0.1);
+$shadow_color: rgba(250, 180, 116, 0.15);
+$dark_grey: rgb(100,100,100);
+
+.weather_wrapper {
+  width: 33%;
+    border-radius: 5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent;
+    margin: 0 auto;
+    margin-top: 1%;
+    padding-top: 1%;
+    background-color: $box_background;
+    -webkit-box-shadow: 0px 0px 14px -2px $shadow_color;
+    -moz-box-shadow: 0px 0px 14px -2px $shadow_color;
+    box-shadow: 0px 0px 14px -2px $shadow_color;
+}
+
+img.weather_icon {
+    height: 25px;
+    width: 25px;
+    margin-right: 2%;
+}
+
+canvas {
+    margin-right: 2%;
+}
+
+.weather_row {
+    display: flex;
+    align-items: bottom;
+    padding-bottom: 2%;
+}
+
+h6.weather_title {
+    margin: 0;
+}
+
+h3.weather_title {
+    color: $dark_grey;
+}

@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import './weather.scss'
 import { Link } from 'react-router-dom'
+import Moment from 'react-moment'
+import sunrise_icon from '../assets/sunrise.png'
+import sunset_icon from '../assets/sunset.png'
+import ReactAnimatedWeather from 'react-animated-weather'
 
 class Weather extends Component {
   constructor(props) {
@@ -53,35 +57,54 @@ class Weather extends Component {
       })
   }
 
+  parseDescription(description) {
+    return description.charAt(0).toUpperCase() + description.slice(1)
+  }
+
   render() {
     const RefreshWeather = () => {
       return (<button id='refresh_weather' onClick={this.handleRefresh}>Refresh weather</button>)
     }
-    let weather = ''
-    if (localStorage.getItem('has_weather_details'))
-      weather = JSON.parse(localStorage.getItem('weather'))
-    let city = ''
-    if (localStorage.getItem('current_location') !== '')
-      city = localStorage.getItem('current_location')
-    // temp check for when data doesn't exist
-    if (weather === '' || weather === null)
-      return (<div><RefreshWeather/></div>)
-    return (
-      <div>
-        <RefreshWeather/>
+    let weather = localStorage.getItem('weather')
+    const location = localStorage.getItem('current_location')
+    if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
+      weather = JSON.parse(weather)
+      console.log(weather.icon)
+      return (
         <div>
-        <Link to={'/weather'} style={{textDecoration: 'none', color: 'black'}}>
-          {/*
-            How to get weather icons when they exist
-            <img src={weather.icon} alt='weather icon' height='25' width='25'></img>
-          */}
-          <p>{city + ': ' }</p>
-          <p>{weather.description}</p>
-          <p>{weather.temp + ' \u00b0C'}</p>
-          </Link>
+          <RefreshWeather/>
+          <div>
+            <div className="weather_row">
+              <h5>{location}</h5>
+            </div>
+            <div className="weather_row">
+              <h3 className="weather_title">{weather.temp + " \u00b0"}C</h3>
+            </div>
+            <div className="weather_row">
+              <ReactAnimatedWeather
+                icon={'CLEAR_DAY'}
+                color={'#646464'}
+                size={25}
+                animate={true}
+              />
+              <h6 className="weather_title">{this.parseDescription(weather.description)}</h6>
+            </div>
+            <div className="weather_row">
+              <img src={sunrise_icon} alt="" className="weather_icon"/>
+              <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunrise}</Moment></h6>
+            </div>
+            <div className="weather_row">
+              <img src={sunset_icon} alt="" className="weather_icon"/>
+              <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunset}</Moment></h6>
+            </div>
+          </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <RefreshWeather/>
+      )
+    }
   }
 }
 
