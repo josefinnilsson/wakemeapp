@@ -101,7 +101,7 @@ class Weather extends Component {
       const icon = this.getIcon(weather.icon)
       return (
         <div>
-          <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
+          <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
           <div>
             <div className="weather_row">
               <h5>{location}</h5>

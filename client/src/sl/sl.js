@@ -83,7 +83,7 @@ class SL extends Component {
     } else {
       return (
       <div>
-        <FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
+        <FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
         <Link to={'/departures'} style={{textDecoration: 'none', color: 'black'}}>
           <table>
             <tbody>
