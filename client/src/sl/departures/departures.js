@@ -8,19 +8,19 @@ class Departures extends Component {
     // Later on we will use icons for each transport mode
     switch(this.props.transport) {
               case 'BUS':
-                transport = <FontAwesomeIcon icon='bus'/>
+                transport = <FontAwesomeIcon className="transportation" icon='bus'/>
                 break
               case 'METRO':
-                transport = <FontAwesomeIcon icon='subway'/>
+                transport = <FontAwesomeIcon className="transportation" icon='subway'/>
                 break
               case 'TRAIN':
-                transport = <FontAwesomeIcon icon='train'/>
+                transport = <FontAwesomeIcon className="transportation" icon='train'/>
                 break
               case 'TRAM':
-                transport = <FontAwesomeIcon icon='tram'/>
+                transport = <FontAwesomeIcon className="transportation" icon='tram'/>
                 break
               case 'SHIP':
-                transport = <FontAwesomeIcon icon='ship'/>
+                transport = <FontAwesomeIcon className="transportation" icon='ship'/>
                 break
               default:
                 transport = ''
