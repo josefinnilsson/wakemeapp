@@ -12,6 +12,10 @@ class News extends Component {
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 
+  componentDidMount() {
+      this.handleRefresh()
+  }
+
   handleRefresh() {
     fetch('/news')
       .then(response => {
