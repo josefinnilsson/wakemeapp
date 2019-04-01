@@ -13,8 +13,8 @@ class ListEvent extends Component {
     return (
       <tr>
         <td>{this.props.summary}</td>
-        <td>{this.formatTime(this.props.start)}</td>
-        <td>{this.formatTime(this.props.end)}</td>
+        <td>{this.props.start !== undefined && this.formatTime(this.props.start)}</td>
+        <td>{this.props.end !== undefined && this.formatTime(this.props.end)}</td>
       </tr>
     )
   }

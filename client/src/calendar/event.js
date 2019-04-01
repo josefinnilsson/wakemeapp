@@ -26,7 +26,7 @@ class Event extends Component {
     return (
       <div className="event_item_wrapper">
         <h3 className="event_title">{this.props.summary}</h3>
-        <h6 className="event_time">{this.formatTime(this.props.start)} - {this.formatTime(this.props.end)}</h6>
+        <h6 className="event_time">{this.props.start !== undefined && this.formatTime(this.props.start)} - {this.props.start !== undefined && this.formatTime(this.props.end)}</h6>
         <h6 className="event_location">{this.props.location !== 'NO_LOCATION' && this.formatLocation(this.props.location)}</h6>
       </div>
     )
