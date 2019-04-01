@@ -19,3 +19,26 @@ $shadow_color: rgba(250, 180, 116, 0.15);
 h3.event_title {
     text-align: center;
 }
+
+.calenadar_extended_wrapper {
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+h2.calendar_extended_title {
+    padding-bottom: 1%;
+}
+
+p.address {
+    margin: 0;
+    text-align: left;
+}
+
+.event_location {
+   text-align: left;
+   display: inline-block;
+}
+
+.event_item_wrapper {
+    text-align: center;
+}

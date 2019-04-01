@@ -9,7 +9,6 @@ class CalendarExtended extends Component {
     if (events !== 'No events found' && events !== null) {
       events = JSON.parse(events)
       events.forEach(event => {
-        console.log(event)
         const key = event.start + event.summary
         event_components.push(
           <div className="event_wrapper">
@@ -23,8 +22,8 @@ class CalendarExtended extends Component {
       event_components.push(<h3>You have no events today</h3>)
     }
     return (
-      <div>
-        <h2>Today's Events</h2>
+      <div className="calenadar_extended_wrapper">
+        <h2 className="calendar_extended_title">Today's Events</h2>
         {event_components}
       </div>
     )
