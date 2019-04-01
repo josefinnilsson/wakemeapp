@@ -11,6 +11,8 @@ import rainy_icon from '../assets/rainy.svg'
 import snowy_icon from '../assets/snowy.svg'
 import sunny_icon from '../assets/sunny.svg'
 import thunder_icon from '../assets/thunder.svg'
+import bright_night_icon from '../assets/bright_night.svg'
+import cloudy_night_icon from '../assets/cloudy_night.svg'
 
 class Weather extends Component {
   constructor(props) {
@@ -71,9 +73,20 @@ class Weather extends Component {
     return description.charAt(0).toUpperCase() + description.slice(1)
   }
 
-  getIcon(icon) {
+  isNight(sunset_unix) {
+    const date = new Date()
+    const sunset = new Date(sunset_unix*1000)
+    if (date.getHours() === sunset.getHours())
+      return date.getMinutes() > sunset.getMinutes() ? true : false
+    else
+      return date.getHours() > sunset.getHours() ? true : false
+  }
+
+  getIcon(icon, sunset) {
     switch(icon) {
       case 'CLOUD':
+        if (this.isNight(sunset))
+          return <img src={cloudy_night_icon} alt="" className="weather_icon"/>
         return <img src={cloudy_icon} alt="" className="weather_icon"/>
       case 'DRIZZLE':
         return <img src={drizzle_icon} alt="" className="weather_icon"/>
@@ -82,6 +95,8 @@ class Weather extends Component {
       case 'SNOW':
         return <img src={snowy_icon} alt="" className="weather_icon"/>
       case 'SUN':
+        if (this.isNight(sunset))
+          return <img src={bright_night_icon} alt="" className="weather_icon"/>
         return <img src={sunny_icon} alt="" className="sunny_icon"/>
       case 'THUNDER':
         return <img src={thunder_icon} alt="" className="weather_icon"/>
@@ -98,7 +113,7 @@ class Weather extends Component {
     const location = localStorage.getItem('current_location')
     if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
       weather = JSON.parse(weather)
-      const icon = this.getIcon(weather.icon)
+      const icon = this.getIcon(weather.icon, weather.sunset)
       return (
         <div>
           <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
