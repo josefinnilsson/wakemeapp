@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './weather.scss'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Moment from 'react-moment'
 import sunrise_icon from '../assets/sunrise.png'
 import sunset_icon from '../assets/sunset.png'
@@ -17,7 +18,8 @@ class Weather extends Component {
     this.state = {
       status: 'INIT',
       latitude: 0,
-      longitude: 0
+      longitude: 0,
+      rotate: false
     }
     this.handleRefresh = this.handleRefresh.bind(this)
   }
@@ -35,6 +37,9 @@ class Weather extends Component {
   }
 
   handleRefresh() {
+    this.setState({
+      rotate: true
+    })
     let lat = this.state.latitude
     let long = this.state.longitude
 
@@ -96,7 +101,7 @@ class Weather extends Component {
       const icon = this.getIcon(weather.icon)
       return (
         <div>
-          <RefreshWeather/>
+          <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
           <div>
             <div className="weather_row">
               <h5>{location}</h5>
