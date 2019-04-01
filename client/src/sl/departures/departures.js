@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../sl.scss';
 
 class Departures extends Component {
@@ -7,27 +8,26 @@ class Departures extends Component {
     // Later on we will use icons for each transport mode
     switch(this.props.transport) {
               case 'BUS':
-                transport = 'B'
+                transport = <FontAwesomeIcon icon='bus'/>
                 break
               case 'METRO':
-                transport = 'M'
+                transport = <FontAwesomeIcon icon='subway'/>
                 break
               case 'TRAIN':
-                transport = 'T1'
+                transport = <FontAwesomeIcon icon='train'/>
                 break
               case 'TRAM':
-                transport = 'T2'
+                transport = <FontAwesomeIcon icon='tram'/>
                 break
               case 'SHIP':
-                transport = 'S'
+                transport = <FontAwesomeIcon icon='ship'/>
                 break
               default:
                 transport = ''
             }
     return (
       <tr>
-        <td>{transport}</td>
-        <td>{this.props.line}</td>
+        <td>{transport} {this.props.line}</td>
         <td>{this.props.destination}</td>
         <td>{this.props.exp_time}</td>
       </tr>
