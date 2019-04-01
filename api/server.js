@@ -391,7 +391,7 @@ router.get('/weather/:latitude/:longitude', (req, res, next) => {
         const data = JSON.parse(body)
         const description = data.weather[0].description
         const temp = data.main.temp
-        const preassure = data.main.preassure
+        const pressure = data.main.pressure
         const humidity = data.main.humidity
         const clouds = data.clouds.all
         const sunrise = data.sys.sunrise
@@ -420,7 +420,7 @@ router.get('/weather/:latitude/:longitude', (req, res, next) => {
         res.json({
             description: description,
             temp: temp,
-            preassure: preassure,
+            pressure: pressure,
             humidity: humidity,
             clouds: clouds,
             sunrise: sunrise,
