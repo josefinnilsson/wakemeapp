@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import {isMobile} from 'react-device-detect'
+import { isMobileOnly } from 'react-device-detect'
 import '../sl.scss'
 import Departures from './departures'
 
@@ -72,10 +72,9 @@ class DeparturesExtended extends Component {
             </div>) : ''}
           </div>)
     }
-    console.log(isMobile)
     return (
       <div className='container'>
-       {isMobile ? <MobileView/> : <DesktopView/>}
+       {isMobileOnly ? <MobileView/> : <DesktopView/>}
       </div>
     )
   }
