@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './calendar.scss'
 import ListEvent from './listEvent'
 import {Button} from 'react-bootstrap'
@@ -11,6 +12,7 @@ class Calendar extends Component {
             status: 'INIT',
             events: [],
             authorized: true,
+            rotate: false
         }
         this.handleRefresh = this.handleRefresh.bind(this)
         this.isAuth = this.isAuth.bind(this)
@@ -21,6 +23,9 @@ class Calendar extends Component {
     }
 
     handleRefresh() {
+      this.setState({
+        rotate: true
+      })
       fetch('/calendar/' + localStorage.getItem('email'))
       .then(response => {
         return response.json()
@@ -88,7 +93,7 @@ class Calendar extends Component {
     if (auth) {
       return (
         <div>
-          <RefreshCalendar/>
+          <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
           <Link to={'/calendar'} style={{textDecoration: 'none', color: 'black'}}>
             <table>
               <tbody>
