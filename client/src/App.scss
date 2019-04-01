@@ -41,6 +41,13 @@ h4 {
   color: $accent_color_dark;
 }
 
+h5  {
+  font-size: 1.5em !important;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  color: $dark_grey;
+}
+
 h6, label {
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
@@ -82,6 +89,11 @@ input[type="search"]:focus
   border-color: $accent_color;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px $accent_color;
   outline: 0 none;
+}
+
+.extended_component_wrapper {
+  padding-top: 2%;
+  padding-bottom: 2%;
 }
 
 @media (max-width: 480px) {
