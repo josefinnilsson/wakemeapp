@@ -65,7 +65,6 @@ class Weather extends Component {
     // temp check for when data doesn't exist
     if (weather === '' || weather === null)
       return (<div><RefreshWeather/></div>)
-
     return (
       <div>
         <RefreshWeather/>
@@ -75,8 +74,8 @@ class Weather extends Component {
             <img src={weather.icon} alt='weather icon' height='25' width='25'></img>
           */}
           <p>{city + ': ' }</p>
-          <p>{weather.weather[0].description}</p>
-          <p>{weather.main.temp + ' \u00b0C'}</p>
+          <p>{weather.description}</p>
+          <p>{weather.temp + ' \u00b0C'}</p>
         </div>
       </div>
     )

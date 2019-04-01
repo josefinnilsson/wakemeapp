@@ -388,28 +388,45 @@ router.get('/weather/:latitude/:longitude', (req, res, next) => {
             resolve(body)
         })
     }).then(body => {
-        let data = JSON.parse(body)
-        let id = data.weather[0].id.toString()
-        let first_char = id.charAt(0)
+        const data = JSON.parse(body)
+        const description = data.weather[0].description
+        const temp = data.main.temp
+        const preassure = data.main.preassure
+        const humidity = data.main.humidity
+        const clouds = data.clouds.all
+        const sunrise = data.sys.sunrise
+        const sunset = data.sys.sunset
 
+        const id = data.weather[0].id.toString()
+        const first_char = id.charAt(0)
+        let icon = ''
         // add icons for each type of weather here
         if (first_char === '2') {
-            data.icon = 'path to thunder icon'
+            icon = 'path to thunder icon'
         } else if (first_char === '3') {
-            data.icon = 'path to drizzle icon'
+            icon = 'path to drizzle icon'
         } else if (first_char === '5') {
-            data.icon = 'path to rain icon'
+            icon = 'path to rain icon'
         } else if (first_char === '6') {
-            data.icon = 'path to snow icon'
+            icon = 'path to snow icon'
         } else if (first_char === '8') {
             let third_char = id.charAt(2)
             if (third_char === '0') {
-                data.icon = 'path to sun icon'
+                icon = 'path to sun icon'
             } else {
-                data.icon = 'path to cloud icon'
+                icon = 'path to cloud icon'
             }
         }
-        res.json(data)
+        res.json({
+            description: description,
+            temp: temp,
+            preassure: preassure,
+            humidity: humidity,
+            clouds: clouds,
+            sunrise: sunrise,
+            sunset: sunset,
+            icon: icon
+        })
     }).catch(error => {
         console.log(error)
     })
