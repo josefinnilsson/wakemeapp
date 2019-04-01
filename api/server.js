@@ -123,7 +123,7 @@ router.post('/register', (req, res) => {
                     if (err) {
                         return res.status(500).send({ general: 'An error occured while registring, please try again.' })
                     } else {
-                        return res.status(200)
+                        res.status(200).send("Welcome to Wake Me App!\n")
                     }
                 })
             }
