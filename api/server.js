@@ -400,21 +400,20 @@ router.get('/weather/:latitude/:longitude', (req, res, next) => {
         const id = data.weather[0].id.toString()
         const first_char = id.charAt(0)
         let icon = ''
-        // add icons for each type of weather here
         if (first_char === '2') {
-            icon = 'path to thunder icon'
+            icon = 'THUNDER'
         } else if (first_char === '3') {
-            icon = 'path to drizzle icon'
+            icon = 'DRIZZLE'
         } else if (first_char === '5') {
-            icon = 'path to rain icon'
+            icon = 'RAIN'
         } else if (first_char === '6') {
-            icon = 'path to snow icon'
+            icon = 'SNOW'
         } else if (first_char === '8') {
             let third_char = id.charAt(2)
             if (third_char === '0') {
-                icon = 'path to sun icon'
+                icon = 'SUN'
             } else {
-                icon = 'path to cloud icon'
+                icon = 'CLOUD'
             }
         }
         res.json({
