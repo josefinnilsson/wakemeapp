@@ -6,8 +6,7 @@ class CalendarExtended extends Component {
   render() {
     let events = localStorage.getItem('calendar_events')
     let event_components = []
-    if (events !== 'No events found' && events !== null) {
-      events = JSON.parse(events)
+    if (localStorage.getItem('has_events') === true && events !== null) {
       events.forEach(event => {
         const key = event.start + event.summary
         event_components.push(
@@ -19,7 +18,7 @@ class CalendarExtended extends Component {
         )
       })
     } else {
-      event_components.push(<h3>You have no events today</h3>)
+      event_components.push(<h3 className="event_title">You have no events today</h3>)
     }
     return (
       <div className="calenadar_extended_wrapper">

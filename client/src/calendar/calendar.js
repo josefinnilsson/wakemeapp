@@ -23,7 +23,11 @@ class Calendar extends Component {
           window.location = data.url
         } else {
           localStorage.setItem('calendar_events', JSON.stringify(data.events))
-          localStorage.setItem('has_events', true)
+          if (data.events === 'No events found') {
+            localStorage.setItem('has_events', false)
+          } else {
+            localStorage.setItem('has_events', true)
+          }
           if (this.state.status === 'INIT')
             this.props.history.push('/')
           this.setState({
