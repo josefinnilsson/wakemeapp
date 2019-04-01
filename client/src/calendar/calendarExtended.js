@@ -22,7 +22,7 @@ class CalendarExtended extends Component {
       event_components.push(<h3 className="event_title" key="no_events">You have no events today</h3>)
     }
     return (
-      <div className="calenadar_extended_wrapper">
+      <div className="extended_component_wrapper">
         <h2 className="calendar_extended_title">Today's Events</h2>
         {event_components}
       </div>
