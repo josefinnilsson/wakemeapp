@@ -84,6 +84,25 @@ input[type="search"]:focus
   outline: 0 none;
 }
 
+.refresh {
+  float: right;
+}
+
+.refresh_clicked {
+  animation: rotate 500ms infinite;
+  animation-iteration-count: 1;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 480px) {
     h1 {
         font-size: 3.5em;
