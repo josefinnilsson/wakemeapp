@@ -112,6 +112,23 @@ const CalendarAPI = {
         .catch(err => {
             console.log(err)
         })
+    },
+    isAuthorized: function(email) {
+        setEmail(email)
+        return new Promise(resolve => {
+            console.log('hejhopp')
+            UserToken.getToken()
+            .then(token => {
+                if (token === '-') {
+                    resolve('NOT_AUTHORIZED')
+                } else {
+                    resolve('AUTHORIZED')
+                }
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
 }
 
