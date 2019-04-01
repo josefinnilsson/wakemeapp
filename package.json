@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-dev": "concurrently \"cd client && PORT=3000 npm start\" \"cd api && PORT=3001 npm start\"",
+    "start-dev": "NODE_ENV=development concurrently \"cd client && PORT=3000 npm start\" \"cd api && PORT=3001 npm start\"",
     "start": "(cd api && node server.js)",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
