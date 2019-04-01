@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import './weather.scss';
+import React, { Component } from 'react'
+import './weather.scss'
+import { Link } from 'react-router-dom'
 
 class Weather extends Component {
   constructor(props) {
@@ -69,6 +70,7 @@ class Weather extends Component {
       <div>
         <RefreshWeather/>
         <div>
+        <Link to={'/weather'} style={{textDecoration: 'none', color: 'black'}}>
           {/*
             How to get weather icons when they exist
             <img src={weather.icon} alt='weather icon' height='25' width='25'></img>
@@ -76,6 +78,7 @@ class Weather extends Component {
           <p>{city + ': ' }</p>
           <p>{weather.description}</p>
           <p>{weather.temp + ' \u00b0C'}</p>
+          </Link>
         </div>
       </div>
     )
