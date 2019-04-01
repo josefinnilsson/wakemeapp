@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './news.scss';
 
 class News extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      news: ''
+      news: '',
+      rotate: false
     }
 
     this.handleRefresh = this.handleRefresh.bind(this)
@@ -17,6 +19,9 @@ class News extends Component {
   }
 
   handleRefresh() {
+    this.setState({
+      rotate: true
+    })
     fetch('/news')
       .then(response => {
         return response.json()
@@ -30,10 +35,6 @@ class News extends Component {
   }
 
   render() {
-    const RefreshNews = () => {
-      return (<button id='refresh_news' onClick={this.handleRefresh}>Refresh news</button>)
-    }
-
     let news = []
     let news_div = []
     if (localStorage.getItem('news') !== null) {
@@ -41,15 +42,15 @@ class News extends Component {
       if (typeof news !== 'undefined') {
         for (let i = 0; i < news.length; i++) {
           let link = '/news/' + news[i].url.split('.se/')[1]
-          news_div.push(<Link key={news[i].url} to={link}><p>{news[i].title}</p></Link>)
+          news_div.push(<Link key={news[i].url} to={link}><p className="news_desc"><FontAwesomeIcon className="news_arrow" icon="chevron-right"/> {news[i].title}</p></Link>)
         }
       }
     }
 
     return (
       <div>
-        <RefreshNews/>
-        <div className="news">
+        <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
+        <div className="news_wrapper">
           {news_div}
         </div>
       </div>
