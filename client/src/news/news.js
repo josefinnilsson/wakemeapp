@@ -42,7 +42,7 @@ class News extends Component {
       if (typeof news !== 'undefined') {
         for (let i = 0; i < news.length; i++) {
           let link = '/news/' + news[i].url.split('.se/')[1]
-          news_div.push(<Link key={news[i].url} to={link}><p className="news_desc"><FontAwesomeIcon icon="chevron-right"/> {news[i].title}</p></Link>)
+          news_div.push(<Link key={news[i].url} to={link}><p className="news_desc"><FontAwesomeIcon className="news_arrow" icon="chevron-right"/> {news[i].title}</p></Link>)
         }
       }
     }
