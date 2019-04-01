@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="30"><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none"/>
+    <defs>
+        <filter id="blur" width="200%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+            <feOffset dx="0" dy="4" result="offsetblur"/>
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.05"/>
+            </feComponentTransfer>
+            <feMerge> 
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/> 
+            </feMerge>
+        </filter>
+    </defs>
+    
+<g class="currentLayer" style=""><title>Layer 1</title><g filter="url(#blur)" id="day" class="">
+        <g id="svg_1">
+            <g class="am-weather-sun am-weather-sun-shiny am-weather-easing-ease-in-out" id="svg_2">
+                <g id="svg_3">
+                    <line fill="none" stroke="orange" stroke-linecap="round" stroke-width="2" x1="14.877697944641113" x2="14.877697944641113" y1="23.877697944641113" y2="26.877697944641113" id="svg_4"/>
+                </g>
+                <g transform="rotate(45 14.877697944641112,14.877697944641113) " id="svg_5">
+                    <line fill="none" stroke="orange" stroke-linecap="round" stroke-width="2" x1="14.877697944641113" x2="14.877697944641113" y1="23.877697944641113" y2="26.877697944641113" id="svg_6"/>
+                </g>
+                <g transform="rotate(90 14.877697944641113,14.877697944641115) " id="svg_7">
+                    <line fill="none" stroke="orange" stroke-linecap="round" stroke-width="2" x1="14.877697944641113" x2="14.877697944641113" y1="23.877697944641113" y2="26.877697944641113" id="svg_8"/>
+                </g>
+                <g transform="rotate(135 14.877697944641113,14.877697944641113) " id="svg_9">
+                    <line fill="none" stroke="orange" stroke-linecap="round" stroke-width="2" x1="14.877697944641113" x2="14.877697944641113" y1="23.877697944641113" y2="26.877697944641113" id="svg_10"/>
+                </g>
+                <g transform="rotate(180 14.877697944641112,14.877697944641115) " id="svg_11">
+                    <line fill="none" stroke="orange" stroke-linecap="round" stroke-width="2" x1="14.877697944641113" x2="14.877697944641113" y1="23.877697944641113" y2="26.877697944641113" id="svg_12"/>
+                </g>
+                <g transform="rotate(225 14.877697944641112,14.877697944641112) " id="svg_13">
+                    <line fill="none" stroke="orange" stroke-linecap="round" stroke-width="2" x1="14.877697944641113" x2="14.877697944641113" y1="23.877697944641113" y2="26.877697944641113" id="svg_14"/>
+                </g>
+                <g transform="rotate(270 14.877697944641113,14.877697944641113) " id="svg_15">
+                    <line fill="none" stroke="orange" stroke-linecap="round" stroke-width="2" x1="14.877697944641113" x2="14.877697944641113" y1="23.877697944641113" y2="26.877697944641113" id="svg_16"/>
+                </g>
+                <g transform="rotate(315 14.877697944641112,14.877697944641115) " id="svg_17">
+                    <line fill="none" stroke="orange" stroke-linecap="round" stroke-width="2" x1="14.877697944641113" x2="14.877697944641113" y1="23.877697944641113" y2="26.877697944641113" id="svg_18"/>
+                </g>
+            </g>
+            <circle cx="14.877697944641113" cy="14.877697944641113" fill="orange" r="5" stroke="orange" stroke-width="2" id="svg_19"/>
+        </g>
+    </g></g></svg>

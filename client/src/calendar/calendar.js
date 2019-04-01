@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import './calendar.scss'
 import ListEvent from './listEvent'
+import {Button} from 'react-bootstrap'
 
 class Calendar extends Component {
     constructor(props) {
@@ -9,8 +10,14 @@ class Calendar extends Component {
         this.state = {
             status: 'INIT',
             events: [],
+            authorized: true,
         }
         this.handleRefresh = this.handleRefresh.bind(this)
+        this.isAuth = this.isAuth.bind(this)
+    }
+
+    componentDidMount() {
+      this.isAuth()
     }
 
     handleRefresh() {
@@ -34,6 +41,20 @@ class Calendar extends Component {
             status: 'LOADED',
             events: data
           })
+        }
+      })
+    }
+
+    isAuth() {
+      fetch('/calendar_authenticated' + localStorage.getItem('email'))
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        if (data.authorized === 'NOT_AUTHORIZED') {
+          this.setState({ authorized: false })
+        } else {
+          this.setState({ authorized: true })
         }
       })
     }
@@ -63,18 +84,30 @@ class Calendar extends Component {
       event_table.push(<tr key={'no_events'}><td>You have no events today</td></tr>)
     }
 
-    return (
-      <div>
-        <RefreshCalendar/>
-        <Link to={'/calendar'} style={{textDecoration: 'none', color: 'black'}}>
-          <table>
-            <tbody>
-              {event_table}
-            </tbody>
-          </table>
-        </Link>
-      </div>
-    )
+    const auth = this.state.authorized
+    if (auth) {
+      return (
+        <div>
+          <RefreshCalendar/>
+          <Link to={'/calendar'} style={{textDecoration: 'none', color: 'black'}}>
+            <table>
+              <tbody>
+                {event_table}
+              </tbody>
+            </table>
+          </Link>
+        </div>
+      )
+    } else {
+      return (
+        <div className="not_authenticated_wrapper">
+          <div className="not_authenticated">
+            <h6>You haven't authenticated your calendar</h6>
+            <Button onClick={this.handleRefresh}>Authenticate</Button>
+          </div>
+        </div>
+      )
+    }
   }
 }
 

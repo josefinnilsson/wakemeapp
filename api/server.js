@@ -388,28 +388,44 @@ router.get('/weather/:latitude/:longitude', (req, res, next) => {
             resolve(body)
         })
     }).then(body => {
-        let data = JSON.parse(body)
-        let id = data.weather[0].id.toString()
-        let first_char = id.charAt(0)
+        const data = JSON.parse(body)
+        const description = data.weather[0].description
+        const temp = data.main.temp
+        const pressure = data.main.pressure
+        const humidity = data.main.humidity
+        const clouds = data.clouds.all
+        const sunrise = data.sys.sunrise
+        const sunset = data.sys.sunset
 
-        // add icons for each type of weather here
+        const id = data.weather[0].id.toString()
+        const first_char = id.charAt(0)
+        let icon = ''
         if (first_char === '2') {
-            data.icon = 'path to thunder icon'
+            icon = 'THUNDER'
         } else if (first_char === '3') {
-            data.icon = 'path to drizzle icon'
+            icon = 'DRIZZLE'
         } else if (first_char === '5') {
-            data.icon = 'path to rain icon'
+            icon = 'RAIN'
         } else if (first_char === '6') {
-            data.icon = 'path to snow icon'
+            icon = 'SNOW'
         } else if (first_char === '8') {
             let third_char = id.charAt(2)
             if (third_char === '0') {
-                data.icon = 'path to sun icon'
+                icon = 'SUN'
             } else {
-                data.icon = 'path to cloud icon'
+                icon = 'CLOUD'
             }
         }
-        res.json(data)
+        res.json({
+            description: description,
+            temp: temp,
+            pressure: pressure,
+            humidity: humidity,
+            clouds: clouds,
+            sunrise: sunrise,
+            sunset: sunset,
+            icon: icon
+        })
     }).catch(error => {
         console.log(error)
     })
@@ -489,6 +505,16 @@ router.get('/calendar_callback', (req, res) => {
     CalendarAPI.createToken(code, req)
     .then(() => {
         res.redirect(host)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+router.get('/calendar_authenticated:email', (req, res) => {
+    CalendarAPI.isAuthorized(req.params.email)
+    .then(auth => {
+        res.json({ authorized: auth })
     })
     .catch(err => {
         console.log(err)

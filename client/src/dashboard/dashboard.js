@@ -32,7 +32,7 @@ class Dashboard extends Component {
             </div>
             <div className="col-md-6">
               <div className="sl">
-                <SL/>
+                <SL history={this.props.history}/>
               </div>
             </div>
           </div>

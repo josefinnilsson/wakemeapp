@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './sl.scss'
 import Departures from './departures/departures'
+import {Button} from 'react-bootstrap'
+
 
 class SL extends Component {
   constructor(props) {
@@ -63,19 +65,34 @@ class SL extends Component {
       departures.push(<Departures key={departure.JourneyNumber + i} transport={departure.TransportMode} line={departure.LineNumber}
         destination={departure.Destination} exp_time={departure.DisplayTime}/>)
     }
-    return (
+
+    if (localStorage.getItem('user_station_id') === '-1') {
+      return (<div className="not_authenticated_wrapper">
+              <div className="not_authenticated">
+                <h6>Update your user settings</h6>
+                <Button onClick={() => {this.props.history.push('/userSettings')}}>Settings</Button>
+              </div>
+            </div>)
+    } else if (departures.length <= 0) {
+      return(<div className="not_authenticated_wrapper">
+              <div className="not_authenticated">
+                <h6>No departures the coming 30 minutes</h6>
+                <Button onClick={this.handleRefresh}>Refresh</Button>
+              </div>
+            </div>)
+    } else {
+      return (
       <div>
-        <FontAwesomeIcon className={this.state.rotate ? 'refresh_departures refresh_departures_clicked' : 'refresh_departures'} icon='redo' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
+        <FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
         <Link to={'/departures'} style={{textDecoration: 'none', color: 'black'}}>
-        {localStorage.getItem('user_station_id') === '-1' ? (<p>Update your user settings</p>) : (departures.length <= 0 ? (<p>No departures the coming 30 minutes</p>) : '')}
           <table>
             <tbody>
               {departures.slice(0, 10)}
             </tbody>
           </table>
         </Link>
-      </div>
-    )
+      </div>)
+    }
   }
 }
 

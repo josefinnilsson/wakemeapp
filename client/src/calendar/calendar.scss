@@ -20,11 +20,6 @@ h3.event_title {
     text-align: center;
 }
 
-.calenadar_extended_wrapper {
-    padding-top: 2%;
-    padding-bottom: 2%;
-}
-
 h2.calendar_extended_title {
     padding-bottom: 1%;
 }
@@ -41,4 +36,11 @@ p.address {
 
 .event_item_wrapper {
     text-align: center;
+}
+
+.not_authenticated_wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

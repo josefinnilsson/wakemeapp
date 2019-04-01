@@ -41,25 +41,6 @@ td {
   background-color: $accent_color_focus;
 }
 
-.refresh_departures {
-  float: right;
-}
-
-.refresh_departures_clicked {
-  animation: rotate 500ms infinite;
-  animation-iteration-count: 1;
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 .transportation {
   color: $accent_color;
 }
@@ -93,7 +74,7 @@ td {
   .departures_extended {
     margin-top: 3%;
     padding-top:3%;
-    height: 82vh;
+    height: 70vh;
   }
 }
 
