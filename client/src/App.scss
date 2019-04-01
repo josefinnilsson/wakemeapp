@@ -31,19 +31,26 @@ h2 {
 h3 {
   font-size: 2em;
   font-family: 'Fira Sans', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   color: $accent_color_dark;
 }
 
 h4 {
   font-family: 'Fira Sans', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   color: $accent_color_dark;
+}
+
+h5  {
+  font-size: 1.5em !important;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: $dark_grey;
 }
 
 h6, label {
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   color: $accent_color_dark;
 }
 
@@ -53,6 +60,7 @@ p, input, button {
 
 title {
   font-family: 'Fira Sans', sans-serif;
+  font-weight: 400;
 }
 
 p.error {
@@ -101,6 +109,11 @@ input[type="search"]:focus
   100% {
     transform: rotate(360deg);
   }
+}
+
+.extended_component_wrapper {
+  padding-top: 2%;
+  padding-bottom: 2%;
 }
 
 @media (max-width: 480px) {
