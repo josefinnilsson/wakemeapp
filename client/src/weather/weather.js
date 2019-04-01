@@ -17,8 +17,10 @@ class Weather extends Component {
       position => {
         this.setState({
           latitude: position.coords.latitude,
-          longitude: position.coords.longitude
+          longitude: position.coords.longitude,
+          status: 'LOADED'
         })
+        this.handleRefresh()
       }, error => {console.log(error)})
   }
 
@@ -54,8 +56,6 @@ class Weather extends Component {
     const RefreshWeather = () => {
       return (<button id='refresh_weather' onClick={this.handleRefresh}>Refresh weather</button>)
     }
-    if (localStorage.getItem('weather') === null)
-      this.handleRefresh()
     let weather = ''
     if (localStorage.getItem('has_weather_details'))
       weather = JSON.parse(localStorage.getItem('weather'))
