@@ -1,6 +1,7 @@
 $box_background: rgba(254, 180, 116, 0.1);
 $shadow_color: rgba(250, 180, 116, 0.15);
 $dark_grey: rgb(100,100,100);
+$accent_color: rgb(138, 210, 162);
 
 .weather_wrapper {
   width: 33%;
@@ -17,14 +18,23 @@ $dark_grey: rgb(100,100,100);
     box-shadow: 0px 0px 14px -2px $shadow_color;
 }
 
-img.weather_icon {
+img.sunrise_icon {
     height: 25px;
     width: 25px;
     margin-right: 2%;
 }
 
-canvas {
+img.weather_icon {
+    height: 45px;
+    width: 45px;
     margin-right: 2%;
+}
+
+img.sunny_icon {
+    height: 45px;
+    width: 45px;
+    margin-right: 2%;
+    animation: rotate 15s linear infinite;
 }
 
 .weather_row {
@@ -33,10 +43,16 @@ canvas {
     padding-bottom: 2%;
 }
 
+h3.weather_title {
+    color: $accent_color;
+}
+
 h6.weather_title {
     margin: 0;
 }
 
-h3.weather_title {
-    color: $dark_grey;
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
 }
