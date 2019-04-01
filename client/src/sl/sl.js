@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './sl.scss'
 import Departures from './departures/departures'
 
@@ -9,7 +10,8 @@ class SL extends Component {
     this.state = {
       status: 'INIT',
       departures: [],
-      departures_no_real_time: []
+      departures_no_real_time: [],
+      rotate: false
     }
 
     this.handleRefresh = this.handleRefresh.bind(this)
@@ -20,6 +22,9 @@ class SL extends Component {
   }
 
   handleRefresh() {
+    this.setState({
+      rotate: true
+    })
     let station_id = localStorage.getItem('user_station_id')
     if (station_id === '-1')
       return
@@ -60,7 +65,7 @@ class SL extends Component {
     }
     return (
       <div>
-        <button id='refresh_departures' onClick={this.handleRefresh}>Refresh departures</button>
+        <FontAwesomeIcon className={this.state.rotate ? 'refresh_departures refresh_departures_clicked' : 'refresh_departures'} icon='redo' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
         <Link to={'/departures'} style={{textDecoration: 'none', color: 'black'}}>
         {localStorage.getItem('user_station_id') === '-1' ? (<p>Update your user settings</p>) : (departures.length <= 0 ? (<p>No departures the coming 30 minutes</p>) : '')}
           <table>
