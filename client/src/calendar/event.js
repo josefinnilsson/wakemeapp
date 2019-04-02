@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import './calendar.scss';
 
 class Event extends Component {
+  //Send as props
   formatTime(time) {
-    return time.substring(
+    let formatted_time = time.substring(
         time.lastIndexOf("T") + 1,
         time.lastIndexOf("+")
     )
+    return formatted_time.substring(0, formatted_time.length - 3)
   }
 
   formatLocation(location) {
