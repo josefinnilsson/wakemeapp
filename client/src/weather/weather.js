@@ -73,19 +73,22 @@ class Weather extends Component {
     return description.charAt(0).toUpperCase() + description.slice(1)
   }
 
-  isNight(sunset_unix) {
+  isNight(sunset_unix, sunrise_unix) {
     const date = new Date()
     const sunset = new Date(sunset_unix*1000)
+    const sunrise = new Date(sunrise_unix*1000)
     if (date.getHours() === sunset.getHours())
       return date.getMinutes() > sunset.getMinutes() ? true : false
+    else if (date.getHours() === sunrise.getHours())
+      return date.getMinutes() < sunrise.getMinutes() ? true : false
     else
-      return date.getHours() > sunset.getHours() ? true : false
+      return date.getHours() > sunset.getHours() || date.getHours() < sunrise.getHours ? true : false
   }
 
-  getIcon(icon, sunset) {
+  getIcon(icon, sunset, sunrise) {
     switch(icon) {
       case 'CLOUD':
-        if (this.isNight(sunset))
+        if (this.isNight(sunset, sunrise))
           return <img src={cloudy_night_icon} alt="" className="weather_icon"/>
         return <img src={cloudy_icon} alt="" className="weather_icon"/>
       case 'DRIZZLE':
@@ -113,7 +116,7 @@ class Weather extends Component {
     const location = localStorage.getItem('current_location')
     if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
       weather = JSON.parse(weather)
-      const icon = this.getIcon(weather.icon, weather.sunset)
+      const icon = this.getIcon(weather.icon, weather.sunset, weather.sunrise)
       return (
         <div>
           <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
