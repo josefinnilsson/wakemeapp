@@ -69,10 +69,6 @@ class Calendar extends Component {
       this.handleRefresh()
     }
 
-    const RefreshCalendar = () => {
-      return (<button id='refresh_calendar' onClick={this.handleRefresh}>Refresh calendar</button>)
-    }
-
     let events = []
     const calendar_events = localStorage.getItem('calendar_events')
     if (typeof calendar_events !== 'undefined') {

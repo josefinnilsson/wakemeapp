@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './weather.scss'
-import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Moment from 'react-moment'
 import sunrise_icon from '../assets/sunrise.png'
