@@ -447,12 +447,6 @@ router.get('/news', (req, res) => {
     })
 })
 
-router.get('/signout/:email', (req, res) => {
-    console.log(req.params.email)
-    CalendarAPI.revoke(req.params.email)
-    res.json({message: 'revoked'})
-})
-
 router.get('/nasa', (req, res) => {
     let api_key = process.env.NASA
     let hd = true
@@ -483,9 +477,6 @@ router.get('/calendar/:email', (req, res) => {
     .then(result => {
         if (result !== 'NO_TOKEN') {
             CalendarAPI.listEvents(result, res)
-            .catch(err => {
-                console.log(err)
-            })
         }
     })
     .catch(err => {

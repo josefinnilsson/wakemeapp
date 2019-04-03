@@ -44,7 +44,6 @@ export const setUserLoading = () => {
 }
 
 export const logout = () => dispatch => {
-    fetch('/signout/' + localStorage.getItem('email'))
     localStorage.removeItem('jwt_token')
     setAuthToken(false)
     dispatch(setCurrentUser({}))

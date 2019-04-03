@@ -19,7 +19,10 @@ class Calendar extends Component {
     }
 
     componentDidMount() {
-      this.isAuth()
+      this.isAuth().then(auth => {
+        if (auth === 'AUTHORIZED')
+          this.handleRefresh()
+      })
     }
 
     handleRefresh() {
@@ -48,30 +51,33 @@ class Calendar extends Component {
           })
         }
       })
+      .catch(err => {
+        console.log(err)
+      })
     }
 
     isAuth() {
-      fetch('/calendar_authenticated' + localStorage.getItem('email'))
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        if (data.authorized === 'NOT_AUTHORIZED') {
-          this.setState({ authorized: false })
-        } else {
-          this.setState({ authorized: true })
-        }
+      return new Promise(resolve => {
+        fetch('/calendar_authenticated' + localStorage.getItem('email'))
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          if (data.authorized === 'NOT_AUTHORIZED') {
+            this.setState({ authorized: false })
+            resolve('NOT_AUTHORIZED')
+          } else {
+            this.setState({ authorized: true })
+            resolve('AUTHORIZED')
+          }
+        })
       })
     }
 
   render() {
-    if (this.props.update && this.state.status === 'INIT') {
-      this.handleRefresh()
-    }
-
     let events = []
     const calendar_events = localStorage.getItem('calendar_events')
-    if (typeof calendar_events !== 'undefined') {
+    if (calendar_events !== 'undefined') {
       events = JSON.parse(calendar_events)
     }
 
