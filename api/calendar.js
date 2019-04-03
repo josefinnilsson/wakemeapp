@@ -57,7 +57,7 @@ const CalendarAPI = {
                     reject(err)
                 } else {
                     oAuth2Client.setCredentials(tokens)
-                    UserToken.update(token)
+                    UserToken.update(tokens)
                     .then(() => {
                         resolve(oAuth2Client)
                     })
