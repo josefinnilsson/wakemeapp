@@ -46,7 +46,7 @@ const CalendarAPI = {
     },
     getAccessToken: function(res, oAuth2Client) {
         const authUrl = oAuth2Client.generateAuthUrl({
-            access_type: 'online', scope: 'https://www.googleapis.com/auth/calendar.readonly'
+            access_type: 'offline', scope: 'https://www.googleapis.com/auth/calendar.readonly'
         })
         res.json({url: authUrl})
     },
