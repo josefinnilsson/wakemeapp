@@ -19,7 +19,10 @@ class Calendar extends Component {
     }
 
     componentDidMount() {
-      this.isAuth()
+      this.isAuth().then(auth => {
+        if (auth === 'AUTHORIZED')
+          this.handleRefresh()
+      })
     }
 
     handleRefresh() {
