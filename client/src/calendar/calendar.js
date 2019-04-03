@@ -18,13 +18,13 @@ class Calendar extends Component {
         this.isAuth = this.isAuth.bind(this)
     }
 
-    componentDidMount() {
-      this.isAuth().then(() => {
-        if (this.state.authorized) {
-          this.handleRefresh()
-        }
-      })
-    }
+    // componentDidMount() {
+    //   this.isAuth().then(() => {
+    //     if (this.state.authorized) {
+    //       this.handleRefresh()
+    //     }
+    //   })
+    // }
 
     handleRefresh() {
       this.setState({
