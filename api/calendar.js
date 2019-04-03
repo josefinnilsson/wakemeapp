@@ -69,38 +69,35 @@ const CalendarAPI = {
         })
     },
     listEvents: function(auth, res) {
-        return new Promise((resolve, reject) => {
-            const calendar = google.calendar({ version: 'v3', auth: auth})
-            const today = new Date()
-            const end = `${today.getYear()+1900}-0${today.getMonth()+1}-${today.getDate()}T23:59:59Z`
-            const start = `${today.getYear()+1900}-0${today.getMonth()+1}-${today.getDate()}T00:00:00Z`
-            calendar.events.list({
-                calendarId: 'primary',
-                singleEvents: true,
-                timeMin: start,
-                timeMax: end,
-                orderBy: 'startTime'
-            }, (err, response) => {
-                if (err) {
-                    res.status(500).send('API error: ', err)
-                    reject('API error')
-                }
-                const events = response.data.items
-                if (events.length) {
-                    let events_json = []
-                    events.map((event, i) => {
-                        const start = event.start.dateTime || event.start.date
-                        const end = event.end.dateTime || event.end.date
-                        const location = event.location || 'NO_LOCATION'
-                        const link = event.htmlLink
-                        const json = {start: start, end: end, location: location, summary: event.summary, link: link}
-                        events_json.push(json)
-                    })
-                    res.json({events: events_json})
-                } else {
-                    res.json({events: 'No events found'})
-                }
-            })
+        const calendar = google.calendar({ version: 'v3', auth: auth})
+        const today = new Date()
+        const end = `${today.getYear()+1900}-0${today.getMonth()+1}-${today.getDate()}T23:59:59Z`
+        const start = `${today.getYear()+1900}-0${today.getMonth()+1}-${today.getDate()}T00:00:00Z`
+        calendar.events.list({
+            calendarId: 'primary',
+            singleEvents: true,
+            timeMin: start,
+            timeMax: end,
+            orderBy: 'startTime'
+        }, (err, response) => {
+            if (err) {
+                console.log(err)
+            }
+            const events = response.data.items
+            if (events.length) {
+                let events_json = []
+                events.map((event, i) => {
+                    const start = event.start.dateTime || event.start.date
+                    const end = event.end.dateTime || event.end.date
+                    const location = event.location || 'NO_LOCATION'
+                    const link = event.htmlLink
+                    const json = {start: start, end: end, location: location, summary: event.summary, link: link}
+                    events_json.push(json)
+                })
+                res.json({events: events_json})
+            } else {
+                res.json({events: 'No events found'})
+            }
         })
     },
     revoke: function(email) {

@@ -483,9 +483,6 @@ router.get('/calendar/:email', (req, res) => {
     .then(result => {
         if (result !== 'NO_TOKEN') {
             CalendarAPI.listEvents(result, res)
-            .catch(err => {
-                console.log(err)
-            })
         }
     })
     .catch(err => {
