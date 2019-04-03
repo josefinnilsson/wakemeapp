@@ -75,10 +75,6 @@ class Calendar extends Component {
     }
 
   render() {
-    // if (this.props.update && this.state.status === 'INIT') {
-    //   this.handleRefresh()
-    // }
-
     let events = []
     const calendar_events = localStorage.getItem('calendar_events')
     if (calendar_events !== 'undefined') {
