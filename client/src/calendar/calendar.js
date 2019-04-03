@@ -18,13 +18,9 @@ class Calendar extends Component {
         this.isAuth = this.isAuth.bind(this)
     }
 
-    // componentDidMount() {
-    //   this.isAuth().then(() => {
-    //     if (this.state.authorized) {
-    //       this.handleRefresh()
-    //     }
-    //   })
-    // }
+    componentDidMount() {
+      this.isAuth()
+    }
 
     handleRefresh() {
       this.setState({
@@ -76,9 +72,9 @@ class Calendar extends Component {
     }
 
   render() {
-    if (this.props.update && this.state.status === 'INIT') {
-      this.handleRefresh()
-    }
+    // if (this.props.update && this.state.status === 'INIT') {
+    //   this.handleRefresh()
+    // }
 
     let events = []
     const calendar_events = localStorage.getItem('calendar_events')
