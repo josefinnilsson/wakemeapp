@@ -449,7 +449,7 @@ router.get('/news', (req, res) => {
 
 router.get('/signout/:email', (req, res) => {
     console.log(req.params.email)
-    CalendarAPI.revoke(req.params.email)
+    // CalendarAPI.revoke(req.params.email)
     res.json({message: 'revoked'})
 })
 
