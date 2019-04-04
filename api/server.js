@@ -443,7 +443,18 @@ router.get('/weather_forecast/:latitude/:longitude', (req, res, next) => {
             resolve(body)
         })
     }).then(body => {
-        res.json({ data: body })
+        const data = JSON.parse(body)
+        const list = data.list
+        let temperatures = []
+        let hours = []
+        for (let i = 0; i < 24; i++) {
+            const temp = list[i].main.temp
+            let dt = list[i].dt_txt
+            dt = dt.split(' ')[1].split(':')[0]
+            temperatures.push({ x: i, y: temp })
+            hours.push({ hour: dt })
+        }
+        res.json({ temperatures: temperatures, hours: hours })
     }).catch(error => {
         console.log(error)
     })
