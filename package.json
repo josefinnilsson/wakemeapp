@@ -51,6 +51,7 @@
     "react-device-detect": "^1.6.2",
     "react-dom": "^16.8.6",
     "react-html-parser": "^2.0.2",
+    "react-linechart": "^1.1.12",
     "react-moment": "^0.8.4",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
