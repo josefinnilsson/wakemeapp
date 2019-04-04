@@ -12,6 +12,7 @@ import sunny_icon from '../assets/sunny.svg'
 import thunder_icon from '../assets/thunder.svg'
 import bright_night_icon from '../assets/bright_night.svg'
 import cloudy_night_icon from '../assets/cloudy_night.svg'
+import LineChart from 'react-linechart'
 
 class Weather extends Component {
   constructor(props) {
@@ -20,7 +21,9 @@ class Weather extends Component {
       status: 'INIT',
       latitude: 0,
       longitude: 0,
-      rotate: false
+      rotate: false,
+      forecast_points: [],
+      forecast: []
     }
     this.handleRefresh = this.handleRefresh.bind(this)
   }
@@ -28,6 +31,7 @@ class Weather extends Component {
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       position => {
+        console.log(position)
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -65,6 +69,17 @@ class Weather extends Component {
               current_location: city.name
             })
           })
+      })
+      console.log(lat + ", " + long)
+      fetch('/weather_forecast/' + lat + '/' + long)
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        this.setState({
+          forecast_points: data.temperatures,
+          forecast: data.hours
+        })
       })
   }
 
@@ -113,6 +128,17 @@ class Weather extends Component {
     }
     let weather = localStorage.getItem('weather')
     const location = localStorage.getItem('current_location')
+    const data = [
+            {
+                color: "steelblue",
+                points: this.state.forecast_points
+            }
+    ]
+
+    const parseX = (x_coords) => {
+      return this.state.forecast[x_coords].hour
+    }
+
     if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
       weather = JSON.parse(weather)
       const icon = this.getIcon(weather.icon, weather.sunset, weather.sunrise)
@@ -135,7 +161,15 @@ class Weather extends Component {
               <img src={sunset_icon} alt="" className="sunrise_icon"/>
               <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunset}</Moment></h6>
             </div>
+            <LineChart 
+                        width={500}
+                        height={300}
+                        data={data}
+                        hidePoints={true}
+                        xDisplay={parseX}
+                    />
           </div>
+
         </div>
       )
     } else {
