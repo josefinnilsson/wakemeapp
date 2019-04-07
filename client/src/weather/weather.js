@@ -145,10 +145,10 @@ class Weather extends Component {
     let weather = localStorage.getItem('weather')
     const location = localStorage.getItem('current_location')
     const data = [
-            {
-                color: "steelblue",
-                points: this.state.forecast_points
-            }
+      {
+        color: '#8AD2A2',
+        points: this.state.forecast_points
+      }
     ]
 
     const parseX = (x_coords) => {
@@ -161,31 +161,38 @@ class Weather extends Component {
       return (
         <div>
           <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
-          <div>
-            <div className="weather_row">
-              <h5>{location}</h5>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-5">
+                <div className="weather_row">
+                <h5>{location}</h5>
+              </div>
+              <div className="weather_row">
+                {icon}
+                <h3 className="weather_title">{weather.temp + " \u00b0"}C</h3>
+              </div>
+              <div className="weather_row">
+                <img src={sunrise_icon} alt="" className="sunrise_icon"/>
+                <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunrise}</Moment></h6>
+              </div>
+              <div className="weather_row">
+                <img src={sunset_icon} alt="" className="sunrise_icon"/>
+                <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunset}</Moment></h6>
+              </div>
+              </div>
+              <div className="col-md-7">
+                <LineChart
+                  width={300}
+                  height={200}
+                data={data}
+                hidePoints={true}
+                xDisplay={parseX}
+                xLabel={'Hour'}
+                yLabel={'\u00b0 C'}
+              />
+              </div>
             </div>
-            <div className="weather_row">
-              {icon}
-              <h3 className="weather_title">{weather.temp + " \u00b0"}C</h3>
-            </div>
-            <div className="weather_row">
-              <img src={sunrise_icon} alt="" className="sunrise_icon"/>
-              <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunrise}</Moment></h6>
-            </div>
-            <div className="weather_row">
-              <img src={sunset_icon} alt="" className="sunrise_icon"/>
-              <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunset}</Moment></h6>
-            </div>
-            <LineChart 
-                        width={500}
-                        height={300}
-                        data={data}
-                        hidePoints={true}
-                        xDisplay={parseX}
-                    />
           </div>
-
         </div>
       )
     } else {
