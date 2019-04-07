@@ -29,58 +29,74 @@ class Weather extends Component {
   }
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      position => {
+    this.handleRefresh()
+  }
+
+  getLocation() {
+    return new Promise(resolve => {
+      navigator.geolocation.getCurrentPosition(position => {
         console.log(position)
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           status: 'LOADED'
+        }, resolve('DONE'))
+      }, error => {
+        console.log(error)
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  getWeather(lat, long) {
+    fetch('/weather/' + lat + '/' + long)
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      localStorage.setItem('has_weather_details', true)
+      localStorage.setItem('weather', JSON.stringify(data))
+      this.setState({
+        status: 'LOADED',
+        weather: data
+      })
+      fetch('/getLocationData/' + lat + '/' + long)
+      .then(response => {
+        return response.json()
+      })
+      .then(city => {
+        localStorage.setItem('current_location', city.name)
+        this.setState({
+          current_location: city.name
         })
-        this.handleRefresh()
-      }, error => {console.log(error)})
+      })
+    })
+  }
+
+  getForecast(lat, long) {
+    fetch('/weather_forecast/' + lat + '/' + long)
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      this.setState({
+        forecast_points: data.temperatures,
+        forecast: data.hours
+      })
+    })
   }
 
   handleRefresh() {
-    this.setState({
-      rotate: true
+    this.setState({ rotate: true })
+    this.getLocation()
+    .then(() => {
+      const lat = this.state.latitude
+      const long = this.state.longitude
+      this.getWeather(lat, long)
+      this.getForecast(lat, long)
     })
-    let lat = this.state.latitude
-    let long = this.state.longitude
-
-    fetch('/weather/' + lat + '/' + long)
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        localStorage.setItem('has_weather_details', true)
-        localStorage.setItem('weather', JSON.stringify(data))
-        this.setState({
-          status: 'LOADED',
-          weather: data
-        })
-        fetch('/getLocationData/' + lat + '/' + long)
-          .then(response => {
-            return response.json()
-          })
-          .then(city => {
-            localStorage.setItem('current_location', city.name)
-            this.setState({
-              current_location: city.name
-            })
-          })
-      })
-      console.log(lat + ", " + long)
-      fetch('/weather_forecast/' + lat + '/' + long)
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        this.setState({
-          forecast_points: data.temperatures,
-          forecast: data.hours
-        })
-      })
   }
 
   parseDescription(description) {
