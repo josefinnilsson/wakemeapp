@@ -431,6 +431,35 @@ router.get('/weather/:latitude/:longitude', (req, res, next) => {
     })
 })
 
+router.get('/weather_forecast/:latitude/:longitude', (req, res, next) => {
+    let api_key = process.env.WEATHER
+    const options = {
+        url: 'http://api.openweathermap.org/data/2.5/forecast/hourly?lat=' + req.params.latitude
+        + '&lon=' + req.params.longitude + '&units=metric' + '&appid=' + api_key
+    }
+
+    return new Promise(resolve => {
+        request(options, (err, res, body) => {
+            resolve(body)
+        })
+    }).then(body => {
+        const data = JSON.parse(body)
+        const list = data.list
+        let temperatures = []
+        let hours = []
+        for (let i = 0; i < 24; i++) {
+            const temp = list[i].main.temp
+            let dt = list[i].dt_txt
+            dt = dt.split(' ')[1].split(':')[0]
+            temperatures.push({ x: i, y: temp })
+            hours.push({ hour: dt })
+        }
+        res.json({ temperatures: temperatures, hours: hours })
+    }).catch(error => {
+        console.log(error)
+    })
+})
+
 router.get('/news', (req, res) => {
     let api_key = process.env.SVD
     const options = {

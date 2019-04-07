@@ -51,6 +51,22 @@ h6.weather_title {
     margin: 0;
 }
 
+.tick text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 0.75em;
+}
+
+.svg-line-chart-label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 0.75em;
+}
+
+.axis path {
+    fill: none;
+}
+
 @keyframes rotate {
     to {
         transform: rotate(360deg);

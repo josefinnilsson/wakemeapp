@@ -12,6 +12,7 @@ import sunny_icon from '../assets/sunny.svg'
 import thunder_icon from '../assets/thunder.svg'
 import bright_night_icon from '../assets/bright_night.svg'
 import cloudy_night_icon from '../assets/cloudy_night.svg'
+import LineChart from 'react-linechart'
 
 class Weather extends Component {
   constructor(props) {
@@ -20,52 +21,82 @@ class Weather extends Component {
       status: 'INIT',
       latitude: 0,
       longitude: 0,
-      rotate: false
+      rotate: false,
+      forecast_points: [],
+      forecast: []
     }
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      position => {
+    this.handleRefresh()
+  }
+
+  getLocation() {
+    return new Promise(resolve => {
+      navigator.geolocation.getCurrentPosition(position => {
+        console.log(position)
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           status: 'LOADED'
-        })
-        this.handleRefresh()
-      }, error => {console.log(error)})
+        }, resolve('DONE'))
+      }, error => {
+        console.log(error)
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
-  handleRefresh() {
-    this.setState({
-      rotate: true
-    })
-    let lat = this.state.latitude
-    let long = this.state.longitude
-
+  getWeather(lat, long) {
     fetch('/weather/' + lat + '/' + long)
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      localStorage.setItem('has_weather_details', true)
+      localStorage.setItem('weather', JSON.stringify(data))
+      this.setState({
+        status: 'LOADED',
+        weather: data
+      })
+      fetch('/getLocationData/' + lat + '/' + long)
       .then(response => {
         return response.json()
       })
-      .then(data => {
-        localStorage.setItem('has_weather_details', true)
-        localStorage.setItem('weather', JSON.stringify(data))
+      .then(city => {
+        localStorage.setItem('current_location', city.name)
         this.setState({
-          status: 'LOADED',
-          weather: data
+          current_location: city.name
         })
-        fetch('/getLocationData/' + lat + '/' + long)
-          .then(response => {
-            return response.json()
-          })
-          .then(city => {
-            localStorage.setItem('current_location', city.name)
-            this.setState({
-              current_location: city.name
-            })
-          })
       })
+    })
+  }
+
+  getForecast(lat, long) {
+    fetch('/weather_forecast/' + lat + '/' + long)
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      this.setState({
+        forecast_points: data.temperatures,
+        forecast: data.hours
+      })
+    })
+  }
+
+  handleRefresh() {
+    this.setState({ rotate: true })
+    this.getLocation()
+    .then(() => {
+      const lat = this.state.latitude
+      const long = this.state.longitude
+      this.getWeather(lat, long)
+      this.getForecast(lat, long)
+    })
   }
 
   parseDescription(description) {
@@ -113,27 +144,53 @@ class Weather extends Component {
     }
     let weather = localStorage.getItem('weather')
     const location = localStorage.getItem('current_location')
+    const data = [
+      {
+        color: '#8AD2A2',
+        points: this.state.forecast_points
+      }
+    ]
+
+    const parseX = (x_coords) => {
+      return this.state.forecast[x_coords].hour
+    }
+
     if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
       weather = JSON.parse(weather)
       const icon = this.getIcon(weather.icon, weather.sunset, weather.sunrise)
       return (
         <div>
           <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
-          <div>
-            <div className="weather_row">
-              <h5>{location}</h5>
-            </div>
-            <div className="weather_row">
-              {icon}
-              <h3 className="weather_title">{weather.temp + " \u00b0"}C</h3>
-            </div>
-            <div className="weather_row">
-              <img src={sunrise_icon} alt="" className="sunrise_icon"/>
-              <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunrise}</Moment></h6>
-            </div>
-            <div className="weather_row">
-              <img src={sunset_icon} alt="" className="sunrise_icon"/>
-              <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunset}</Moment></h6>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-5">
+                <div className="weather_row">
+                <h5>{location}</h5>
+              </div>
+              <div className="weather_row">
+                {icon}
+                <h3 className="weather_title">{weather.temp + " \u00b0"}C</h3>
+              </div>
+              <div className="weather_row">
+                <img src={sunrise_icon} alt="" className="sunrise_icon"/>
+                <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunrise}</Moment></h6>
+              </div>
+              <div className="weather_row">
+                <img src={sunset_icon} alt="" className="sunrise_icon"/>
+                <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunset}</Moment></h6>
+              </div>
+              </div>
+              <div className="col-md-7">
+                <LineChart
+                  width={300}
+                  height={200}
+                data={data}
+                hidePoints={true}
+                xDisplay={parseX}
+                xLabel={'Hour'}
+                yLabel={'\u00b0 C'}
+              />
+              </div>
             </div>
           </div>
         </div>
