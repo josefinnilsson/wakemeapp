@@ -501,7 +501,7 @@ router.get('/unsplash', (req, res) => {
     res.json({ url })
 })
 
-router.get('/calendar/:email', (req, res) => {
+router.get('/change_calendar/:email', (req, res) => {
     CalendarAPI.authorize(res, req, req.params.email)
     .then(result => {
         if (result !== 'NO_TOKEN') {
@@ -512,6 +512,10 @@ router.get('/calendar/:email', (req, res) => {
         console.log(err)
         res.json({error_message: err})
     })
+})
+
+router.get('/calendar/:email', (req, res) => {
+    CalendarAPI.switchAccount(res, req, req.params.email)
 })
 
 router.get('/calendar_callback', (req, res) => {
