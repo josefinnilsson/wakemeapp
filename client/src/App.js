@@ -17,7 +17,6 @@ import setAuthToken from './utils/setAuthToken'
 import { Provider } from 'react-redux'
 import store from './store'
 import Header from './staticComponents/header'
-import CalendarExtended from './calendar/calendarExtended'
 
 library.add(fas)
 
@@ -50,7 +49,6 @@ class App extends Component {
               <Route exact path="/register" component={Register}/>
               <Switch>
                 <Authenticated exact path="/cal" component={Dashboard}/>
-                <Authenticated exact path='/calendar' component={CalendarExtended}/>
                 <Authenticated path="/departures" component={DeparturesExtended}/>
                 <Authenticated path="/userSettings" component={UserSettings}/>
                 <Authenticated exact path="/" component={Dashboard}/>
