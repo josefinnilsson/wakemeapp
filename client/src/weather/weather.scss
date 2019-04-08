@@ -5,17 +5,17 @@ $accent_color: rgb(138, 210, 162);
 
 .weather_wrapper {
   width: 33%;
-    border-radius: 5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent;
-    margin: 0 auto;
-    margin-top: 1%;
-    padding-top: 1%;
-    background-color: $box_background;
-    -webkit-box-shadow: 0px 0px 14px -2px $shadow_color;
-    -moz-box-shadow: 0px 0px 14px -2px $shadow_color;
-    box-shadow: 0px 0px 14px -2px $shadow_color;
+  border-radius: 5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent;
+  margin: 0 auto;
+  margin-top: 1%;
+  padding-top: 1%;
+  background-color: $box_background;
+  -webkit-box-shadow: 0px 0px 14px -2px $shadow_color;
+  -moz-box-shadow: 0px 0px 14px -2px $shadow_color;
+  box-shadow: 0px 0px 14px -2px $shadow_color;
 }
 
 img.sunrise_icon {
@@ -40,7 +40,7 @@ img.sunny_icon {
 .weather_row {
     display: flex;
     align-items: bottom;
-    padding-bottom: 2%;
+    margin-bottom: 5%;
 }
 
 h3.weather_title {
@@ -51,22 +51,13 @@ h6.weather_title {
     margin: 0;
 }
 
-.tick text {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    font-size: 0.75em;
+#forecast {
+  padding: 0;
 }
 
-.svg-line-chart-label {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    font-size: 0.75em;
+tspan {
+  font-size: 0.75em;
 }
-
-.axis path {
-    fill: none;
-}
-
 @keyframes rotate {
     to {
         transform: rotate(360deg);

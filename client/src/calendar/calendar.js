@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './calendar.scss'
-import ListEvent from './listEvent'
+import Event from './event'
 import {Button} from 'react-bootstrap'
 
 class Calendar extends Component {
@@ -43,8 +42,7 @@ class Calendar extends Component {
           } else {
             localStorage.setItem('has_events', true)
           }
-          if (this.state.status === 'INIT')
-            this.props.history.push('/')
+
           this.setState({
             status: 'LOADED',
             events: data
@@ -85,7 +83,7 @@ class Calendar extends Component {
     if (events !== 'No events found' && events !== null) {
       events.forEach(event => {
         const key = event.start + event.summary
-        event_table.push(<ListEvent key={key} start={event.start} end={event.end} location={event.location} summary={event.summary}/>)
+        event_table.push(<Event key={key} start={event.start} end={event.end} location={event.location} summary={event.summary} link={event.link}/>)
       })
     } else {
       event_table.push(<tr key={'no_events'}><td>You have no events today</td></tr>)
@@ -95,14 +93,13 @@ class Calendar extends Component {
     if (auth) {
       return (
         <div>
-          <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
-          <Link to={'/calendar'} style={{textDecoration: 'none', color: 'black'}}>
-            <table>
-              <tbody>
-                {event_table}
-              </tbody>
-            </table>
-          </Link>
+          <div className="coponent_title">
+            <h4>Today's Events</h4>
+            <FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
+          </div>
+          <div className="calendar_wrapper">
+            {event_table}
+          </div>
         </div>
       )
     } else {
