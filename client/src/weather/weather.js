@@ -152,7 +152,8 @@ class Weather extends Component {
     ]
 
     const parseX = (x_coords) => {
-      return this.state.forecast[x_coords].hour
+      if (x_coords % 4 === 0)
+        return this.state.forecast[x_coords].hour
     }
 
     if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
