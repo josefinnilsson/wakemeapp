@@ -36,7 +36,6 @@ class Weather extends Component {
   getLocation() {
     return new Promise(resolve => {
       navigator.geolocation.getCurrentPosition(position => {
-        console.log(position)
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
