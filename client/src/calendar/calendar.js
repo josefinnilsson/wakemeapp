@@ -18,13 +18,6 @@ class Calendar extends Component {
         this.isAuth = this.isAuth.bind(this)
     }
 
-    componentDidMount() {
-      this.isAuth().then(auth => {
-        if (auth === 'AUTHORIZED')
-          this.handleRefresh()
-      })
-    }
-
     handleRefresh() {
       this.setState({
         rotate: true
