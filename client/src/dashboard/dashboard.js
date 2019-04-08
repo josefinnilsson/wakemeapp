@@ -30,11 +30,17 @@ class Dashboard extends Component {
   }
 
   render() {
-
     let update = false
     if (this.props.location.pathname === '/cal')
       update = true
 
+    const CalendarComp = () => {
+      return(<div className="col-md-6">
+              <div className="calendar">
+                <Calendar update={update}/>
+              </div>
+            </div>)
+    }
     const SLComp = () => {
       return(<div className="col-md-6">
               <div className="sl">
@@ -57,17 +63,10 @@ class Dashboard extends Component {
             </div>)
     }
     const MobileView = () => {
-      return (<div className="dashboard_wrapper">
-              <h2>{greeting} {name}!</h2>
-              <div className="container">
-              <Tabs>
+      return (<Tabs>
                 <div id="mobile">
                 <TabPanel>
-                  <div className="col-md-6">
-                    <div className="calendar">
-                    <Calendar key={'mobile'} update={update} history={this.props.history}/>
-                    </div>
-                  </div>
+                  <CalendarComp/>
                 </TabPanel>
                 <TabPanel>
                   <SLComp/>
@@ -85,36 +84,32 @@ class Dashboard extends Component {
                   <Tab>News</Tab>
                   <Tab>Weather</Tab>
                 </TabList>
-              </Tabs>
-              </div>
-              </div>)
+              </Tabs>)
     }
 
-    const greeting = this.getGreeting()
-    const name = localStorage.getItem('user_name')
-    if (isMobileOnly) {
-      return <div><MobileView/></div>
-    } else {
-      return (
-      <div className="dashboard_wrapper">
-        <h2>{greeting} {name}!</h2>
-        <div className="container">
+    const DesktopView = () => {
+      return(
+        <div>
           <div className="row">
-            <div className="col-md-6">
-              <div className="calendar">
-                <Calendar key={'dashboard'} update={update} history={this.props.history}/>
-              </div>
-            </div>
+            <CalendarComp/>
             <SLComp/>
           </div>
           <div className="row">
             <NewsComp/>
             <WeatherComp/>
           </div>
+        </div>)
+    }
+    const greeting = this.getGreeting()
+    const name = localStorage.getItem('user_name')
+    return (
+      <div className="dashboard_wrapper">
+        <h2>{greeting} {name}!</h2>
+        <div className="container">
+          {isMobileOnly ? <MobileView/> : <DesktopView/>}
         </div>
       </div>
     )
-    }
   }
 }
 export default Dashboard
