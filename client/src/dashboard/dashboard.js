@@ -16,7 +16,10 @@ class Dashboard extends Component {
     if (typeof url === undefined) {
       url = ''
     }
-    document.body.style.backgroundImage = `url(${url})`
+    if (url.includes('unsplash'))
+      document.getElementById("dashboard_wrapper").style.backgroundImage = 'linear-gradient(to bottom, rgba(250, 250, 250, 0.52), rgba(254, 243, 234, 1)),url(' + url +')'
+    else
+      document.getElementById("dashboard_wrapper").style.backgroundImage = 'none'
   }
 
   getGreeting() {
@@ -103,7 +106,7 @@ class Dashboard extends Component {
     const greeting = this.getGreeting()
     const name = localStorage.getItem('user_name')
     return (
-      <div className="dashboard_wrapper">
+      <div className="dashboard_wrapper" id="dashboard_wrapper">
         <h2>{greeting} {name}!</h2>
         <div className="container">
           {isMobileOnly ? <MobileView/> : <DesktopView/>}
