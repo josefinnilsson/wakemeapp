@@ -188,6 +188,7 @@ router.get('/getUserSettings/:email', (req, res) => {
         const _id = user._id
         UserSettings.findOne ( { _id }, (err, user_settings) => {
             let data = {}
+            data.name = user.name
             data.station_name = user_settings.stationName
             data.station_id = user_settings.stationId
             data.bus = user_settings.bus
