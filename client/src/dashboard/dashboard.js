@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import { isMobileOnly } from 'react-device-detect'
 import Calendar from '../calendar/calendar'
 import SL from '../sl/sl'
 import News from '../news/news'
@@ -25,46 +27,93 @@ class Dashboard extends Component {
       return "Good Afternoon"
     else
       return "Good Night"
-
   }
 
   render() {
+
     let update = false
     if (this.props.location.pathname === '/cal')
       update = true
+
+    const CalendarComp = () => {
+      return(<div className="col-md-6">
+              <div className="calendar">
+                <Calendar update={update} history={this.props.history}/>
+              </div>
+            </div>)
+    }
+    const SLComp = () => {
+      return(<div className="col-md-6">
+              <div className="sl">
+                <SL history={this.props.history}/>
+              </div>
+            </div>)
+    }
+    const NewsComp = () => {
+      return(<div className="col-md-6">
+              <div className="news">
+                <News/>
+              </div>
+            </div>)
+    }
+    const WeatherComp = () => {
+      return(<div className="col-md-6">
+              <div className="weather">
+                <Weather/>
+              </div>
+            </div>)
+    }
+    const MobileView = () => {
+      return (<div className="dashboard_wrapper">
+              <h2>{greeting} {name}!</h2>
+              <div className="container">
+              <Tabs>
+                <div id="mobile">
+                <TabPanel>
+                  <CalendarComp/>
+                </TabPanel>
+                <TabPanel>
+                  <SLComp/>
+                </TabPanel>
+                <TabPanel>
+                  <NewsComp/>
+                </TabPanel>
+                <TabPanel>
+                  <WeatherComp/>
+                </TabPanel>
+                </div>
+                <TabList>
+                  <Tab>Calendar</Tab>
+                  <Tab>SL</Tab>
+                  <Tab>News</Tab>
+                  <Tab>Weather</Tab>
+                </TabList>
+              </Tabs>
+              </div>
+              </div>)
+    }
+
     const greeting = this.getGreeting()
     const name = localStorage.getItem('user_name')
-    return (
+    if (isMobileOnly) {
+      return <div><MobileView/></div>
+    } else {
+      return (
       <div className="dashboard_wrapper">
         <h2>{greeting} {name}!</h2>
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
-              <div className="calendar">
-                <Calendar update={update} history={this.props.history}/>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="sl">
-                <SL history={this.props.history}/>
-              </div>
-            </div>
+            <CalendarComp/>
+            <SLComp/>
           </div>
           <div className="row">
-            <div className="col-md-6">
-              <div className="news">
-                <News/>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="weather">
-                <Weather/>
-              </div>
-            </div>
+            <NewsComp/>
+            <WeatherComp/>
           </div>
         </div>
       </div>
     )
+    }
   }
 }
 export default Dashboard

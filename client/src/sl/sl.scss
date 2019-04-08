@@ -29,11 +29,11 @@ td {
   text-align: center;
 }
 
-#react-tabs-0 {
+.react-tabs__tab-list > li:first-child {
   border-radius: 5px 0 0 5px;
 }
 
-#react-tabs-2 {
+.react-tabs__tab-list > li:last-child {
   border-radius: 0 5px 5px 0;
 }
 

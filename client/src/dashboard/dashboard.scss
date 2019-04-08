@@ -28,3 +28,18 @@
   align-items: center;
   justify-content: space-between
 }
+
+#mobile {
+  height: 63vh !important;
+}
+
+
+@media (max-width: 480px) {
+  .news_wrapper {
+    height: 57vh;
+  }
+
+  .sl {
+    height: 57vh;
+  }
+}

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './sl.scss'
 import Departures from './departures/departures'
 import {Button} from 'react-bootstrap'
+import { isMobileOnly } from 'react-device-detect'
 
 
 class SL extends Component {
@@ -90,7 +91,7 @@ class SL extends Component {
         <Link to={'/departures'} style={{textDecoration: 'none', color: 'black'}}>
           <table>
             <tbody>
-              {departures.slice(0, 7)}
+              {isMobileOnly ? departures.slice(0, 10) : departures.slice(0, 7)}
             </tbody>
           </table>
         </Link>
