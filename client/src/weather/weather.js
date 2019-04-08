@@ -162,7 +162,7 @@ class Weather extends Component {
       return (
         <div>
           <div className="coponent_title">
-            <h4>{location}</h4>
+            <h4>Weather in {location}</h4>
             <FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
           </div>
           <div className="container">
