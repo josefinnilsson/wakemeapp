@@ -52,11 +52,12 @@ class UserSettings extends Component {
   }
 
   changeAccount() {
-    fetch('/calendar/'+localStorage.getItem('email'))
+    fetch('/change_calendar')
     .then(response => {
         return response.json()
       })
       .then(data => {
+        console.log(data)
         if (data.url) {
           window.location = data.url
         }
