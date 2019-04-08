@@ -51,6 +51,18 @@ class UserSettings extends Component {
       })
   }
 
+  changeAccount() {
+    fetch('/calendar/'+localStorage.getItem('email'))
+    .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        if (data.url) {
+          window.location = data.url
+        }
+      })
+  }
+
   handleSaveSubmit(e) {
     e.preventDefault()
     let stationName = this.state.active_station
@@ -165,6 +177,7 @@ class UserSettings extends Component {
           </div>
         </div>
         <Button className="logout_btn" variant="primary" type="submit" onClick={this.onLogout}>Logout</Button>
+        <Button className="logout_btn" variant="primary" type="submit" onClick={this.changeAccount}>Change account</Button>
 
         <Footer/>
       </div>
