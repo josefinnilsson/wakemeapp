@@ -49,7 +49,10 @@ class News extends Component {
 
     return (
       <div>
-        <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
+        <div className="coponent_title">
+          <h4>Latest News</h4>
+          <FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
+        </div>
         <div className="news_wrapper">
           {news_div}
         </div>

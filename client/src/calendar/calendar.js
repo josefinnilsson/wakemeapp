@@ -95,10 +95,13 @@ class Calendar extends Component {
     if (auth) {
       return (
         <div>
-        <FontAwesomeIcon className={this.state.rotate ? "refresh refresh_clicked" : "refresh"} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
-        <div className="calendar_wrapper">
-          {event_table}
-        </div>
+          <div className="coponent_title">
+            <h4>Today's Events</h4>
+            <FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
+          </div>
+          <div className="calendar_wrapper">
+            {event_table}
+          </div>
         </div>
       )
     } else {

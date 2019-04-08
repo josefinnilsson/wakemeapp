@@ -83,11 +83,14 @@ class SL extends Component {
     } else {
       return (
       <div>
-        <FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
+        <div className="coponent_title">
+          <h4>Next Departures at {localStorage.getItem('user_station_name')}</h4>
+          <FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
+        </div>
         <Link to={'/departures'} style={{textDecoration: 'none', color: 'black'}}>
           <table>
             <tbody>
-              {departures.slice(0, 10)}
+              {departures.slice(0, 7)}
             </tbody>
           </table>
         </Link>
