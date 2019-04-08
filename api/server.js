@@ -452,10 +452,9 @@ router.get('/weather_forecast/:latitude/:longitude', (req, res, next) => {
             const temp = list[i].main.temp
             let dt = list[i].dt_txt
             dt = dt.split(' ')[1].split(':')[0]
-            temperatures.push({ x: i, y: temp })
-            hours.push({ hour: dt })
+            temperatures.push({ index: i, Temperature: temp, hour: dt })
         }
-        res.json({ temperatures: temperatures, hours: hours })
+        res.json(temperatures)
     }).catch(error => {
         console.log(error)
     })
