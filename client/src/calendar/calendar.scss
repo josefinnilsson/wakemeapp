@@ -1,24 +1,16 @@
 $box_background: rgba(254, 180, 116, 0.1);
 $shadow_color: rgba(250, 180, 116, 0.15);
 $accent_color: rgb(138, 210, 162);
+$dark_grey: rgb(150,150,150);
 
-.event_wrapper {
-    width: 33%;
-    border-radius: 5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent;
-    margin: 0 auto;
-    margin-top: 1%;
-    padding-top: 1%;
-    background-color: $box_background;
-    -webkit-box-shadow: 0px 0px 14px -2px $shadow_color;
-    -moz-box-shadow: 0px 0px 14px -2px $shadow_color;
-    box-shadow: 0px 0px 14px -2px $shadow_color;
+.event_item_wrapper {
+    margin-top: 3%;
 }
 
 h5.event_title {
     color: $accent_color;
+    margin: 0;
+    margin-bottom: 1%;
 }
 
 h2.calendar_extended_title {
@@ -27,6 +19,7 @@ h2.calendar_extended_title {
 
 h6.event_time {
     text-align: left;
+    margin-bottom: 0;
 }
 
 p.address {
@@ -37,6 +30,7 @@ p.address {
 .event_location {
    text-align: left;
    display: inline-block;
+   margin-bottom: 0;
 }
 
 .not_authenticated_wrapper {
