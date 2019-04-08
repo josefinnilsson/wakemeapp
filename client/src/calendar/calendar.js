@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './calendar.scss'
 import Event from './event'
@@ -16,6 +15,13 @@ class Calendar extends Component {
         }
         this.handleRefresh = this.handleRefresh.bind(this)
         this.isAuth = this.isAuth.bind(this)
+    }
+
+    componentDidMount() {
+      this.isAuth().then(auth => {
+        if (auth === 'AUTHORIZED')
+          this.handleRefresh()
+      })
     }
 
     handleRefresh() {

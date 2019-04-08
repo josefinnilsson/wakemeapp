@@ -35,13 +35,6 @@ class Dashboard extends Component {
     if (this.props.location.pathname === '/cal')
       update = true
 
-    const CalendarComp = () => {
-      return(<div className="col-md-6">
-              <div className="calendar">
-                <Calendar update={update} history={this.props.history}/>
-              </div>
-            </div>)
-    }
     const SLComp = () => {
       return(<div className="col-md-6">
               <div className="sl">
@@ -70,7 +63,11 @@ class Dashboard extends Component {
               <Tabs>
                 <div id="mobile">
                 <TabPanel>
-                  <CalendarComp/>
+                  <div className="col-md-6">
+                    <div className="calendar">
+                    <Calendar key={'mobile'} update={update} history={this.props.history}/>
+                    </div>
+                  </div>
                 </TabPanel>
                 <TabPanel>
                   <SLComp/>
@@ -103,7 +100,11 @@ class Dashboard extends Component {
         <h2>{greeting} {name}!</h2>
         <div className="container">
           <div className="row">
-            <CalendarComp/>
+            <div className="col-md-6">
+              <div className="calendar">
+                <Calendar key={'dashboard'} update={update} history={this.props.history}/>
+              </div>
+            </div>
             <SLComp/>
           </div>
           <div className="row">
