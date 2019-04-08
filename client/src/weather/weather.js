@@ -13,6 +13,7 @@ import thunder_icon from '../assets/thunder.svg'
 import bright_night_icon from '../assets/bright_night.svg'
 import cloudy_night_icon from '../assets/cloudy_night.svg'
 import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts'
+import PulseLoader from 'react-spinners/PulseLoader'
 
 class Weather extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class Weather extends Component {
       latitude: 0,
       longitude: 0,
       rotate: false,
-      forecast_points: [],
+      forecast_loading: true,
       forecast: []
     }
     this.handleRefresh = this.handleRefresh.bind(this)
@@ -76,13 +77,15 @@ class Weather extends Component {
   }
 
   getForecast(lat, long) {
+    this.setState({ forecast_loading: true })
     fetch('/weather_forecast/' + lat + '/' + long)
     .then(response => {
       return response.json()
     })
     .then(data => {
       this.setState({
-        forecast: data
+        forecast: data,
+        forecast_loading: false
       })
     })
   }
@@ -182,12 +185,19 @@ class Weather extends Component {
               </div>
               </div>
               <div className="col-md-7" id="forecast">
-                <LineChart width={300} height={200} data={data}>
+                <PulseLoader
+                  sizeUnit={"px"}
+                  size={15}
+                  color={'#8AD2A2'}
+                  loading={this.state.forecast_loading}
+                />
+                {!this.state.forecast_loading &&
+                  <LineChart width={300} height={200} data={data}>
                     <XAxis minTickGap={1} dataKey="hour"/>
                     <YAxis width={40}/>
                     <Tooltip content={<CustomTooltip />} />
                     <Line type="monotone" dataKey="Temperature" stroke="#8AD2A2" />
-                </LineChart>
+                  </LineChart>}
               </div>
             </div>
           </div>
