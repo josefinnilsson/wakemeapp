@@ -25,10 +25,12 @@ function setEmail(user_email) {
 }
 
 const CalendarAPI = {
-    switchAccount: function(res, req, email) {
+    switchAccount: function(res, req) {
         setHost(req)
-        setEmail(email)
-        CalendarAPI.getAccountToken(res, oAuth2Client)
+        return new Promise(resolve => {
+            CalendarAPI.getAccountToken(res, oAuth2Client)
+            resolve('DONE')
+        })
     },
     authorize: function(res, req, email) {
         setHost(req)
