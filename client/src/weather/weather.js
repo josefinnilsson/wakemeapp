@@ -12,7 +12,7 @@ import sunny_icon from '../assets/sunny.svg'
 import thunder_icon from '../assets/thunder.svg'
 import bright_night_icon from '../assets/bright_night.svg'
 import cloudy_night_icon from '../assets/cloudy_night.svg'
-import LineChart from 'react-linechart'
+import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts'
 
 class Weather extends Component {
   constructor(props) {
@@ -82,8 +82,7 @@ class Weather extends Component {
     })
     .then(data => {
       this.setState({
-        forecast_points: data.temperatures,
-        forecast: data.hours
+        forecast: data
       })
     })
   }
@@ -142,20 +141,21 @@ class Weather extends Component {
     const RefreshWeather = () => {
       return (<button id='refresh_weather' onClick={this.handleRefresh}>Refresh weather</button>)
     }
+    const CustomTooltip = ({ active, payload, label }) => {
+      if (active) {
+        const time = label + '.00'
+        const temp = payload[0].value + '\u00b0 C'
+        return (
+          <div className="custom-tooltip">
+            <p className="label">{`${time}: ${temp}`}</p>
+          </div>
+        )
+      }
+      return null
+    }
     let weather = localStorage.getItem('weather')
     const location = localStorage.getItem('current_location')
-    const data = [
-      {
-        color: '#8AD2A2',
-        points: this.state.forecast_points
-      }
-    ]
-
-    const parseX = (x_coords) => {
-      if (x_coords % 4 === 0)
-        return this.state.forecast[x_coords].hour
-    }
-
+    const data = this.state.forecast
     if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
       weather = JSON.parse(weather)
       const icon = this.getIcon(weather.icon, weather.sunset, weather.sunrise)
@@ -182,15 +182,12 @@ class Weather extends Component {
               </div>
               </div>
               <div className="col-md-7" id="forecast">
-                <LineChart
-                  width={300}
-                  height={200}
-                data={data}
-                hidePoints={true}
-                xDisplay={parseX}
-                xLabel={'Hour'}
-                yLabel={'\u00b0 C'}
-              />
+                <LineChart width={300} height={200} data={data}>
+                    <XAxis minTickGap={1} dataKey="hour"/>
+                    <YAxis width={40}/>
+                    <Tooltip content={<CustomTooltip />} />
+                    <Line type="monotone" dataKey="Temperature" stroke="#8AD2A2" />
+                </LineChart>
               </div>
             </div>
           </div>

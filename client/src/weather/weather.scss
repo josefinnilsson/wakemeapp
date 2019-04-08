@@ -39,7 +39,7 @@ img.sunny_icon {
 
 .weather_row {
     display: flex;
-    align-items: center;
+    align-items: bottom;
     margin-bottom: 5%;
 }
 
@@ -51,26 +51,13 @@ h6.weather_title {
     margin: 0;
 }
 
-.tick text {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    font-size: 0.75em;
-}
-
-.svg-line-chart-label {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    font-size: 0.75em;
-}
-
 #forecast {
-    padding: 0;
+  padding: 0;
 }
 
-.axis path {
-    fill: none;
+tspan {
+  font-size: 0.75em;
 }
-
 @keyframes rotate {
     to {
         transform: rotate(360deg);
