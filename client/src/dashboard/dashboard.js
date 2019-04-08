@@ -26,7 +26,7 @@ class Dashboard extends Component {
     if (hour >= 12 && hour <= 17)
       return "Good Afternoon"
     else
-      return "Good Night"
+      return "Good Evening"
   }
 
   render() {
