@@ -42,8 +42,7 @@ class Calendar extends Component {
           } else {
             localStorage.setItem('has_events', true)
           }
-          if (this.state.status === 'INIT')
-            this.props.history.push('/')
+
           this.setState({
             status: 'LOADED',
             events: data
