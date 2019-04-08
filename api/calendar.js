@@ -25,6 +25,13 @@ function setEmail(user_email) {
 }
 
 const CalendarAPI = {
+    switchAccount: function(res, req) {
+        setHost(req)
+        return new Promise(resolve => {
+            CalendarAPI.getAccountToken(res, oAuth2Client)
+            resolve('DONE')
+        })
+    },
     authorize: function(res, req, email) {
         setHost(req)
         setEmail(email)
@@ -47,6 +54,12 @@ const CalendarAPI = {
     getAccessToken: function(res, oAuth2Client) {
         const authUrl = oAuth2Client.generateAuthUrl({
             access_type: 'offline', scope: 'https://www.googleapis.com/auth/calendar.readonly', prompt: 'consent'
+        })
+        res.json({url: authUrl})
+    },
+    getAccountToken: function(res, oAuth2Client) {
+        const authUrl = oAuth2Client.generateAuthUrl({
+            access_type: 'offline', scope: 'https://www.googleapis.com/auth/calendar.readonly', prompt: 'select_account'
         })
         res.json({url: authUrl})
     },

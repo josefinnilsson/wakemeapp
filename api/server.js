@@ -514,6 +514,14 @@ router.get('/calendar/:email', (req, res) => {
     })
 })
 
+router.get('/change_calendar', (req, res) => {
+    CalendarAPI.switchAccount(res, req)
+    .catch(err => {
+        console.log(err)
+        res.json({error_message: err})
+    })
+})
+
 router.get('/calendar_callback', (req, res) => {
     let host = ''
     if (req.headers.host === 'localhost:3001') {
