@@ -22,11 +22,11 @@ class UserSettings extends Component {
       all_stations: [],
       active_station: localStorage.getItem('user_station_name'),
       active_station_id: 0,
-      bus: false,
-      metro: false,
-      train: false,
-      tram: false,
-      ship: false,
+      bus: localStorage.getItem('user_bus') === 'true' ? true : false,
+      metro: localStorage.getItem('user_metro') === 'true' ? true : false,
+      train: localStorage.getItem('user_train') === 'true' ? true : false,
+      tram: localStorage.getItem('user_tram') === 'true' ? true : false,
+      ship: localStorage.getItem('user_ship') === 'true' ? true : false,
       search: '',
     }
 
@@ -153,11 +153,11 @@ class UserSettings extends Component {
             <div className="transportation_options">
               <Form onSubmit={this.handleSaveSubmit}>
               <div className="check_boxes">
-                <Form.Check inline label="Bus" type={'checkbox'} id={'bus'} onChange={this.handleBusChange}/>
-                <Form.Check inline label="Metro" type={'checkbox'} id={'metro'} onChange={this.handleMetroChange}/>
-                <Form.Check inline label="Ship" type={'checkbox'} id={'ship'} onChange={this.handleShipChange}/>
-                <Form.Check inline label="Train" type={'checkbox'} id={'train'} onChange={this.handleTrainChange}/>
-                <Form.Check inline label="Tram" type={'checkbox'} id={'tram'} onChange={this.handleTramChange}/>
+                <Form.Check defaultChecked={this.state.bus} inline label="Bus" type={'checkbox'} id={'bus'} onChange={this.handleBusChange}/>
+                <Form.Check defaultChecked={this.state.metro} inline label="Metro" type={'checkbox'} id={'metro'} onChange={this.handleMetroChange}/>
+                <Form.Check defaultChecked={this.state.ship} inline label="Ship" type={'checkbox'} id={'ship'} onChange={this.handleShipChange}/>
+                <Form.Check defaultChecked={this.state.train} inline label="Train" type={'checkbox'} id={'train'} onChange={this.handleTrainChange}/>
+                <Form.Check defaultChecked={this.state.tram} inline label="Tram" type={'checkbox'} id={'tram'} onChange={this.handleTramChange}/>
               </div>
                 <Button className="save_btn settings_btn" type="submit">Save</Button>
               </Form>
