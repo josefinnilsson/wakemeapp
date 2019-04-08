@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import './userSettings.scss'
 import axios from 'axios'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { logout } from '../actions/authActions'
 import BackgroundToggle from '../settings/backgroundToggle'
 import {Form, Button} from 'react-bootstrap'
 import Select from 'react-select'
@@ -159,6 +156,12 @@ class UserSettings extends Component {
         </div>
         <div className="settings_form_wrapper">
           <div className="settings_form">
+            <h4>Calendar</h4>
+            <Button variant="primary" type="submit" onClick={this.changeAccount}>Change Account</Button>
+          </div>
+        </div>
+        <div className="settings_form_wrapper">
+          <div className="settings_form">
             <h4>Departures</h4>
             <h6>Current station: {this.state.active_station !== '' ? this.state.active_station : ' None'}</h6>
 
@@ -177,17 +180,10 @@ class UserSettings extends Component {
             </div>
           </div>
         </div>
-        <Button className="logout_btn" variant="primary" type="submit" onClick={this.onLogout}>Logout</Button>
-        <Button className="logout_btn" variant="primary" type="submit" onClick={this.changeAccount}>Change account</Button>
-
         <Footer/>
       </div>
     )
   }
 }
 
-UserSettings.propTypes = {
-  logout: PropTypes.func.isRequired
-}
-
-export default connect(mapStateToProps, { logout })(UserSettings)
+export default UserSettings
