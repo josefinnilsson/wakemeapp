@@ -2,14 +2,29 @@ import React, { Component } from 'react'
 import './staticComponents.scss'
 import settings from '../assets/settings.svg'
 import logo from '../assets/logo.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { logout } from '../actions/authActions'
+
+const mapStateToProps = state => ({
+  auth: state.auth
+})
 
 class Header extends Component {
+    onLogout = e => {
+        console.log('hejhopp')
+        e.preventDefault()
+        this.props.logout()
+    }
+
   render() {
     let user_settings = false
     if (window.location.pathname === '/userSettings')
         user_settings = true
 
     const user_settings_wheel = !user_settings ? (<a className="user_settings_wheel" href="/userSettings"><img src={settings} alt="settings" className="settings"/></a>) : ''
+    const logout = user_settings && <FontAwesomeIcon className="logout_icon fa-lg" icon='sign-out-alt' onClick={this.onLogout}/>
     return (
         <nav className="navbar">
             <div className="container-fluid">
@@ -20,10 +35,15 @@ class Header extends Component {
                     </div>
                 </div>
                 {user_settings_wheel}
+                {logout}
             </div>
         </nav>
     )
  }
 }
 
-export default Header
+Header.propTypes = {
+  logout: PropTypes.func.isRequired
+}
+
+export default connect(mapStateToProps, { logout })(Header)
