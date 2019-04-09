@@ -11,8 +11,24 @@ class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      url: ''
-    }
+      url: '',
+      comps: [
+      {
+        id: 0,
+        name: 'calendar'
+      },{
+        id: 1,
+        name: 'sl'
+      },{
+        id: 2,
+        name: 'news'
+      },{
+        id: 3,
+        name: 'weather'
+      }
+    ]}
+
+    this.moveComp = this.moveComp.bind(this)
   }
 
   componentDidMount() {
@@ -38,36 +54,49 @@ class Dashboard extends Component {
       return "Good Evening"
   }
 
+  moveComp(id, index) {
+    let { comps } = this.state;
+    let sourceComp = comps[id].name
+    comps[id].name = comps[index].name
+    comps[index].name = sourceComp
+    this.setState({ comps: comps });
+  }
+
   render() {
     let update = false
     if (this.props.location.pathname === '/cal')
       update = true
 
+    const comps = this.state.comps
+    const calendarId = comps.find(comp => {return comp.name === 'calendar'}).id
+    const slId = comps.find(comp => {return comp.name === 'sl'}).id
+    const newsId = comps.find(comp => {return comp.name === 'news'}).id
+    const weatherId = comps.find(comp => {return comp.name === 'weather'}).id
     const CalendarComp = () => {
       return(<div className="col-md-6">
               <div className="calendar">
-                <Calendar update={update}/>
+                <Calendar id={calendarId} update={update} moveComp={this.moveComp}/>
               </div>
             </div>)
     }
     const SLComp = () => {
       return(<div className="col-md-6">
               <div className="sl">
-                <SL history={this.props.history}/>
+                <SL id={slId} history={this.props.history} moveComp={this.moveComp}/>
               </div>
             </div>)
     }
     const NewsComp = () => {
       return(<div className="col-md-6">
               <div className="news">
-                <News/>
+                <News id={newsId} moveComp={this.moveComp}/>
               </div>
             </div>)
     }
     const WeatherComp = () => {
       return(<div className="col-md-6">
               <div className="weather">
-                <Weather/>
+                <Weather id={weatherId} moveComp={this.moveComp}/>
               </div>
             </div>)
     }
@@ -96,16 +125,28 @@ class Dashboard extends Component {
               </Tabs>)
     }
 
+    const renderSwitch = (comp) => {
+      switch(comp.name) {
+        case 'calendar':
+        return (<CalendarComp/>)
+        case 'sl':
+        return (<SLComp/>)
+        case 'news':
+        return (<NewsComp/>)
+        default:
+        return (<WeatherComp/>);
+      }
+    }
     const DesktopView = () => {
       return(
         <div>
           <div className="row">
-            <CalendarComp/>
-            <SLComp/>
+            {renderSwitch(comps[0])}
+            {renderSwitch(comps[1])}
           </div>
           <div className="row">
-            <NewsComp/>
-            <WeatherComp/>
+            {renderSwitch(comps[2])}
+            {renderSwitch(comps[3])}
           </div>
         </div>)
     }
@@ -130,4 +171,5 @@ class Dashboard extends Component {
     )
   }
 }
+
 export default Dashboard

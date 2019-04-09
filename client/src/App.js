@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
+import HTML5Backend from 'react-dnd-html5-backend'
+import { DragDropContext } from 'react-dnd'
 import './App.scss'
 import UserSettings from './settings/userSettings'
 import Dashboard from './dashboard/dashboard'
@@ -62,4 +64,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App)
