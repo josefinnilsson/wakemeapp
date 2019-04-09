@@ -14,6 +14,51 @@ import bright_night_icon from '../assets/bright_night.svg'
 import cloudy_night_icon from '../assets/cloudy_night.svg'
 import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts'
 import PulseLoader from 'react-spinners/PulseLoader'
+import { DragSource, DropTarget } from 'react-dnd'
+import _ from 'lodash'
+
+const Types = {
+  COMP: 'comp',
+}
+
+const CompSource = {
+   beginDrag(props, monitor, component) {
+    // Return the data describing the dragged item
+    const item = { id: props.id }
+    return item
+  },
+
+  endDrag(props, monitor, component) {
+    if (!monitor.didDrop()) {
+      return
+    }
+    const sourceComp = monitor.getItem()
+    const dropComp = monitor.getDropResult()
+    moveComp(sourceComp.id, dropComp.id)
+  }
+}
+
+const CompTarget = {
+  drop(props) {
+    return {
+      id: props.id
+    }
+  }
+}
+
+let moveComp = () => {}
+
+function collectSource(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+  }
+}
+
+function collectTarget(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+  }
+}
 
 class Weather extends Component {
   constructor(props) {
@@ -26,6 +71,8 @@ class Weather extends Component {
       forecast_loading: true,
       forecast: []
     }
+
+    moveComp = this.props.moveComp
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 
@@ -158,10 +205,13 @@ class Weather extends Component {
     let weather = localStorage.getItem('weather')
     const location = localStorage.getItem('current_location')
     const data = this.state.forecast
+
+    const { connectDragSource, connectDropTarget } = this.props
+
     if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
       weather = JSON.parse(weather)
       const icon = this.getIcon(weather.icon, weather.sunset, weather.sunrise)
-      return (
+      return connectDropTarget(connectDragSource(
         <div>
           <div className="coponent_title">
             <h4>Weather in {location}</h4>
@@ -201,13 +251,13 @@ class Weather extends Component {
             </div>
           </div>
         </div>
-      )
+      ))
     } else {
-      return (
+      return connectDropTarget(connectDragSource(
         <RefreshWeather/>
-      )
+      ))
     }
   }
 }
 
-export default Weather
+export default _.flow([DropTarget(Types.COMP, CompTarget, collectTarget),DragSource(Types.COMP, CompSource, collectSource)])(Weather)
