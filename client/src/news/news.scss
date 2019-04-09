@@ -1,12 +1,13 @@
 $form_background: rgba(254, 243, 234, 1);
 $shadow_color: rgba(250, 180, 116, 0.15);
 $accent_color: rgb(138, 210, 162);
-$accent_color_focus: rgb(122, 194, 146);
-$dark_grey: rgb(100,100,100);
-
 
 a.read_more {
-  color: $dark_grey;
+  color: $accent_color;
+}
+
+a.read_more:hover {
+  opacity: 0.7;
 }
 
 .news_wrapper {
