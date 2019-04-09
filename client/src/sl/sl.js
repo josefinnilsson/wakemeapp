@@ -22,9 +22,9 @@ class SL extends Component {
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 
-  componentDidMount() {
-    this.handleRefresh()
-  }
+  // componentDidMount() {
+  //   this.handleRefresh()
+  // }
 
   handleRefresh() {
     this.setState({

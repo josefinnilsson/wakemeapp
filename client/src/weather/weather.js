@@ -26,16 +26,16 @@ class Weather extends Component {
       latitude: 0,
       longitude: 0,
       rotate: false,
-      forecast_loading: true,
+      forecast_loading: false,
       forecast: []
     }
 
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 
-  componentDidMount() {
-    this.handleRefresh()
-  }
+  // componentDidMount() {
+  //   this.handleRefresh()
+  // }
 
   getLocation() {
     return new Promise(resolve => {
@@ -94,7 +94,7 @@ class Weather extends Component {
   }
 
   handleRefresh() {
-    this.setState({ rotate: true })
+    this.setState({ rotate: true, forecast_loading: true })
     this.getLocation()
     .then(() => {
       const lat = this.state.latitude
