@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { isMobileOnly } from 'react-device-detect'
+import Toggle from 'react-toggle'
 import Calendar from '../calendar/calendar'
 import SL from '../sl/sl'
 import News from '../news/news'
@@ -25,10 +26,12 @@ class Dashboard extends Component {
       },{
         id: 3,
         name: 'weather'
-      }
-    ]}
+      }],
+      dragAllowed: false
+    }
 
     this.moveComp = this.moveComp.bind(this)
+    this.dragAllowed = this.dragAllowed.bind(this)
   }
 
   componentDidMount() {
@@ -54,6 +57,12 @@ class Dashboard extends Component {
       return "Good Evening"
   }
 
+  dragAllowed() {
+    this.setState({
+      dragAllowed: !this.state.dragAllowed
+    })
+  }
+
   moveComp(id, index) {
     let { comps } = this.state;
     let sourceComp = comps[id].name
@@ -75,28 +84,28 @@ class Dashboard extends Component {
     const CalendarComp = () => {
       return(<div className="col-md-6">
               <div className="calendar">
-                <Calendar id={calendarId} update={update} moveComp={this.moveComp}/>
+                <Calendar id={calendarId} update={update} moveComp={this.moveComp} dragAllowed={this.state.dragAllowed}/>
               </div>
             </div>)
     }
     const SLComp = () => {
       return(<div className="col-md-6">
               <div className="sl">
-                <SL id={slId} history={this.props.history} moveComp={this.moveComp}/>
+                <SL id={slId} history={this.props.history} moveComp={this.moveComp} dragAllowed={this.state.dragAllowed}/>
               </div>
             </div>)
     }
     const NewsComp = () => {
       return(<div className="col-md-6">
               <div className="news">
-                <News id={newsId} moveComp={this.moveComp}/>
+                <News id={newsId} moveComp={this.moveComp} dragAllowed={this.state.dragAllowed}/>
               </div>
             </div>)
     }
     const WeatherComp = () => {
       return(<div className="col-md-6">
               <div className="weather">
-                <Weather id={weatherId} moveComp={this.moveComp}/>
+                <Weather id={weatherId} moveComp={this.moveComp} dragAllowed={this.state.dragAllowed}/>
               </div>
             </div>)
     }
@@ -167,6 +176,11 @@ class Dashboard extends Component {
         <div className="container">
           {isMobileOnly ? <MobileView/> : <DesktopView/>}
         </div>
+        <label><Toggle defaultChecked={this.state.dragAllowed}
+                icons={{checked: null,
+                        unchecked: null}}
+                onChange={this.dragAllowed}/><span>Move components</span></label>
+
       </div>
     )
   }

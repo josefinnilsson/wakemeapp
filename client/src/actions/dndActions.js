@@ -3,7 +3,11 @@ export const Types = {
 }
 
 export const CompSource = {
-   beginDrag(props, monitor, component) {
+  canDrag(props, monitor) {
+    return props.dragAllowed
+  },
+
+  beginDrag(props, monitor, component) {
     const item = { id: props.id }
     return item
   },
