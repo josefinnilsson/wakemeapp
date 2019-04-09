@@ -7,48 +7,7 @@ import {Button} from 'react-bootstrap'
 import { isMobileOnly } from 'react-device-detect'
 import { DragSource, DropTarget } from 'react-dnd'
 import _ from 'lodash'
-
-const Types = {
-  COMP: 'comp',
-}
-
-const CompSource = {
-   beginDrag(props, monitor, component) {
-    const item = { id: props.id }
-    return item
-  },
-
-  endDrag(props, monitor, component) {
-    if (!monitor.didDrop()) {
-      return
-    }
-    const sourceComp = monitor.getItem()
-    const dropComp = monitor.getDropResult()
-    moveComp(sourceComp.id, dropComp.id)
-  }
-}
-
-const CompTarget = {
-  drop(props) {
-    return {
-      id: props.id
-    }
-  }
-}
-
-let moveComp = () => {}
-
-function collectSource(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource()
-  }
-}
-
-function collectTarget(connect, monitor) {
-  return {
-    connectDropTarget: connect.dropTarget(),
-  }
-}
+import { Types, CompSource, CompTarget, collectSource, collectTarget } from '../actions/dndActions'
 
 class SL extends Component {
   constructor(props) {
@@ -60,7 +19,6 @@ class SL extends Component {
       rotate: false
     }
 
-    moveComp = this.props.moveComp
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 

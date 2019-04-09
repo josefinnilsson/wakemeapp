@@ -16,49 +16,7 @@ import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts'
 import PulseLoader from 'react-spinners/PulseLoader'
 import { DragSource, DropTarget } from 'react-dnd'
 import _ from 'lodash'
-
-const Types = {
-  COMP: 'comp',
-}
-
-const CompSource = {
-   beginDrag(props, monitor, component) {
-    // Return the data describing the dragged item
-    const item = { id: props.id }
-    return item
-  },
-
-  endDrag(props, monitor, component) {
-    if (!monitor.didDrop()) {
-      return
-    }
-    const sourceComp = monitor.getItem()
-    const dropComp = monitor.getDropResult()
-    moveComp(sourceComp.id, dropComp.id)
-  }
-}
-
-const CompTarget = {
-  drop(props) {
-    return {
-      id: props.id
-    }
-  }
-}
-
-let moveComp = () => {}
-
-function collectSource(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-  }
-}
-
-function collectTarget(connect, monitor) {
-  return {
-    connectDropTarget: connect.dropTarget(),
-  }
-}
+import { Types, CompSource, CompTarget, collectSource, collectTarget } from '../actions/dndActions'
 
 class Weather extends Component {
   constructor(props) {
@@ -72,7 +30,6 @@ class Weather extends Component {
       forecast: []
     }
 
-    moveComp = this.props.moveComp
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 
