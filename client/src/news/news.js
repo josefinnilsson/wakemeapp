@@ -2,6 +2,51 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './news.scss';
+import { DragSource, DropTarget } from 'react-dnd'
+import _ from 'lodash'
+
+const Types = {
+  COMP: 'comp',
+}
+
+const CompSource = {
+   beginDrag(props, monitor, component) {
+    const item = { id: props.id }
+    return item
+  },
+
+  endDrag(props, monitor, component) {
+    if (!monitor.didDrop()) {
+      return
+    }
+    const sourceComp = monitor.getItem()
+    const dropComp = monitor.getDropResult()
+    moveComp(sourceComp.id, dropComp.id)
+  }
+}
+
+const CompTarget = {
+  drop(props) {
+    return {
+      id: props.id
+    }
+  }
+}
+
+let moveComp = () => {}
+
+function collectSource(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+  }
+}
+
+function collectTarget(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+  }
+}
 
 class News extends Component {
   constructor(props) {
@@ -11,6 +56,7 @@ class News extends Component {
       rotate: false
     }
 
+    moveComp = this.props.moveComp
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 
@@ -47,7 +93,8 @@ class News extends Component {
       }
     }
 
-    return (
+    const { connectDragSource, connectDropTarget } = this.props
+    return connectDropTarget(connectDragSource(
       <div>
         <div className="coponent_title">
           <h4>Latest News</h4>
@@ -57,8 +104,8 @@ class News extends Component {
           {news_div}
         </div>
       </div>
-    )
+    ))
   }
 }
 
-export default News
+export default _.flow([DropTarget(Types.COMP, CompTarget, collectTarget),DragSource(Types.COMP, CompSource, collectSource)])(News)
