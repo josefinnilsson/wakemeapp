@@ -5,7 +5,50 @@ import './sl.scss'
 import Departures from './departures/departures'
 import {Button} from 'react-bootstrap'
 import { isMobileOnly } from 'react-device-detect'
+import { DragSource, DropTarget } from 'react-dnd'
+import _ from 'lodash'
 
+const Types = {
+  COMP: 'comp',
+}
+
+const CompSource = {
+   beginDrag(props, monitor, component) {
+    const item = { id: props.id }
+    return item
+  },
+
+  endDrag(props, monitor, component) {
+    if (!monitor.didDrop()) {
+      return
+    }
+    const sourceComp = monitor.getItem()
+    const dropComp = monitor.getDropResult()
+    moveComp(sourceComp.id, dropComp.id)
+  }
+}
+
+const CompTarget = {
+  drop(props) {
+    return {
+      id: props.id
+    }
+  }
+}
+
+let moveComp = () => {}
+
+function collectSource(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource()
+  }
+}
+
+function collectTarget(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+  }
+}
 
 class SL extends Component {
   constructor(props) {
@@ -17,6 +60,7 @@ class SL extends Component {
       rotate: false
     }
 
+    moveComp = this.props.moveComp
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 
@@ -67,22 +111,23 @@ class SL extends Component {
         destination={departure.Destination} exp_time={departure.DisplayTime}/>)
     }
 
+    const { connectDragSource, connectDropTarget } = this.props
     if (localStorage.getItem('user_station_id') === '-1') {
-      return (<div className="not_authenticated_wrapper">
+      return connectDropTarget(connectDragSource(<div className="not_authenticated_wrapper">
               <div className="not_authenticated">
                 <h6>Update your user settings</h6>
                 <Button onClick={() => {this.props.history.push('/userSettings')}}>Settings</Button>
               </div>
-            </div>)
+            </div>))
     } else if (departures.length <= 0) {
-      return(<div className="not_authenticated_wrapper">
+      return connectDropTarget(connectDragSource(<div className="not_authenticated_wrapper">
               <div className="not_authenticated">
                 <h6>No departures the coming 30 minutes</h6>
                 <Button onClick={this.handleRefresh}>Refresh</Button>
               </div>
-            </div>)
+            </div>))
     } else {
-      return (
+      return connectDropTarget(connectDragSource(
       <div>
         <div className="coponent_title">
           <h4>Next Departures at {localStorage.getItem('user_station_name')}</h4>
@@ -95,9 +140,9 @@ class SL extends Component {
             </tbody>
           </table>
         </Link>
-      </div>)
+      </div>))
     }
   }
 }
 
-export default SL
+export default _.flow([DropTarget(Types.COMP, CompTarget, collectTarget),DragSource(Types.COMP, CompSource, collectSource)])(SL)
