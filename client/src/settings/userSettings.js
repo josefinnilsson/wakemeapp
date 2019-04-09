@@ -6,10 +6,6 @@ import {Form, Button} from 'react-bootstrap'
 import Select from 'react-select'
 import Footer from '../staticComponents/footer'
 
-const mapStateToProps = state => ({
-  auth: state.auth
-})
-
 class UserSettings extends Component {
   constructor(props) {
     super(props)
