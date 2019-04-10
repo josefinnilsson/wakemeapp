@@ -14,6 +14,9 @@ import bright_night_icon from '../assets/bright_night.svg'
 import cloudy_night_icon from '../assets/cloudy_night.svg'
 import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts'
 import PulseLoader from 'react-spinners/PulseLoader'
+import { DragSource, DropTarget } from 'react-dnd'
+import _ from 'lodash'
+import { Types, CompSource, CompTarget, collectSource, collectTarget } from '../actions/dndActions'
 
 class Weather extends Component {
   constructor(props) {
@@ -23,9 +26,10 @@ class Weather extends Component {
       latitude: 0,
       longitude: 0,
       rotate: false,
-      forecast_loading: true,
+      forecast_loading: false,
       forecast: []
     }
+
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 
@@ -90,7 +94,7 @@ class Weather extends Component {
   }
 
   handleRefresh() {
-    this.setState({ rotate: true })
+    this.setState({ rotate: true, forecast_loading: true })
     this.getLocation()
     .then(() => {
       const lat = this.state.latitude
@@ -158,10 +162,13 @@ class Weather extends Component {
     let weather = localStorage.getItem('weather')
     const location = localStorage.getItem('current_location')
     const data = this.state.forecast
+
+    const { connectDragSource, connectDropTarget } = this.props
+
     if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
       weather = JSON.parse(weather)
       const icon = this.getIcon(weather.icon, weather.sunset, weather.sunrise)
-      return (
+      return connectDropTarget(connectDragSource(
         <div>
           <div className="coponent_title">
             <h4>Weather in {location}</h4>
@@ -201,13 +208,13 @@ class Weather extends Component {
             </div>
           </div>
         </div>
-      )
+      ))
     } else {
-      return (
+      return connectDropTarget(connectDragSource(
         <RefreshWeather/>
-      )
+      ))
     }
   }
 }
 
-export default Weather
+export default _.flow([DropTarget(Types.COMP, CompTarget, collectTarget),DragSource(Types.COMP, CompSource, collectSource)])(Weather)

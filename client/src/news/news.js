@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './news.scss';
+import { DragSource, DropTarget } from 'react-dnd'
+import _ from 'lodash'
+import { Types, CompSource, CompTarget, collectSource, collectTarget } from '../actions/dndActions'
 
 class News extends Component {
   constructor(props) {
@@ -47,7 +50,8 @@ class News extends Component {
       }
     }
 
-    return (
+    const { connectDragSource, connectDropTarget } = this.props
+    return connectDropTarget(connectDragSource(
       <div>
         <div className="coponent_title">
           <h4>Latest News</h4>
@@ -57,8 +61,8 @@ class News extends Component {
           {news_div}
         </div>
       </div>
-    )
+    ))
   }
 }
 
-export default News
+export default _.flow([DropTarget(Types.COMP, CompTarget, collectTarget),DragSource(Types.COMP, CompSource, collectSource)])(News)

@@ -118,7 +118,12 @@ router.post('/register', (req, res) => {
                 const tram = false
                 const ship = false
                 const token = '-'
-                const userSettings = new UserSettings({ _id, stationName, stationId, bus, metro, train, tram, ship, token })
+                const firstComp = 'calendar'
+                const secondComp = 'weather'
+                const thirdComp = 'news'
+                const fourthComp = 'sl'
+                const userSettings = new UserSettings({ _id, stationName, stationId, bus, metro, train, tram,
+                                                    ship, token, firstComp, secondComp, thirdComp, fourthComp })
                 userSettings.save((err) => {
                     if (err) {
                         return res.status(500).send({ general: 'An error occured while registring, please try again.' })
@@ -196,6 +201,10 @@ router.get('/getUserSettings/:email', (req, res) => {
             data.train = user_settings.train
             data.tram = user_settings.tram
             data.ship = user_settings.ship
+            data.firstComp = user_settings.firstComp
+            data.secondComp = user_settings.secondComp
+            data.thirdComp = user_settings.thirdComp
+            data.fourthComp = user_settings.fourthComp
             res.json(data)
         })
     })
@@ -214,6 +223,24 @@ router.post('/updateUserSettings/:email', (req, res) => {
             if (err)
                 return res.send(500, {error: err})
             return res.send ('Successfully saved user settings')
+        })
+    })
+})
+
+/*
+Update component positions in db
+*/
+router.post('/updateUserSettingsComponents/:email', (req, res) => {
+    const email = req.params.email
+
+    User.findOne({ email }, (err, user) => {
+        const query = {'_id': user._id}
+        const { firstComp, secondComp, thirdComp, fourthComp } = sanitize(req.body)
+        console.log(firstComp + ", " + secondComp + ", " + thirdComp + ", " + fourthComp)
+        UserSettings.findOneAndUpdate(query, { firstComp, secondComp, thirdComp, fourthComp }, (err, userSettings) => {
+            if (err)
+                return res.send(500, {error: err})
+            return res.send('Successfully saved user comps')
         })
     })
 })

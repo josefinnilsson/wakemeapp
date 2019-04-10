@@ -8,10 +8,6 @@ import Footer from '../staticComponents/footer'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const mapStateToProps = state => ({
-  auth: state.auth
-})
-
 class UserSettings extends Component {
   constructor(props) {
     super(props)

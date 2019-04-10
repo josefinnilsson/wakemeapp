@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './calendar.scss'
 import Event from './event'
-import {Button} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
+import { DragSource, DropTarget } from 'react-dnd'
+import _ from 'lodash'
+import { Types, CompSource, CompTarget, collectSource, collectTarget } from '../actions/dndActions'
 
 class Calendar extends Component {
     constructor(props) {
@@ -13,6 +16,7 @@ class Calendar extends Component {
             authorized: true,
             rotate: false
         }
+
         this.handleRefresh = this.handleRefresh.bind(this)
         this.isAuth = this.isAuth.bind(this)
     }
@@ -89,9 +93,11 @@ class Calendar extends Component {
       event_table.push(<tr key={'no_events'}><td>You have no events today</td></tr>)
     }
 
+    const { connectDragSource, connectDropTarget } = this.props
+
     const auth = this.state.authorized
     if (auth) {
-      return (
+      return connectDropTarget(connectDragSource(
         <div>
           <div className="coponent_title">
             <h4>Today's Events</h4>
@@ -101,18 +107,18 @@ class Calendar extends Component {
             {event_table}
           </div>
         </div>
-      )
+      ))
     } else {
-      return (
+      return connectDropTarget(connectDragSource(
         <div className="not_authenticated_wrapper">
           <div className="not_authenticated">
             <h6>You haven't authenticated your calendar</h6>
             <Button onClick={this.handleRefresh}>Authenticate</Button>
           </div>
         </div>
-      )
+      ))
     }
   }
 }
 
-export default Calendar
+export default _.flow([DropTarget(Types.COMP, CompTarget, collectTarget),DragSource(Types.COMP, CompSource, collectSource)])(Calendar)
