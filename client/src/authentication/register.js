@@ -46,15 +46,24 @@ class Register extends Component {
     }
 
     handleEmailChange(e) {
-        this.setState({ email: e.target.value })
+        this.setState({
+            email: e.target.value,
+            errors: ''
+        })
     }
 
     handlePasswordChange(e) {
-        this.setState({ password: e.target.value })
+        this.setState({ 
+            password: e.target.value,
+            errors: ''
+        })
     }
 
     handleConfirmPasswordChange(e) {
-        this.setState({ confirm_password: e.target.value })
+        this.setState({
+            confirm_password: e.target.value,
+            errors: ''
+        })
     }
 
     handleSubmit(e) {
