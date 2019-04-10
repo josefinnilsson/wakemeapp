@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './news.scss'
 
 class NewsExtended extends Component {
@@ -27,9 +28,13 @@ class NewsExtended extends Component {
 
   render() {
 
+    const back_btn = <a className="back_btn news_back_btn" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
+
     return (
       <div className='container'>
           <div className="row">
+          {back_btn}
+
           <div className="col-md-3"></div>
           <div className="col-md-6">
           <div className="news_extended_wrapper">

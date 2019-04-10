@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { isMobileOnly } from 'react-device-detect'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../sl.scss'
 import Departures from './departures'
 
@@ -59,8 +60,11 @@ class DeparturesExtended extends Component {
               </Tabs>)
     }
 
+    const back_btn = <a className="back_btn" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
+
     const DesktopView = () => {
       return (<div className='row departures_wrapper'>
+              {back_btn}
             <div className={no_real_time_departures.length > 0 ? 'col-md-6' : 'col-md-12'}>
               <h2>Real Time</h2>
               <RealTime/>

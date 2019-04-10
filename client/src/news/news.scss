@@ -11,6 +11,11 @@ a.read_more:hover {
   opacity: 0.7;
 }
 
+.news_back_btn {
+    position: absolute;
+    top: 11%;
+}
+
 .news_wrapper {
   height: 250px;
   overflow-y: scroll;

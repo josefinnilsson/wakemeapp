@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './userSettings.scss'
 import axios from 'axios'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import BackgroundToggle from '../settings/backgroundToggle'
 import {Form, Button} from 'react-bootstrap'
 import Select from 'react-select'
@@ -147,8 +148,10 @@ class UserSettings extends Component {
       })
     }
 
+    const back_btn = <a className="back_btn settings_back_btn" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
     return (
       <div className="settings_wrapper">
+        {back_btn}
         <h2 className="settings_title">Settings</h2>
         <ToastContainer />
         <div className="settings_form_wrapper">

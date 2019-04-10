@@ -32,6 +32,11 @@ $dark_grey: rgb(100,100,100);
   justify-content: space-between
 }
 
+.back_btn {
+    position: absolute;
+    right: 97%;
+}
+
 #mobile {
   height: 63vh !important;
 }
