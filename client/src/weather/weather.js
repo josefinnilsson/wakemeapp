@@ -33,9 +33,9 @@ class Weather extends Component {
     this.handleRefresh = this.handleRefresh.bind(this)
   }
 
-  // componentDidMount() {
-  //   this.handleRefresh()
-  // }
+  componentDidMount() {
+    this.handleRefresh()
+  }
 
   getLocation() {
     return new Promise(resolve => {
