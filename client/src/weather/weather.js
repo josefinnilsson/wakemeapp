@@ -211,7 +211,7 @@ class Weather extends Component {
                   color={'#8AD2A2'}
                   loading={this.state.forecast_loading}
                 />
-                {!this.state.forecast_loading &&
+                {!this.state.forecast_loading && this.state.forecast &&
                   <LineChart width={300} height={200} data={data}>
                     <XAxis minTickGap={1} dataKey="hour"/>
                     <YAxis width={40}/>
