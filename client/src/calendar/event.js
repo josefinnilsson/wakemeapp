@@ -16,7 +16,7 @@ class Event extends Component {
     if (splitted_location.length > 1) {
         let line_break_location = []
         splitted_location.forEach(i => {
-            line_break_location.push(<p className="address">{i}</p>)
+            line_break_location.push(<p key={i} className="address">{i}</p>)
         })
         return line_break_location
     } else {
