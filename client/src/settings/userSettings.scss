@@ -93,6 +93,12 @@ label {
     background-color: $accent_color_focus !important;
 }
 
+.css-15k3avv {
+    position: absolute;
+    max-height: 15vh;
+    overflow-y: scroll;
+}
+
 @media (max-width: 480px) {
     .settings_title {
         margin-top: 6%;
