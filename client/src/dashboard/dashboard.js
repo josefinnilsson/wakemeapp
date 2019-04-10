@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { isMobileOnly } from 'react-device-detect'
+import axios from 'axios'
 import Calendar from '../calendar/calendar'
 import SL from '../sl/sl'
 import News from '../news/news'
@@ -15,16 +16,16 @@ class Dashboard extends Component {
       comps: [
       {
         id: 0,
-        name: 'calendar'
+        name: localStorage.getItem('firstComp')
       },{
         id: 1,
-        name: 'sl'
+        name: localStorage.getItem('secondComp')
       },{
         id: 2,
-        name: 'news'
+        name: localStorage.getItem('thirdComp')
       },{
         id: 3,
-        name: 'weather'
+        name: localStorage.getItem('fourthComp')
       }],
       dragAllowed: false
     }
@@ -60,7 +61,21 @@ class Dashboard extends Component {
     let sourceComp = comps[id].name
     comps[id].name = comps[index].name
     comps[index].name = sourceComp
-    this.setState({ comps: comps });
+
+    const userSettingsComponents = {
+      firstComp: comps[0].name,
+      secondComp: comps[1].name,
+      thirdComp: comps[2].name,
+      fourthComp: comps[3].name
+    }
+    axios.post('/updateUserSettingsComponents/'+ localStorage.getItem('email'), userSettingsComponents)
+      .then(response => {
+        localStorage.setItem('firstComp', comps[0].name)
+        localStorage.setItem('secondComp', comps[1].name)
+        localStorage.setItem('thirdComp', comps[2].name)
+        localStorage.setItem('fourthComp', comps[3].name)
+        this.setState({ comps: comps });
+      })
   }
 
   render() {

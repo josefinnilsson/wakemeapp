@@ -55,6 +55,10 @@ class Login extends Component {
               localStorage.setItem('user_train', data.train)
               localStorage.setItem('user_tram', data.tram)
               localStorage.setItem('user_ship', data.ship)
+              localStorage.setItem('firstComp', data.firstComp)
+              localStorage.setItem('secondComp', data.secondComp)
+              localStorage.setItem('thirdComp', data.thirdComp)
+              localStorage.setItem('fourthComp', data.fourthComp)
               this.props.history.push('/')
           })
         }
