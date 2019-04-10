@@ -1,6 +1,7 @@
 $form_background: rgba(254, 243, 234, 1);
 $shadow_color: rgba(250, 180, 116, 0.15);
 $accent_color: rgb(138, 210, 162);
+$dark_grey: rgb(150,150,150);
 
 a.read_more {
   color: $accent_color;
@@ -41,4 +42,22 @@ a.read_more:hover {
   -webkit-box-shadow: 0px 0px 14px -2px $shadow_color;
   -moz-box-shadow: 0px 0px 14px -2px $shadow_color;
   box-shadow: 0px 0px 14px -2px $shadow_color;
+}
+
+.news_wrapper::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.news_wrapper::-webkit-scrollbar:vertical  {
+    width: 7px;
+}
+
+.news_wrapper::-webkit-scrollbar:horizontal {
+    -webkit-appearance: none;
+}
+
+.news_wrapper::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    border: 0px solid white;
+    background-color: $dark_grey;
 }
