@@ -3,22 +3,26 @@ $dark_grey: rgb(100,100,100);
 
 .calendar {
   height: 300px;
+  width: 100%;
   margin: 5px;
 }
 
 .weather {
   height: 300px;
+  width: 100%;
   margin: 5px;
 }
 
 .news {
   height: 300px;
+  width: 100%;
   margin: 5px;
 }
 
 .sl {
   height: 300px;
   margin: 5px;
+  width: 100%;
   overflow-y: hidden;
 }
 
@@ -35,6 +39,10 @@ $dark_grey: rgb(100,100,100);
 .back_btn {
     position: absolute;
     right: 97%;
+}
+
+svg {
+  width: 90%;
 }
 
 #mobile {

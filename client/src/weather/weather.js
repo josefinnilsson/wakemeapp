@@ -183,6 +183,7 @@ class Weather extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-5">
+              <div className="weather_info">
               <div className="weather_row">
                 {icon}
                 <h3 className="weather_title">{weather.temp.toFixed(1) + " \u00b0"}C</h3>
@@ -200,6 +201,7 @@ class Weather extends Component {
                     <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunset}</Moment></h6>
                   </div>
                 </div>
+              </div>
               </div>
               </div>
               <div className="col-md-7" id="forecast">

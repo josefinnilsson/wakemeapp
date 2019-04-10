@@ -18,6 +18,10 @@ $accent_color: rgb(138, 210, 162);
   box-shadow: 0px 0px 14px -2px $shadow_color;
 }
 
+.weather_info {
+  margin-top: 20%;
+}
+
 img.sunrise_icon {
     height: 35px;
     width: 35px;
@@ -72,4 +76,10 @@ tspan {
     to {
         transform: rotate(360deg);
     }
+}
+
+@media (max-width: 480px) {
+  .weather_info {
+    margin-top: 5%;
+  }
 }
