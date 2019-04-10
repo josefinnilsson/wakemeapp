@@ -188,13 +188,19 @@ class Weather extends Component {
                 {icon}
                 <h3 className="weather_title">{weather.temp + " \u00b0"}C</h3>
               </div>
-              <div className="weather_row">
-                <img src={sunrise_icon} alt="" className="sunrise_icon"/>
-                <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunrise}</Moment></h6>
-              </div>
-              <div className="weather_row">
-                <img src={sunset_icon} alt="" className="sunrise_icon"/>
-                <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunset}</Moment></h6>
+              <div className="row sunset_sunrise">
+                <div className="col-md-6">
+                  <div className="sunrise_sunset">
+                    <img src={sunrise_icon} alt="" className="sunrise_icon"/>
+                    <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunrise}</Moment></h6>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="sunrise_sunset">
+                    <img src={sunset_icon} alt="" className="sunrise_icon"/>
+                    <h6 className="weather_title"><Moment format="HH:mm" unix>{weather.sunset}</Moment></h6>
+                  </div>
+                </div>
               </div>
               </div>
               <div className="col-md-7" id="forecast">
