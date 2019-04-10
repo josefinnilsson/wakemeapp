@@ -156,11 +156,10 @@ class Weather extends Component {
     }
     const CustomTooltip = ({ active, payload, label }) => {
       if (active) {
-        const time = label + '.00'
-        const temp = payload[0].value + '\u00b0 C'
+        const temp = payload[0].value.toFixed(1) + '\u00b0 C'
         return (
           <div className="custom-tooltip">
-            <p className="label">{`${time}: ${temp}`}</p>
+            <p className="label">{`${temp}`}</p>
           </div>
         )
       }
@@ -186,7 +185,7 @@ class Weather extends Component {
               <div className="col-md-5">
               <div className="weather_row">
                 {icon}
-                <h3 className="weather_title">{weather.temp + " \u00b0"}C</h3>
+                <h3 className="weather_title">{weather.temp.toFixed(1) + " \u00b0"}C</h3>
               </div>
               <div className="row sunset_sunrise">
                 <div className="col-md-6">
