@@ -92,7 +92,7 @@ class Weather extends Component {
     })
   }
 
-  handleRefresh() {
+  handleRefresh(e) {
     // called by refresh button
     if (typeof e !== 'undefined') {
       this.setState({
