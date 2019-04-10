@@ -17,6 +17,7 @@ import setAuthToken from './utils/setAuthToken'
 import { Provider } from 'react-redux'
 import store from './store'
 import Header from './staticComponents/header'
+import { toast } from 'react-toastify'
 
 library.add(fas)
 
@@ -38,6 +39,13 @@ class App extends Component {
     const location = window.location.pathname
     if (location === '/login' || location === '/register') {
       auth = true
+    }
+    if (location === '/cal') {
+      toast('Calendar authentication successful!', {
+            className: 'success_notification',
+            bodyClassName: 'success_notification',
+            progressClassName: 'success_notification',
+        })
     }
     const header = auth ? '' : <Header/>
     return (

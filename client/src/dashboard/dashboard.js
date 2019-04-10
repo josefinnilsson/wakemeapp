@@ -6,6 +6,7 @@ import SL from '../sl/sl'
 import News from '../news/news'
 import Weather from '../weather/weather'
 import './dashboard.scss'
+import { ToastContainer } from 'react-toastify'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -122,6 +123,7 @@ class Dashboard extends Component {
 
     return (
       <div className="dashboard_wrapper" id="dashboard_wrapper" style={this.state.url !== '' ? unsplashStyle : noStyle}>
+        <ToastContainer />
         <h2>{greeting} {name}!</h2>
         <div className="container">
           {isMobileOnly ? <MobileView/> : <DesktopView/>}
