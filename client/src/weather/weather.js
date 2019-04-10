@@ -80,7 +80,6 @@ class Weather extends Component {
   }
 
   getForecast(lat, long) {
-    this.setState({ forecast_loading: true })
     fetch('/weather_forecast/' + lat + '/' + long)
     .then(response => {
       return response.json()
@@ -94,7 +93,15 @@ class Weather extends Component {
   }
 
   handleRefresh() {
-    this.setState({ rotate: true, forecast_loading: true })
+    // called by refresh button
+    if (typeof e !== 'undefined') {
+      this.setState({
+        rotate: true
+      })
+    }
+    this.setState({
+      forecast_loading: true
+    })
     this.getLocation()
     .then(() => {
       const lat = this.state.latitude

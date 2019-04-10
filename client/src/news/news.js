@@ -21,10 +21,13 @@ class News extends Component {
       this.handleRefresh()
   }
 
-  handleRefresh() {
-    this.setState({
-      rotate: true
-    })
+  handleRefresh(e) {
+    // called by refresh button
+    if (typeof e !== 'undefined') {
+      this.setState({
+        rotate: true
+      })
+    }
     fetch('/news')
       .then(response => {
         return response.json()

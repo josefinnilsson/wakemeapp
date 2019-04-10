@@ -26,10 +26,13 @@ class SL extends Component {
     this.handleRefresh()
   }
 
-  handleRefresh() {
-    this.setState({
-      rotate: true
-    })
+  handleRefresh(e) {
+    // called by refresh button
+    if (typeof e !== 'undefined') {
+      this.setState({
+        rotate: true
+      })
+    }
     let station_id = localStorage.getItem('user_station_id')
     if (station_id === '-1')
       return

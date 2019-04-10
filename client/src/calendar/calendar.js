@@ -29,9 +29,12 @@ class Calendar extends Component {
     }
 
     handleRefresh() {
-      this.setState({
-        rotate: true
-      })
+      // called by refresh button
+      if (typeof e !== 'undefined') {
+        this.setState({
+          rotate: true
+        })
+      }
       fetch('/calendar/' + localStorage.getItem('email'))
       .then(response => {
         return response.json()
