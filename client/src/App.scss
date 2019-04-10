@@ -101,6 +101,19 @@ input[type="search"]:focus
   animation-iteration-count: 1;
 }
 
+.Toastify__toast.success_notification {
+  background-color: rgb(138, 210, 162);
+}
+
+.Toastify__toast-body.success_notification {
+  font-family: 'Roboto', sans-serif;
+  color: white;
+}
+
+.Toastify__progress-bar.Toastify__progress-bar--animated.Toastify__progress-bar--default.success_notification {
+  background: rgb(64, 178, 102);
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
