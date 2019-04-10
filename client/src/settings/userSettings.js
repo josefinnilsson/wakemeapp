@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 class UserSettings extends Component {
+  is_mounted = false
   constructor(props) {
     super(props)
 
@@ -36,15 +37,21 @@ class UserSettings extends Component {
   }
 
   componentDidMount() {
+    this.is_mounted = true
     fetch('/getAllStations')
       .then(response => {
         return response.json()
+    })
+    .then(result => {
+      if (this.is_mounted)
+      this.setState({
+        all_stations: result
       })
-      .then(result => {
-        this.setState({
-          all_stations: result
-        })
-      })
+    })
+  }
+
+  componentWillUnmount() {
+    this.is_mounted = false
   }
 
   changeAccount() {

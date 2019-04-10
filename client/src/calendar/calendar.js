@@ -93,7 +93,7 @@ class Calendar extends Component {
         event_table.push(<Event key={key} start={event.start} end={event.end} location={event.location} summary={event.summary} link={event.link}/>)
       })
     } else {
-      event_table.push(<tr key={'no_events'}><td>You have no events today</td></tr>)
+      event_table.push(<p key='no_event'>You have no events today</p>)
     }
 
     const { connectDragSource, connectDropTarget } = this.props
