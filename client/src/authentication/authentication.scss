@@ -16,7 +16,6 @@ $glow: rgba(255,100,18, 0.4);
     margin-right: auto;
     display: block;
     border-radius: 50%;
-    animation: glowing 3500ms infinite;
 }
 
 
@@ -86,20 +85,6 @@ button.btn.btn-primary {
 
 img.logo_wrap {
     display: block;
-}
-
-@keyframes glowing {
-  50% {
-    -webkit-box-shadow: inset 2px 2px 2px 5px $glow,
-                0 0 20px $glow,
-                0 0 20px $glow;
-    -moz-box-shadow: inset 2px 2px 2px 5px $glow,
-                0 0 20px $glow,
-                0 0 20px $glow;
-    box-shadow: inset 2px 2px 2px 5px $glow,
-                0 0 20px $glow,
-                0 0 20px $glow;
-    }
 }
 
 @media (max-width: 480px) {
