@@ -7,6 +7,7 @@ import './authentication.scss'
 import logo from '../assets/logo.svg'
 import {Form, Button} from 'react-bootstrap'
 import classnames from 'classnames'
+import { ToastContainer } from 'react-toastify'
 
 const mapStateToProps = state => ({
     auth: state.auth,
@@ -87,6 +88,7 @@ class Login extends Component {
             <div className="login">
                 <h1 className="title">Wake Me App</h1>
                 <div className="login_form_wrapper">
+                <ToastContainer />
                     <img src={logo} alt="" className="logo"/>
                     <div className="login_form">
                         <Form onSubmit={this.handleSubmit}>

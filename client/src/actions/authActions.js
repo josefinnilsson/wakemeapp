@@ -2,10 +2,17 @@ import setAuthToken from '../utils/setAuthToken'
 import jwt_decode from 'jwt-decode'
 import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const register = (user_data, history) => dispatch => {
     axios.post('/register', user_data)
     .then(res => history.push('/login'))
+    .then(() => toast('Account created!', {
+            className: 'success_notification',
+            bodyClassName: 'success_notification',
+            progressClassName: 'success_notification',
+        }))
     .catch(err => {
         dispatch({
             type: GET_ERRORS,

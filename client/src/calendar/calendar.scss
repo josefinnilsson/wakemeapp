@@ -44,3 +44,21 @@ p.address {
     height: 250px;
     overflow-y: scroll;
 }
+
+.calendar_wrapper::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.calendar_wrapper::-webkit-scrollbar:vertical  {
+    width: 7px;
+}
+
+.calendar_wrapper::-webkit-scrollbar:horizontal {
+    -webkit-appearance: none;
+}
+
+.calendar_wrapper::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    border: 0px solid white;
+    background-color: $dark_grey;
+}
