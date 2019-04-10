@@ -5,6 +5,8 @@ import BackgroundToggle from '../settings/backgroundToggle'
 import {Form, Button} from 'react-bootstrap'
 import Select from 'react-select'
 import Footer from '../staticComponents/footer'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const mapStateToProps = state => ({
   auth: state.auth
@@ -86,7 +88,11 @@ class UserSettings extends Component {
 
     axios.post('/updateUserSettings/' + localStorage.getItem('email'), userSettings)
       .then(res => {
-        alert('Successfully saved user settings!')
+        toast('Your settings were saved!', {
+            className: 'success_notification',
+            bodyClassName: 'success_notification',
+            progressClassName: 'success_notification',
+        })
         localStorage.setItem('user_station_name', stationName)
         localStorage.setItem('user_station_id', stationId)
         localStorage.setItem('user_bus', bus)
@@ -99,6 +105,7 @@ class UserSettings extends Component {
         })
       })
       .catch(err => {
+        toast.error('An error occured, try again!')
         console.log(err)
     })
   }
@@ -147,7 +154,7 @@ class UserSettings extends Component {
     return (
       <div className="settings_wrapper">
         <h2 className="settings_title">Settings</h2>
-
+        <ToastContainer />
         <div className="settings_form_wrapper">
             <div className="settings_form">
               <h4>Theme</h4>
