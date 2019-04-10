@@ -60,7 +60,7 @@ class DeparturesExtended extends Component {
               </Tabs>)
     }
 
-    const back_btn = <a className="back_btn" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
+    const back_btn = <a className="back_btn fa-lg" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
 
     const DesktopView = () => {
       return (<div className='row departures_wrapper'>

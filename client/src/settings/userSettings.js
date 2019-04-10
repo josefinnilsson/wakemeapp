@@ -148,7 +148,7 @@ class UserSettings extends Component {
       })
     }
 
-    const back_btn = <a className="back_btn settings_back_btn" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
+    const back_btn = <a className="back_btn settings_back_btn fa-lg" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
     return (
       <div className="settings_wrapper">
         {back_btn}

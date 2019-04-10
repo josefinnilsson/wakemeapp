@@ -1,6 +1,6 @@
 $header: rgb(243, 243, 243);
 $background_color: rgba(254, 243, 234, 1);
-$light_grey: rgba(240,240,240,1);
+$light_grey: rgba(150,150,150,1);
 $dark_grey: rgb(100,100,100);
 $shadow_color: rgba(253,141,107,0.15);
 $accent_color: rgb(138, 210, 162);
@@ -27,15 +27,6 @@ a {
 a:hover {
     color: $dark_grey;
     text-decoration: none;
-}
-
-.settings {
-    height: 2rem;
-    width: 2rem;
-}
-
-.settings:hover {
-    opacity: 0.6;
 }
 
 a.title {
@@ -82,11 +73,7 @@ a.navbar-brand.title {
 
 .logout_icon {
     cursor: pointer;
-    color: $accent_color !important;
-}
-
-.logout_icon:hover {
-    color: $accent_color_light !important;
+    color: $dark_grey;
 }
 
 @media (max-width: 480px) {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './staticComponents.scss'
-import settings from '../assets/settings.svg'
 import logo from '../assets/logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
@@ -13,7 +12,6 @@ const mapStateToProps = state => ({
 
 class Header extends Component {
     onLogout = e => {
-        console.log('hejhopp')
         e.preventDefault()
         this.props.logout()
     }
@@ -35,7 +33,7 @@ class Header extends Component {
         backgroundColor: 'none',
         borderBottom: 'none'
     }
-    const user_settings_wheel = !user_settings ? (<a className="user_settings_wheel" href="/userSettings"><img src={settings} alt="settings" className="settings"/></a>) : ''
+    const user_settings_wheel = !user_settings ? (<a className="user_settings_wheel" href="/userSettings"><FontAwesomeIcon className="fa-lg" icon="cog" /></a>) : ''
     const logout = user_settings && <FontAwesomeIcon className="logout_icon fa-lg" icon='sign-out-alt' onClick={this.onLogout}/>
     return (
         <nav className="navbar" style={backgroundStyle !== '' ? backgroundStyle : noStyle}>
