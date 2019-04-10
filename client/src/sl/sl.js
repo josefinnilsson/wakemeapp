@@ -76,7 +76,7 @@ class SL extends Component {
     if (localStorage.getItem('user_station_id') === '-1') {
       return connectDropTarget(connectDragSource(<div className="not_authenticated_wrapper">
               <div className="not_authenticated">
-                <h6>Update your user settings</h6>
+                <h6>To see coming departures, update your settings</h6>
                 <Button onClick={() => {this.props.history.push('/userSettings')}}>Settings</Button>
               </div>
             </div>))

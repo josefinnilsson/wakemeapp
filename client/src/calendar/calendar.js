@@ -115,7 +115,7 @@ class Calendar extends Component {
       return connectDropTarget(connectDragSource(
         <div className="not_authenticated_wrapper">
           <div className="not_authenticated">
-            <h6>You haven't authenticated your calendar</h6>
+            <h6>To see today’s events here, authenticate your calendar</h6>
             <Button onClick={this.handleRefresh}>Authenticate</Button>
           </div>
         </div>
