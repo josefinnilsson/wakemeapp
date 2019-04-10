@@ -50,9 +50,28 @@ class App extends Component {
         })
     }
     const header = auth ? '' : <Header/>
+
+    const background_url = localStorage.getItem('background_url')
+    let url = ''
+    if (background_url)
+      url = JSON.parse(background_url)
+    if (typeof url === undefined) {
+      url = ''
+    }
+
+    const unsplashStyle = {
+      backgroundImage: 'linear-gradient(to bottom, rgba(250, 250, 250, 0.52), rgba(254, 243, 234, 1)),url(' + url +')',
+      backgroundRepeat: 'no',
+      backgroundSize: 'cover',
+      height: '110vh'
+    }
+    const noStyle = {
+      backgroundImage: 'none'
+    }
+
     return (
       <Provider store={store}>
-        <div className="App">
+        <div className="App" style={url !== '' ? unsplashStyle : noStyle}>
         {header}
           <header className="App-header">
               <Route exact path="/login" component={Login}/>

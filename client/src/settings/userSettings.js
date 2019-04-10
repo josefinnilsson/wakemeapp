@@ -84,7 +84,7 @@ class UserSettings extends Component {
 
     axios.post('/updateUserSettings/' + localStorage.getItem('email'), userSettings)
       .then(res => {
-        toast('Your settings were saved!', {
+        toast('Settings saved, visit the dashboard to see your changes!', {
             className: 'success_notification',
             bodyClassName: 'success_notification',
             progressClassName: 'success_notification',
