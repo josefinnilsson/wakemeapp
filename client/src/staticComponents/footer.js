@@ -17,11 +17,12 @@ class Footer extends Component {
               <p className="small">The application uses the following APIs:&nbsp;
               <a href="https://developers.google.com/calendar/">Google Calendar</a>,&nbsp;
               <a href="https://developers.google.com/maps/documentation/geocoding/start">Google Geocoding</a>,&nbsp;
-              <a href="https://api.nasa.gov/">NASA</a>,&nbsp;
               <a href="https://newsapi.org/s/svenska-dagbladet-api">News API</a>,&nbsp;
               <a href="https://openweathermap.org/api">Open Weather Map</a>,&nbsp;
               <a href="https://www.trafiklab.se/">Trafiklab</a>,&nbsp;
-              <a href="https://source.unsplash.com/">Unsplash</a>.</p>
+              <a href="https://source.unsplash.com/">Unsplash</a>.
+              Other resources:&nbsp;
+              <a href="https://icons8.com/">Icons8 icons</a></p>
             </div>
           </div>
         </div>
