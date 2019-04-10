@@ -41,7 +41,7 @@ class NewsExtended extends Component {
           <h3 className="news_title">{this.state.title}</h3>
           <div className="news_extended">
             {this.state.description !== '' ? this.state.description : 'This article is locked under payment.'}
-            <br/><a className="read_more" href={this.state.url}>Read more</a>
+            <br/><a className="read_more" href={this.state.url} rel="noopener noreferrer" target='_blank'>Read more</a>
           </div>
           </div>
           </div>
