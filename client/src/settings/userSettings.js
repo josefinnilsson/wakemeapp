@@ -9,6 +9,7 @@ import Footer from '../staticComponents/footer'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import PropTypes from 'prop-types'
+import { isMobileOnly } from 'react-device-detect'
 
 class UserSettings extends Component {
 	constructor(props) {
@@ -156,7 +157,7 @@ class UserSettings extends Component {
 			})
 		}
 
-		const back_btn = <a className="back_btn settings_back_btn fa-lg" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
+		const back_btn = !isMobileOnly && <a className="back_btn settings_back_btn fa-lg" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
 		return (
 			<div className="settings_wrapper">
 				{back_btn}

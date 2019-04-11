@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './news.scss'
 import PropTypes from 'prop-types'
+import { isMobileOnly } from 'react-device-detect'
 
 class NewsExtended extends Component {
 	constructor(props) {
@@ -29,7 +30,7 @@ class NewsExtended extends Component {
 
 	render() {
 
-		const back_btn = <a className="back_btn news_back_btn fa-lg" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
+		const back_btn = !isMobileOnly && <a className="back_btn news_back_btn fa-lg" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
 
 		return (
 			<div className='container'>

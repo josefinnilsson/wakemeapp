@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../sl.scss'
 import Departures from './departures'
 
-
 class DeparturesExtended extends Component {
   render() {
     let departure_info = JSON.parse(localStorage.getItem('departure_info'))
@@ -23,7 +22,6 @@ class DeparturesExtended extends Component {
       no_real_time_departures.push(<Departures key={departure.JourneyNumber + i} transport={departure.TransportMode} line={departure.LineNumber}
         destination={departure.Destination} exp_time={departure.DisplayTime}/>)
     }
-
 
     const RealTime = () => {
       return (  <div className='departures_extended real_time'>
@@ -60,7 +58,7 @@ class DeparturesExtended extends Component {
               </Tabs>)
     }
 
-    const back_btn = <a className="back_btn fa-lg" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
+    const back_btn = !isMobileOnly && <a className="back_btn fa-lg" href="/"><FontAwesomeIcon icon="arrow-left"/></a>
 
     const DesktopView = () => {
       return (<div className='row departures_wrapper'>
