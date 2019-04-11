@@ -17,12 +17,10 @@ The first half of the project we have focused on the backend part of the project
 - Created a news component that shows the latest news from Svenska Dagbladet.
 - Created a functionality that allows the user to switch between three different themes: minimalistic, NASA and Unsplash.
 - Created static components such as header and footer.
-
-### What We Will Do
-- Add a drag-and-drop functionality to the compoenents to move them around.
-- Style the whole application.
-- Style mobile view.
-- Add error- and information messages to the user interface.
+- Created a drag-and-drop functionality to the compoenents.
+- Created error- and information messages to the user interface.
+- Styled the whole application.
+- Styled mobile view.
 
 ## Project structure
 This repository holds both the frontend and backend for Wake Me App. The application consists of a React frontend which can be found in the `/client` directory and a express backend which can be found in the `/api` directory.
