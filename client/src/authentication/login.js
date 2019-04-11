@@ -32,7 +32,7 @@ class Login extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
-	componentWillReceiveProps(next_props) {
+	UNSAFE_componentWillReceiveProps(next_props) {
 		if (next_props.errors) {
 			this.setState({ errors: next_props.errors })
 		}
