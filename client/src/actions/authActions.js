@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 export const register = (user_data, history) => dispatch => {
 	axios.post('/register', user_data)
-		.then(res => history.push('/login'))
+		.then(() => history.push('/login'))
 		.then(() => toast('Account created!', {
 			className: 'success_notification',
 			bodyClassName: 'success_notification',

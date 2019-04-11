@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './news.scss'
+import PropTypes from 'prop-types'
 
 class NewsExtended extends Component {
 	constructor(props) {
@@ -50,6 +51,10 @@ class NewsExtended extends Component {
 			</div>
 		)
 	}
+}
+
+NewsExtended.propTypes = {
+	match: PropTypes.object
 }
 
 export default NewsExtended

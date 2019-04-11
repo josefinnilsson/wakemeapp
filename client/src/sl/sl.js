@@ -8,6 +8,7 @@ import { isMobileOnly } from 'react-device-detect'
 import { DragSource, DropTarget } from 'react-dnd'
 import _ from 'lodash'
 import { Types, CompSource, CompTarget, collectSource, collectTarget } from '../actions/dndActions'
+import PropTypes from 'prop-types'
 
 class SL extends Component {
 	constructor(props) {
@@ -42,7 +43,7 @@ class SL extends Component {
                          '/' + localStorage.getItem('user_train') +
                          '/' + localStorage.getItem('user_tram') +
                          '/' + localStorage.getItem('user_ship')
-    
+
 		let url2 = '/getRealTime/' + parseInt(station_id) + transport_mode
 		fetch(url2)
 			.then(response => {
@@ -104,6 +105,12 @@ class SL extends Component {
 				</div>))
 		}
 	}
+}
+
+SL.propTypes = {
+	connectDragSource: PropTypes.object.isRequired,
+	connectDropTarget: PropTypes.object.isRequired,
+	history: PropTypes.object.isRequired,
 }
 
 export default _.flow([DropTarget(Types.COMP, CompTarget, collectTarget),DragSource(Types.COMP, CompSource, collectSource)])(SL)

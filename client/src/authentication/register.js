@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import { register } from '../actions/authActions'
 import PropTypes from 'prop-types'
 import {Form, Button} from 'react-bootstrap'
@@ -30,7 +30,7 @@ class Register extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
-	componentWillReceiveProps(next_props) {
+	UNSAFE_componentWillReceiveProps(next_props) {
 		if (next_props.errors) {
 			this.setState({ errors: next_props.errors })
 		}
@@ -122,7 +122,8 @@ class Register extends Component {
 Register.propTypes = {
 	register: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
-	errors: PropTypes.object.isRequired
+	errors: PropTypes.object.isRequired,
+	history: PropTypes.object.isRequired,
 }
 
 export default connect(mapStateToProps, { register })(withRouter(Register))

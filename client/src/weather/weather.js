@@ -17,6 +17,7 @@ import PulseLoader from 'react-spinners/PulseLoader'
 import { DragSource, DropTarget } from 'react-dnd'
 import _ from 'lodash'
 import { Types, CompSource, CompTarget, collectSource, collectTarget } from '../actions/dndActions'
+import PropTypes from 'prop-types'
 
 class Weather extends Component {
 	constructor(props) {
@@ -154,7 +155,7 @@ class Weather extends Component {
 		const RefreshWeather = () => {
 			return (<button id='refresh_weather' onClick={this.handleRefresh}>Refresh weather</button>)
 		}
-		const CustomTooltip = ({ active, payload, label }) => {
+		const CustomTooltip = ({ active, payload }) => {
 			if (active) {
 				const temp = payload[0].value.toFixed(1) + '\u00b0 C'
 				return (
@@ -212,12 +213,7 @@ class Weather extends Component {
 									loading={this.state.forecast_loading}
 								/>
 								{!this.state.forecast_loading && this.state.forecast &&
-                  <LineChart width={300} height={200} data={data}>
-                  	<XAxis minTickGap={1} dataKey="hour"/>
-                  	<YAxis width={40}/>
-                  	<Tooltip content={<CustomTooltip />} />
-                  	<Line type="monotone" dataKey="Temperature" stroke="#8AD2A2" />
-                  </LineChart>}
+                  <LineChart width={300} height={200} data={data}><XAxis minTickGap={1} dataKey="hour"/><YAxis width={40}/><Tooltip content={<CustomTooltip />} /><Line type="monotone" dataKey="Temperature" stroke="#8AD2A2" /></LineChart>}
 							</div>
 						</div>
 					</div>
@@ -230,5 +226,11 @@ class Weather extends Component {
 		}
 	}
 }
+
+Weather.propTypes = {
+	connectDragSource: PropTypes.object,
+	connectDropTarget: PropTypes.object,
+}
+
 
 export default _.flow([DropTarget(Types.COMP, CompTarget, collectTarget),DragSource(Types.COMP, CompSource, collectSource)])(Weather)

@@ -13,7 +13,8 @@ const Authenticated = ({ component: Component, auth, ...rest }) => (
 )
 
 Authenticated.propTypes = {
-	auth: PropTypes.object.isRequired
+	auth: PropTypes.object.isRequired,
+	component: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({

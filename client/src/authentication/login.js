@@ -109,7 +109,7 @@ class Login extends Component {
 								<Button variant="primary" type="submit">Login</Button>
 							</div>
 							<div className="register_text">
-								<p><Link to="/register">Don't have an account? Create one!</Link></p>
+								<p><Link to="/register">Don&apos;t have an account? Create one!</Link></p>
 							</div>
 						</Form>
 					</div>
@@ -122,6 +122,7 @@ class Login extends Component {
 Login.propTypes = {
 	login: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
+	history: PropTypes.object.isRequired,
 }
 
 export default connect(mapStateToProps, { login })(Login)

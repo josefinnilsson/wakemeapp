@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap'
 import { DragSource, DropTarget } from 'react-dnd'
 import _ from 'lodash'
 import { Types, CompSource, CompTarget, collectSource, collectTarget } from '../actions/dndActions'
+import PropTypes from 'prop-types'
 
 class Calendar extends Component {
 	constructor(props) {
@@ -103,7 +104,7 @@ class Calendar extends Component {
 			return connectDropTarget(connectDragSource(
 				<div>
 					<div className="coponent_title">
-						<h4>Today's Events</h4>
+						<h4>Today&apos;s Events</h4>
 						<FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
 					</div>
 					<div className="calendar_wrapper">
@@ -122,6 +123,11 @@ class Calendar extends Component {
 			))
 		}
 	}
+}
+
+Calendar.propTypes = {
+	connectDragSource: PropTypes.object,
+	connectDropTarget: PropTypes.object,
 }
 
 export default _.flow([DropTarget(Types.COMP, CompTarget, collectTarget),DragSource(Types.COMP, CompSource, collectSource)])(Calendar)

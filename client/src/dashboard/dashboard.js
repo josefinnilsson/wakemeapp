@@ -8,6 +8,7 @@ import News from '../news/news'
 import Weather from '../weather/weather'
 import './dashboard.scss'
 import { ToastContainer } from 'react-toastify'
+import PropTypes from 'prop-types'
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -56,7 +57,7 @@ class Dashboard extends Component {
 			fourthComp: comps[3].name
 		}
 		axios.post('/updateUserSettingsComponents/'+ localStorage.getItem('email'), userSettingsComponents)
-			.then(response => {
+			.then(() => {
 				localStorage.setItem('firstComp', comps[0].name)
 				localStorage.setItem('secondComp', comps[1].name)
 				localStorage.setItem('thirdComp', comps[2].name)
@@ -166,6 +167,12 @@ class Dashboard extends Component {
 			</div>
 		)
 	}
+}
+
+Dashboard.propTypes = {
+	response: PropTypes.object,
+	location: PropTypes.object,
+	history: PropTypes.object,
 }
 
 export default Dashboard

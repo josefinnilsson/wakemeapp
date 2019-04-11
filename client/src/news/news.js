@@ -5,6 +5,7 @@ import './news.scss'
 import { DragSource, DropTarget } from 'react-dnd'
 import _ from 'lodash'
 import { Types, CompSource, CompTarget, collectSource, collectTarget } from '../actions/dndActions'
+import PropTypes from 'prop-types'
 
 class News extends Component {
 	constructor(props) {
@@ -66,6 +67,12 @@ class News extends Component {
 			</div>
 		))
 	}
+}
+
+News.propTypes = {
+	connectDragSource: PropTypes.object,
+	connectDropTarget: PropTypes.object,
+	history: PropTypes.object,
 }
 
 export default _.flow([DropTarget(Types.COMP, CompTarget, collectTarget),DragSource(Types.COMP, CompSource, collectSource)])(News)

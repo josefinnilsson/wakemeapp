@@ -3,12 +3,12 @@ export const Types = {
 }
 
 export const CompSource = {
-	beginDrag(props, monitor, component) {
+	beginDrag(props) {
 		const item = { id: props.id }
 		return item
 	},
 
-	endDrag(props, monitor, component) {
+	endDrag(props, monitor) {
 		if (!monitor.didDrop()) {
 			return
 		}
@@ -18,7 +18,7 @@ export const CompSource = {
 	}
 }
 
-export const CompTarget = {
+export const CompTarget = {
 	drop(props) {
 		return {
 			id: props.id
@@ -26,13 +26,13 @@ export const CompTarget = {
 	}
 }
 
-export const collectSource = (connect, monitor) => {
+export const collectSource = (connect) => {
 	return {
 		connectDragSource: connect.dragSource()
 	}
 }
 
-export const collectTarget = (connect, monitor) => {
+export const collectTarget = (connect) => {
 	return {
 		connectDropTarget: connect.dropTarget(),
 	}

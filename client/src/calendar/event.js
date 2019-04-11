@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import './calendar.scss'
+import PropTypes from 'prop-types'
 
 class Event extends Component {
-	//Send as props
 	formatTime(time) {
 		let formatted_time = time.substring(
 			time.lastIndexOf('T') + 1,
@@ -35,6 +35,14 @@ class Event extends Component {
 			</div>
 		)
 	}
+}
+
+Event.propTypes = {
+	link: PropTypes.object,
+	summary: PropTypes.object,
+	start: PropTypes.object,
+	end: PropTypes.object,
+	location: PropTypes.object,
 }
 
 export default Event

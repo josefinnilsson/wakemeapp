@@ -45,8 +45,8 @@ class BackgroundToggle extends Component {
 					</Dropdown.Toggle>
 
 					<Dropdown.Menu>
-						<Dropdown.Item onClick={(e) => this.onThemeChange('Minimalistic')}>Minimalistic</Dropdown.Item>
-						<Dropdown.Item onClick={(e) => this.onThemeChange('Unsplash')}>Unsplash</Dropdown.Item>
+						<Dropdown.Item onClick={() => this.onThemeChange('Minimalistic')}>Minimalistic</Dropdown.Item>
+						<Dropdown.Item onClick={() => this.onThemeChange('Unsplash')}>Unsplash</Dropdown.Item>
 					</Dropdown.Menu>
 				</Dropdown>
 			</div>
