@@ -37,19 +37,6 @@ if (localStorage.jwt_token) {
 
 class App extends Component {
   render() {
-    let auth = false
-    const location = window.location.pathname
-    if (location === '/login' || location === '/register') {
-      auth = true
-    }
-    if (location === '/cal') {
-      toast('Calendar authentication successful!', {
-            className: 'success_notification',
-            bodyClassName: 'success_notification',
-            progressClassName: 'success_notification',
-        })
-    }
-    const header = auth ? '' : <Header/>
 
     const background_url = localStorage.getItem('background_url')
     let url = ''
@@ -59,6 +46,20 @@ class App extends Component {
       url = ''
     }
 
+    let auth = false
+    const location = window.location.pathname
+    if (location === '/login' || location === '/register') {
+      auth = true
+      url = ''
+    }
+    if (location === '/cal') {
+      toast('Calendar authentication successful!', {
+            className: 'success_notification',
+            bodyClassName: 'success_notification',
+            progressClassName: 'success_notification',
+        })
+    }
+    const header = auth ? '' : <Header/>
     const unsplashStyle = {
       backgroundImage: 'linear-gradient(to bottom, rgba(250, 250, 250, 0.52), rgba(254, 243, 234, 1)),url(' + url +')',
       backgroundRepeat: 'no',

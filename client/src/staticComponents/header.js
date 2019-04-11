@@ -29,10 +29,11 @@ class Header extends Component {
 				borderBottom: 'none'
 			}
 		}
-		let noStyle = {
+		const noStyle = {
 			backgroundColor: 'none',
 			borderBottom: 'none'
 		}
+
 		const user_settings_wheel = !user_settings ? (<a className="user_settings_wheel" href="/userSettings"><FontAwesomeIcon className="fa-lg" icon="cog" /></a>) : ''
 		const logout = user_settings && <FontAwesomeIcon className="logout_icon fa-lg" icon='sign-out-alt' onClick={this.onLogout}/>
 		return (
