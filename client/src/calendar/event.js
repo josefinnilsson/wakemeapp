@@ -27,7 +27,6 @@ class Event extends Component {
   render() {
     const event = <h6 className="event_time">{this.props.start !== undefined && this.formatTime(this.props.start)} - {this.props.start !== undefined && this.formatTime(this.props.end)}</h6>
     const longEvent = <h6 className="event_time">{this.props.start && 'All day'}</h6>
-    console.log (this.props.longEvent)
     return (
       <div className="event_item_wrapper">
         <a href={this.props.link} rel="noopener noreferrer" target="_blank">
@@ -41,11 +40,11 @@ class Event extends Component {
 }
 
 Event.propTypes = {
-  link: PropTypes.object,
-  summary: PropTypes.object,
-  start: PropTypes.object,
-  end: PropTypes.object,
-  location: PropTypes.object,
+  link: PropTypes.string,
+  summary: PropTypes.string,
+  start: PropTypes.string,
+  end: PropTypes.string,
+  location: PropTypes.string,
 }
 
 export default Event

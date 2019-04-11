@@ -70,8 +70,8 @@ class News extends Component {
 }
 
 News.propTypes = {
-	connectDragSource: PropTypes.object,
-	connectDropTarget: PropTypes.object,
+	connectDragSource: PropTypes.func,
+	connectDropTarget: PropTypes.func,
 	history: PropTypes.object,
 }
 

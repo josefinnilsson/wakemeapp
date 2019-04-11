@@ -126,8 +126,8 @@ class Calendar extends Component {
 }
 
 Calendar.propTypes = {
-	connectDragSource: PropTypes.object,
-	connectDropTarget: PropTypes.object,
+	connectDragSource: PropTypes.func,
+	connectDropTarget: PropTypes.func,
 }
 
 export default _.flow([DropTarget(Types.COMP, CompTarget, collectTarget),DragSource(Types.COMP, CompSource, collectSource)])(Calendar)

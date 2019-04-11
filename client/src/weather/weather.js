@@ -238,8 +238,8 @@ class Weather extends Component {
 }
 
 Weather.propTypes = {
-	connectDragSource: PropTypes.object,
-	connectDropTarget: PropTypes.object,
+	connectDragSource: PropTypes.func,
+	connectDropTarget: PropTypes.func,
 }
 
 

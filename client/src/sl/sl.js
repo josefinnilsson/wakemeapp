@@ -108,8 +108,8 @@ class SL extends Component {
 }
 
 SL.propTypes = {
-	connectDragSource: PropTypes.object.isRequired,
-	connectDropTarget: PropTypes.object.isRequired,
+	connectDragSource: PropTypes.func,
+	connectDropTarget: PropTypes.func,
 	history: PropTypes.object.isRequired,
 }
 
