@@ -1,38 +1,38 @@
-$background-color: rgba(250, 180, 116, 0.05);
+$background_color: rgba(250, 180, 116, 0.05);
 $accent_color: rgba(253,130,115, 0.7);
-$accent_color_dark: rgb(253,130,115);
-$error_color: rgba(245, 42, 42, 1);
-$dark_grey: rgb(100,100,100);
+$heading_color: rgb(253,130,115);
+$error_color: rgb(245, 42, 42);
+$grey: rgb(100,100,100);
 
 body {
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: $background-color;
+    background-color: $background_color;
 }
 
 table {
-  color: $dark_grey;
+  color: $grey;
 }
 
 h1 {
     font-size: 5em;
     font-family: 'Fira Sans', sans-serif;
     font-weight: 500;
-    color: $accent_color_dark;
+    color: $heading_color;
 }
 
 h2 {
   font-size: 3em;
   font-family: 'Fira Sans', sans-serif;
   font-weight: 500;
-  color: $accent_color_dark;
+  color: $heading_color;
 }
 
 h3 {
   font-size: 2em;
   font-family: 'Fira Sans', sans-serif;
   font-weight: 400;
-  color: $accent_color_dark;
+  color: $heading_color;
 }
 
 h4 {
@@ -45,13 +45,13 @@ h5  {
   font-size: 1.5em !important;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  color: $dark_grey;
+  color: $grey;
 }
 
 h6, label {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  color: $accent_color_dark;
+  color: $heading_color;
 }
 
 p, input, button {
