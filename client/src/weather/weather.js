@@ -172,6 +172,21 @@ class Weather extends Component {
 
 		const { connectDragSource, connectDropTarget } = this.props
 
+		const loading_text = this.state.forecast_loading && <div className="loading_text">Loading forecast, this may take a while...</div>
+
+		const forecast = this.state.forecast_loading &&
+		<div className="loading_icon_wrapper">
+			<div className="loading_icon">
+				<PulseLoader
+					sizeUnit={'px'}
+					size={15}
+					color={'#8AD2A2'}
+					loading={this.state.forecast_loading}
+				/>
+				{loading_text}
+			</div>
+		</div>
+
 		if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
 			weather = JSON.parse(weather)
 			const icon = this.getIcon(weather.icon, weather.sunset, weather.sunrise)
@@ -206,12 +221,7 @@ class Weather extends Component {
 								</div>
 							</div>
 							<div className="col-md-7" id="forecast">
-								<PulseLoader
-									sizeUnit={'px'}
-									size={15}
-									color={'#8AD2A2'}
-									loading={this.state.forecast_loading}
-								/>
+								{forecast}
 								{!this.state.forecast_loading && this.state.forecast &&
                   <LineChart width={300} height={200} data={data}><XAxis minTickGap={1} dataKey="hour"/><YAxis width={40}/><Tooltip content={<CustomTooltip />} /><Line type="monotone" dataKey="Temperature" stroke="#8AD2A2" /></LineChart>}
 							</div>

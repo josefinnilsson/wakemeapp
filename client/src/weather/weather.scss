@@ -78,6 +78,21 @@ tspan {
     }
 }
 
+.loading_icon_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.loading_text {
+  text-align: center;
+}
+
+.css-0 {
+  text-align: center;
+}
+
 @media (max-width: 480px) {
   .weather_info {
     margin-top: 5%;
