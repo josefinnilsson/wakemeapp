@@ -45,7 +45,7 @@ Event.propTypes = {
 	start: PropTypes.string,
 	end: PropTypes.string,
 	location: PropTypes.string,
-	longEvent: PropTypes.string,
+	longEvent: PropTypes.bool,
 }
 
 export default Event
