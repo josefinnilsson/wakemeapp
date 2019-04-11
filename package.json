@@ -6,7 +6,8 @@
   "scripts": {
     "start-dev": "NODE_ENV=development concurrently \"cd client && PORT=3000 npm start\" \"cd api && PORT=3001 npm start\"",
     "start": "(cd api && node server.js)",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "lint": "eslint client/src/**/*.js"
   },
   "engines": {
     "node": "8.15.0"
@@ -30,6 +31,7 @@
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
+    "eslint-config-react-app": "^3.0.8",
     "express": "^4.16.4",
     "express-force-https": "^1.0.0",
     "fs": "0.0.1-security",
@@ -71,5 +73,8 @@
     "redux-thunk": "^2.3.0",
     "request": "^2.88.0",
     "validator": "^10.11.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-react": "^7.12.4"
   }
 }
