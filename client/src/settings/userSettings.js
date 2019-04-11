@@ -8,7 +8,6 @@ import Select from 'react-select'
 import Footer from '../staticComponents/footer'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import PropTypes from 'prop-types'
 import { isMobileOnly } from 'react-device-detect'
 
 class UserSettings extends Component {
@@ -143,11 +142,6 @@ class UserSettings extends Component {
 		this.setState({ ship: !this.state.ship })
 	}
 
-	onLogout(e) {
-		e.preventDefault()
-		this.props.logout()
-	}
-
 	render() {
 		const colorStyles = {
 			control: (base) => ({
@@ -199,10 +193,6 @@ class UserSettings extends Component {
 			</div>
 		)
 	}
-}
-
-UserSettings.propTypes = {
-	logout: PropTypes.func.isRequired
 }
 
 export default UserSettings
