@@ -13,9 +13,8 @@ UserSchema.pre('save', function(next) {
     if (this.isNew || this.isModified('password')) {
         const document = this
         bcrypt.hash(document.password, salt_rounds, function(err, hashed_password) {
-            console.log(hashed_password)
             if (err) {
-                console.log("err")
+                console.log(err)
                 next(err)
             } else {
                 document.password = hashed_password
