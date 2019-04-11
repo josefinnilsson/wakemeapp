@@ -17,7 +17,7 @@ a.read_more:hover {
 }
 
 .news_wrapper {
-  height: 250px;
+  height: 275px;
   overflow-y: scroll;
 }
 
@@ -65,4 +65,8 @@ a.read_more:hover {
     border-radius: 7px;
     border: 0px solid white;
     background-color: $dark_grey;
+}
+
+p.news_desc {
+  margin-bottom: 2%;
 }
