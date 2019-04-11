@@ -102,9 +102,13 @@ const CalendarAPI = {
                 events.map((event, i) => {
                     const start = event.start.dateTime || event.start.date
                     const end = event.end.dateTime || event.end.date
+                    const dayEvent = '[0-9][0-9]-[0-9][0-9]-[0-9][0-9]$'
+                    let longEvent = false
+                    if (start.match(dayEvent) && end.match(dayEvent))
+                        longEvent = true
                     const location = event.location || 'NO_LOCATION'
                     const link = event.htmlLink
-                    const json = {start: start, end: end, location: location, summary: event.summary, link: link}
+                    const json = {start: start, end: end, longEvent: longEvent, location: location, summary: event.summary, link: link}
                     events_json.push(json)
                 })
                 res.json({events: events_json})

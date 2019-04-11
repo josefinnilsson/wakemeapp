@@ -24,25 +24,28 @@ class Event extends Component {
 		}
 	}
 
-	render() {
-		return (
-			<div className="event_item_wrapper">
-				<a href={this.props.link} rel="noopener noreferrer" target="_blank">
-					<h5 className="event_title">{this.props.summary}</h5>
-					<h6 className="event_time">{this.props.start !== undefined && this.formatTime(this.props.start)} - {this.props.start !== undefined && this.formatTime(this.props.end)}</h6>
-					{this.props.location !== 'NO_LOCATION' && <h6 className="event_location">{this.formatLocation(this.props.location)}</h6>}
-				</a>
-			</div>
-		)
-	}
+  render() {
+    const event = <h6 className="event_time">{this.props.start !== undefined && this.formatTime(this.props.start)} - {this.props.start !== undefined && this.formatTime(this.props.end)}</h6>
+    const longEvent = <h6 className="event_time">{this.props.start && 'All day'}</h6>
+    console.log (this.props.longEvent)
+    return (
+      <div className="event_item_wrapper">
+        <a href={this.props.link} rel="noopener noreferrer" target="_blank">
+          <h5 className="event_title">{this.props.summary}</h5>
+          {this.props.longEvent === true ? longEvent : event}
+          {this.props.location !== 'NO_LOCATION' && <h6 className="event_location">{this.formatLocation(this.props.location)}</h6>}
+        </a>
+      </div>
+    )
+  }
 }
 
 Event.propTypes = {
-	link: PropTypes.object,
-	summary: PropTypes.object,
-	start: PropTypes.object,
-	end: PropTypes.object,
-	location: PropTypes.object,
+  link: PropTypes.object,
+  summary: PropTypes.object,
+  start: PropTypes.object,
+  end: PropTypes.object,
+  location: PropTypes.object,
 }
 
 export default Event

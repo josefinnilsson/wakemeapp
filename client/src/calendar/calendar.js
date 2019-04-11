@@ -87,15 +87,15 @@ class Calendar extends Component {
 			events = JSON.parse(calendar_events)
 		}
 
-		let event_table = []
-		if (events !== 'No events found' && events !== null) {
-			events.forEach(event => {
-				const key = event.start + event.summary
-				event_table.push(<Event key={key} start={event.start} end={event.end} location={event.location} summary={event.summary} link={event.link}/>)
-			})
-		} else {
-			event_table.push(<p key='no_event'>You have no events today</p>)
-		}
+    let event_table = []
+    if (events !== 'No events found' && events !== null) {
+      events.forEach(event => {
+        const key = event.start + event.summary
+        event_table.push(<Event key={key} start={event.start} end={event.end} longEvent={event.longEvent} location={event.location} summary={event.summary} link={event.link}/>)
+      })
+    } else {
+      event_table.push(<p key='no_event'>You have no events today</p>)
+    }
 
 		const { connectDragSource, connectDropTarget } = this.props
 
