@@ -94,13 +94,14 @@ class SL extends Component {
           <h4>Next Departures at {localStorage.getItem('user_station_name')}</h4>
           <FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
         </div>
-        <Link to={'/departures'} style={{textDecoration: 'none', color: 'black'}}>
           <table>
             <tbody>
-              {isMobileOnly ? departures.slice(0, 10) : departures.slice(0, 7)}
+              {isMobileOnly ? departures.slice(0, 10) : departures.slice(0, 6)}
             </tbody>
           </table>
-        </Link>
+        <div className="more_departures">
+          <Link className="more_departures_button" to={'/departures'}>More departures</Link>
+        </div>
       </div>))
     }
   }
