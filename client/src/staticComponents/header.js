@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 })
 
 class Header extends Component {
-	onLogout(e) {
+	onLogout = e => {
 		e.preventDefault()
 		this.props.logout()
 	}
@@ -53,7 +53,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-	logout: PropTypes.func.isRequired
+	logout: PropTypes.func
 }
 
 export default connect(mapStateToProps, { logout })(Header)
