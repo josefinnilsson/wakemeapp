@@ -184,9 +184,6 @@ router.post('/authenticate', (req, res) => {
     })
 })
 
-/*
-Get user settings from db
-*/
 router.get('/getUserSettings/:email', (req, res) => {
     const email = req.params.email
     User.findOne ( { email } , (err, user) => {
@@ -210,9 +207,6 @@ router.get('/getUserSettings/:email', (req, res) => {
     })
 })
 
-/*
-Update user settings in db
-*/
 router.post('/updateUserSettings/:email', (req, res) => {
     const email = req.params.email
 
@@ -227,16 +221,12 @@ router.post('/updateUserSettings/:email', (req, res) => {
     })
 })
 
-/*
-Update component positions in db
-*/
 router.post('/updateUserSettingsComponents/:email', (req, res) => {
     const email = req.params.email
 
     User.findOne({ email }, (err, user) => {
         const query = {'_id': user._id}
         const { firstComp, secondComp, thirdComp, fourthComp } = sanitize(req.body)
-        console.log(firstComp + ", " + secondComp + ", " + thirdComp + ", " + fourthComp)
         UserSettings.findOneAndUpdate(query, { firstComp, secondComp, thirdComp, fourthComp }, (err, userSettings) => {
             if (err)
                 return res.send(500, {error: err})
@@ -245,9 +235,6 @@ router.post('/updateUserSettingsComponents/:email', (req, res) => {
     })
 })
 
-/*
-A promise that gets station information when the user search for a station
-*/
 router.get('/getStationData/:search_string', (req, res, next) => {
 	let api_key = process.env.PLATSUPPSLAG
     let search_string = req.params.search_string
@@ -265,9 +252,6 @@ router.get('/getStationData/:search_string', (req, res, next) => {
     })
 })
 
-/*
-A promise that gets station information when the user search for a station
-*/
 router.get('/getAllStations', (req, res, next) => {
     let api_key = process.env.HALLPLATSER
     const options = {
@@ -296,10 +280,6 @@ router.get('/getAllStations', (req, res, next) => {
     })
 })
 
-
-/*
-A promise that gets real time information about a station's departures
-*/
 router.get('/getRealTime/:station_id/:bus/:metro/:train/:tram/:ship', (req, res, next) => {
     let api_key = process.env.REALTIME
     let station_id = parseInt(req.params.station_id)
@@ -323,7 +303,7 @@ router.get('/getRealTime/:station_id/:bus/:metro/:train/:tram/:ship', (req, res,
     })
 })
 
-let sortDepartures = (body) => {
+const sortDepartures = (body) => {
     let data = JSON.parse(body).ResponseData
     let departures = data.Buses
     departures = departures.concat(data.Metros)
@@ -378,9 +358,6 @@ let sortDepartures = (body) => {
     return all_departures
 }
 
-/*
-A promise of location data for the current location of the client's browser
-*/
 router.get('/getLocationData/:latitude/:longitude', (req, res, next) => {
     let api_key = process.env.GOOGLE
     const options = {
@@ -401,9 +378,6 @@ router.get('/getLocationData/:latitude/:longitude', (req, res, next) => {
     })
 })
 
-/*
-A promise of weather data for the current location of the client's browser
-*/
 router.get('/weather/:latitude/:longitude', (req, res, next) => {
     let api_key = process.env.WEATHER
     const options = {
