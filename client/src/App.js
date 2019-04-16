@@ -69,7 +69,7 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <div className="App" style={url !== '' ? unsplashStyle : noStyle}>
+        <div className="App">
         {header}
           <header className="App-header">
               <Route exact path="/login" component={Login}/>
