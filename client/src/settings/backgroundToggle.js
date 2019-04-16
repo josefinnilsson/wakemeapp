@@ -19,7 +19,6 @@ class BackgroundToggle extends Component {
 					return response.json()
 				})
 				.then(data => {
-					console.log(data)
 					localStorage.setItem('background_url', JSON.stringify(data.url))
 					localStorage.setItem('background', 'Unsplash')
 				})
@@ -27,7 +26,7 @@ class BackgroundToggle extends Component {
 	}
 
 	render() {
-		if (localStorage.getItem('background_url').includes('unsplash'))
+		if (localStorage.getItem('background_url') !== null && localStorage.getItem('background_url').includes('unsplash'))
 			localStorage.setItem('background', 'Unsplash')
 		else
 			localStorage.setItem('background', 'Minimalistic')
