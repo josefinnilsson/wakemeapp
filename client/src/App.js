@@ -61,7 +61,7 @@ class App extends Component {
     }
     const header = auth ? '' : <Header/>
     const unsplashStyle = {
-      backgroundImage: 'linear-gradient(to bottom, rgba(250, 250, 250, 0.52), rgba(254, 243, 234, 1)),url(' + url +')',
+      backgroundImage: 'linear-gradient(to bottom, rgba(254, 243, 234, 0.8), rgba(254, 243, 234, 1)),url(' + url +')',
       backgroundRepeat: 'no',
       backgroundSize: 'cover',
       height: '110vh'
