@@ -264,7 +264,7 @@ router.get('/getAllStations', (req, res, next) => {
             }
         })
     }).then(body => {
-        let stations = JSON.parse(body).Result
+        let stations = body.Result
         let all_stations = []
         stations.forEach(station => {
             all_stations.push({ value: station.SiteId, label: station.SiteName })
