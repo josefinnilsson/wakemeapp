@@ -28,15 +28,16 @@ This repository holds both the frontend and backend for Wake Me App. The applica
 ## Running Locally
 First, [install Node](https://docs.npmjs.com/getting-started/installing-node). Then standing in the root directory run:
 * `npm install` to install the frontend and backend dependencies.
-* `npm run start-dev` to start the server and client. The application can be visited at [localhost:3000](https://localhost:3000) and the server at [localhost:3001](https://localhost:3001). \\
+* `npm run start-dev` to start the server and client. The application can be visited at [localhost:3000](https://localhost:3000) and the server at [localhost:3001](https://localhost:3001).\\
+
 *Note: Running the application locally requires you to have the correct environmental variables set up.*
 
 ### API
 The application uses the following APIs:
 - [Google Calendar](https://developers.google.com/calendar/)
-- [Google Geocoding]("https://developers.google.com/maps/documentation/geocoding/start)
+- [Google Geocoding](https://developers.google.com/maps/documentation/geocoding/start)
 - [News API](https://newsapi.org/s/svenska-dagbladet-api)
-- [Open Weather Map (Current weather)](https://openweathermap.org/current)nbsp;
+- [Open Weather Map (Current weather)](https://openweathermap.org/current)
 - [Trafiklab - SL Realtidsinformation 4](https://www.trafiklab.se/api/sl-realtidsinformation-4)
 - [Trafiklab - SL Hållplatser och Linjer 2](https://www.trafiklab.se/api/sl-hallplatser-och-linjer-2)
 - [Unsplash](https://source.unsplash.com/)
