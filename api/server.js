@@ -255,16 +255,15 @@ router.get('/getStationData/:search_string', (req, res, next) => {
 
 router.get('/getAllStations', (req, res, next) => {
     return new Promise((resolve, reject) => {
-        Stations.findOne( { 'document_id': 'all_stations' }, (err, stations) => {
+        Stations.find( { 'document_id': 'all_stations' }, (err, stations) => {
             if (!err) {
-                resolve(stations.ResponseData)
+                resolve(JSON.parse(stations[0].responseData).Result)
             }
             else {
                 reject("Couldn't fetch stations")
             }
         })
-    }).then(body => {
-        let stations = body.Result
+    }).then(stations => {
         let all_stations = []
         stations.forEach(station => {
             all_stations.push({ value: station.SiteId, label: station.SiteName })
