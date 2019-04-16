@@ -38,12 +38,9 @@ if (localStorage.jwt_token) {
 class App extends Component {
   render() {
 
-    const background_url = localStorage.getItem('background_url')
     let url = ''
-    if (background_url)
-      url = JSON.parse(background_url)
-    if (typeof url === undefined) {
-      url = ''
+    if (localStorage.getItem('background_url') !== null) {
+      url = localStorage.getItem('background_url')
     }
 
     let auth = false
