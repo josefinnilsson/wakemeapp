@@ -14,7 +14,7 @@ const CalendarAPI = require('./calendar.js')
 const cors = require('cors')
 const Validator = require('validator')
 const isEmpty = require('is-empty')
-const fs = require('fs')
+const Stations = require('./stations.js')
 
 const app = express()
 const router = express.Router()
@@ -236,10 +236,33 @@ router.post('/updateUserSettingsComponents/:email', (req, res) => {
     })
 })
 
-router.get('/getAllStations', (req, res, next) => {
+router.get('/getStationData/:search_string', (req, res, next) => {
+    let api_key = process.env.PLATSUPPSLAG
+    let search_string = req.params.search_string
+    const options = {
+        url: 'https://api.sl.se/api2/typeahead.json?key=' + api_key + '&searchstring=' + search_string + '&stationsonly=true&maxresults=10'
+    }
     return new Promise(resolve => {
-        const body = fs.readFileSync('stations.json', 'utf8')
-        resolve(body)
+        request(options, (err, res, body) => {
+            resolve(body)
+        })
+    }).then(body => {
+        res.json(JSON.parse(body).ResponseData)
+    }).catch(error => {
+        console.log(error)
+    })
+})
+
+router.get('/getAllStations', (req, res, next) => {
+    return new Promise((resolve, reject) => {
+        Stations.findOne( { '_id': 'all_stations' }, (err, stations) => {
+            if (!err) {
+                resolve(stations.all_stations)
+            }
+            else {
+                reject("Couldn't fetch stations")
+            }
+        })
     }).then(body => {
         let stations = JSON.parse(body).ResponseData.Result
         let all_stations = []
