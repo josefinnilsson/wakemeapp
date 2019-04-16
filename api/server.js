@@ -14,6 +14,7 @@ const CalendarAPI = require('./calendar.js')
 const cors = require('cors')
 const Validator = require('validator')
 const isEmpty = require('is-empty')
+const fs = require('fs')
 
 const app = express()
 const router = express.Router()
@@ -253,14 +254,9 @@ router.get('/getStationData/:search_string', (req, res, next) => {
 })
 
 router.get('/getAllStations', (req, res, next) => {
-    let api_key = process.env.HALLPLATSER
-    const options = {
-        url: 'https://api.sl.se/api2/LineData.json?model=site&key=' + api_key
-    }
     return new Promise(resolve => {
-        request(options, (err, res, body) => {
-            resolve(body)
-        })
+        const body = fs.readFileSync('stations.json', 'utf8')
+        resolve(body)
     }).then(body => {
         let stations = JSON.parse(body).ResponseData.Result
         let all_stations = []
