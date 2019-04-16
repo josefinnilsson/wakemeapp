@@ -123,9 +123,8 @@ router.post('/register', (req, res) => {
                 const secondComp = 'weather'
                 const thirdComp = 'news'
                 const fourthComp = 'sl'
-                const background = ''
                 const userSettings = new UserSettings({ _id, stationName, stationId, bus, metro, train, tram,
-                                                    ship, token, firstComp, secondComp, thirdComp, fourthComp, background })
+                                                    ship, token, firstComp, secondComp, thirdComp, fourthComp })
                 userSettings.save((err) => {
                     if (err) {
                         return res.status(500).send({ general: 'An error occured while registring, please try again.' })
@@ -204,7 +203,6 @@ router.get('/getUserSettings/:email', (req, res) => {
             data.secondComp = user_settings.secondComp
             data.thirdComp = user_settings.thirdComp
             data.fourthComp = user_settings.fourthComp
-            data.background = user_settings.background
             res.json(data)
         })
     })
@@ -215,8 +213,8 @@ router.post('/updateUserSettings/:email', (req, res) => {
 
     User.findOne( { email }, (err, user) => {
         const query = {'_id': user._id}
-        const { stationName, stationId, bus, metro, train, tram, ship, background } = sanitize(req.body)
-        UserSettings.findOneAndUpdate(query, { stationName, stationId, bus, metro, train, tram, ship, background }, (err, userSettings) => {
+        const { stationName, stationId, bus, metro, train, tram, ship } = sanitize(req.body)
+        UserSettings.findOneAndUpdate(query, { stationName, stationId, bus, metro, train, tram, ship }, (err, userSettings) => {
             if (err)
                 return res.send(500, {error: err})
             return res.send ('Successfully saved user settings')

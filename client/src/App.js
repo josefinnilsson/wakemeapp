@@ -38,10 +38,12 @@ if (localStorage.jwt_token) {
 class App extends Component {
   render() {
 
+    const background_url = localStorage.getItem('background_url')
     let url = ''
-    if (localStorage.getItem('background_url') !== null) {
-      url = localStorage.getItem('background_url')
-    }
+    if (background_url)
+      url = JSON.parse(background_url)
+    if (typeof url === undefined)
+      url = ''
 
     let auth = false
     const location = window.location.pathname
@@ -69,7 +71,7 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <div className="App">
+        <div className="App" style={url !== '' ? unsplashStyle : noStyle}>
         {header}
           <header className="App-header">
               <Route exact path="/login" component={Login}/>

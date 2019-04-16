@@ -61,7 +61,6 @@ class Login extends Component {
 					localStorage.setItem('secondComp', data.secondComp)
 					localStorage.setItem('thirdComp', data.thirdComp)
 					localStorage.setItem('fourthComp', data.fourthComp)
-					localStorage.setItem('background_url', data.background)
 					this.props.history.push('/')
 					toast("Tip: Customise your dashboard by dragging and dropping the components!")
 				})

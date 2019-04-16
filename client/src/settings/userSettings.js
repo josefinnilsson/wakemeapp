@@ -81,7 +81,6 @@ class UserSettings extends Component {
 		const train = this.state.train
 		const tram = this.state.tram
 		const ship = this.state.ship
-		const background = localStorage.getItem('background_url')
 		const userSettings = {
 			stationName: stationName,
 			stationId: stationId,
@@ -89,8 +88,7 @@ class UserSettings extends Component {
 			metro: metro,
 			train: train,
 			tram: tram,
-			ship: ship,
-			background: background
+			ship: ship
 		}
 
 		axios.post('/updateUserSettings/' + localStorage.getItem('email'), userSettings)

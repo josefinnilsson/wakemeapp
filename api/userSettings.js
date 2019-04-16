@@ -14,8 +14,7 @@ const UserSettingsSchema = new mongoose.Schema({
     firstComp:          { type: String, required: false},
     secondComp:         { type: String, required: false},
     thirdComp:          { type: String, required: false},
-    fourthComp:         { type: String, required: false},
-    background:         { type: String, required: false}
+    fourthComp:         { type: String, required: false}
 })
 
 module.exports = mongoose.model('User_setting', UserSettingsSchema)
