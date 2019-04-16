@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 
 const items_to_remove = ['email', 'user_station_name', 'user_station_id', 'user_bus', 'user_metro', 'user_train',
 	'user_tram', 'user_ship', 'departure_info', 'has_departures', 'no_real_time', 'calendar_events',
-	'has_event', 'news']
+	'has_event', 'news', 'background_url', 'background', 'firstComp', 'secondComp', 'thirdComp', 'fourthComp']
 
 class Login extends Component {
 	constructor(props) {
@@ -61,6 +61,7 @@ class Login extends Component {
 					localStorage.setItem('secondComp', data.secondComp)
 					localStorage.setItem('thirdComp', data.thirdComp)
 					localStorage.setItem('fourthComp', data.fourthComp)
+					localStorage.setItem('background_url', data.background)
 					this.props.history.push('/')
 					toast("Tip: Customise your dashboard by dragging and dropping the components!")
 				})

@@ -13,15 +13,6 @@ class BackgroundToggle extends Component {
 		if (e === 'Minimalistic') {
 			localStorage.setItem('background_url', '')
 			localStorage.setItem('background', 'Minimalistic')
-		} else if (e === 'NASA') {
-			fetch('/nasa')
-				.then(response => {
-					return response.json()
-				})
-				.then(data => {
-					localStorage.setItem('background_url', JSON.stringify(data))
-					localStorage.setItem('background', 'NASA')
-				})
 		} else {
 			fetch('/unsplash')
 				.then(response => {
@@ -31,17 +22,20 @@ class BackgroundToggle extends Component {
 					console.log(data)
 					localStorage.setItem('background_url', JSON.stringify(data.url))
 					localStorage.setItem('background', 'Unsplash')
-
 				})
 		}
 	}
 
 	render() {
+		if (localStorage.getItem('background_url').includes('unsplash'))
+			localStorage.setItem('background', 'Unsplash')
+		else
+			localStorage.setItem('background', 'Minimalistic')
 		return (
 			<div className="background_toggle">
 				<Dropdown>
 					<Dropdown.Toggle className="settings_btn background_btn" id="dropdown-basic">
-						{this.state.background !== null ? this.state.background : 'Theme'}
+						{localStorage.getItem('background') !== null ? localStorage.getItem('background') : 'Theme'}
 					</Dropdown.Toggle>
 
 					<Dropdown.Menu>
