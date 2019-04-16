@@ -8,6 +8,8 @@ import logo from '../assets/logo.svg'
 import {Form, Button} from 'react-bootstrap'
 import classnames from 'classnames'
 import { ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const mapStateToProps = state => ({
 	auth: state.auth,
@@ -60,6 +62,7 @@ class Login extends Component {
 					localStorage.setItem('thirdComp', data.thirdComp)
 					localStorage.setItem('fourthComp', data.fourthComp)
 					this.props.history.push('/')
+					toast("Tip: Customise your dashboard by dragging and dropping the components!")
 				})
 		}
 	}

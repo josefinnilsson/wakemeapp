@@ -159,7 +159,7 @@ class Dashboard extends Component {
 
 		return (
 			<div className="dashboard_wrapper" id="dashboard_wrapper">
-				<ToastContainer />
+				<ToastContainer autoClose={10000}/>
 				<h2>{greeting} {name}!</h2>
 				<div className="container">
 					{isMobileOnly ? <MobileView/> : <DesktopView/>}
