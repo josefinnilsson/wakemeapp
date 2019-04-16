@@ -1,7 +1,7 @@
 $accent_color: rgb(138, 210, 162);
 
 .weather_info {
-  margin-top: 20%;
+  margin-top: 15%;
 }
 
 img.sunrise_icon {
@@ -49,6 +49,20 @@ h6.weather_title {
 
 #forecast {
   padding: 0;
+}
+
+.forecast_outer {
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.forecast_inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 tspan {

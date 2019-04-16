@@ -12,7 +12,7 @@ import sunny_icon from '../assets/sunny.svg'
 import thunder_icon from '../assets/thunder.svg'
 import bright_night_icon from '../assets/bright_night.svg'
 import cloudy_night_icon from '../assets/cloudy_night.svg'
-import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts'
+import {LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer} from 'recharts'
 import PulseLoader from 'react-spinners/PulseLoader'
 import { DragSource, DropTarget } from 'react-dnd'
 import _ from 'lodash'
@@ -223,7 +223,18 @@ class Weather extends Component {
 							<div className="col-md-7" id="forecast">
 								{forecast}
 								{!this.state.forecast_loading && this.state.forecast &&
-                  <LineChart width={300} height={200} data={data}><XAxis minTickGap={1} dataKey="hour"/><YAxis width={40}/><Tooltip content={<CustomTooltip />} /><Line type="monotone" dataKey="Temperature" stroke="#8AD2A2" /></LineChart>}
+									<div className="forecast_outer">
+										<div className="forecast_inner">
+											<ResponsiveContainer>
+												<LineChart width={300} height={200} data={data} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>>
+													<XAxis minTickGap={1} dataKey="hour"/><YAxis width={40}/>
+													<Tooltip content={<CustomTooltip />} />
+													<Line type="monotone" dataKey="Temperature" stroke="#8AD2A2" />
+												</LineChart>
+											</ResponsiveContainer>
+										</div>
+									</div>
+								}
 							</div>
 						</div>
 					</div>
