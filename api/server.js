@@ -236,23 +236,6 @@ router.post('/updateUserSettingsComponents/:email', (req, res) => {
     })
 })
 
-router.get('/getStationData/:search_string', (req, res, next) => {
-	let api_key = process.env.PLATSUPPSLAG
-    let search_string = req.params.search_string
-    const options = {
-        url: 'https://api.sl.se/api2/typeahead.json?key=' + api_key + '&searchstring=' + search_string + '&stationsonly=true&maxresults=10'
-    }
-    return new Promise(resolve => {
-        request(options, (err, res, body) => {
-            resolve(body)
-        })
-    }).then(body => {
-        res.json(JSON.parse(body).ResponseData)
-    }).catch(error => {
-        console.log(error)
-    })
-})
-
 router.get('/getAllStations', (req, res, next) => {
     return new Promise(resolve => {
         const body = fs.readFileSync('stations.json', 'utf8')
