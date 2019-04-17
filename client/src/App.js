@@ -57,6 +57,7 @@ class App extends Component {
             bodyClassName: 'success_notification',
             progressClassName: 'success_notification',
         })
+      window.location.href = '/'
     }
     const header = auth ? '' : <Header/>
     const unsplashStyle = {
