@@ -68,10 +68,6 @@ class Weather extends Component {
 			.then(data => {
 				localStorage.setItem('has_weather_details', true)
 				localStorage.setItem('weather', JSON.stringify(data))
-				this.setState({
-					status: 'LOADED',
-					weather: data
-				})
 				fetch('/getLocationData/' + lat + '/' + long)
 					.then(response => {
 						return response.json()
@@ -79,6 +75,8 @@ class Weather extends Component {
 					.then(city => {
 						localStorage.setItem('current_location', city.name)
 						this.setState({
+							status: 'LOADED',
+							weather: data,
 							current_location: city.name
 						})
 					})
@@ -102,12 +100,14 @@ class Weather extends Component {
 		// called by refresh button
 		if (typeof e !== 'undefined') {
 			this.setState({
-				rotate: true
+				rotate: true,
+				forecast_loading: true
+			})
+		} else {
+			this.setState({
+				forecast_loading: true
 			})
 		}
-		this.setState({
-			forecast_loading: true
-		})
 		this.getLocation()
 			.then(() => {
 				const lat = this.state.latitude
