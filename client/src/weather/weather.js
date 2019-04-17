@@ -18,17 +18,19 @@ import { DragSource, DropTarget } from 'react-dnd'
 import _ from 'lodash'
 import { Types, CompSource, CompTarget, collectSource, collectTarget } from '../actions/dndActions'
 import PropTypes from 'prop-types'
+import { Button } from 'react-bootstrap'
 
 class Weather extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			status: 'INIT',
-			latitude: 0,
-			longitude: 0,
+			latitude: -1,
+			longitude: -1,
 			rotate: false,
 			forecast_loading: false,
-			forecast: []
+			forecast: [],
+			error: {code: 0}
 		}
 
 		this.handleRefresh = this.handleRefresh.bind(this)
@@ -48,6 +50,9 @@ class Weather extends Component {
 				}, resolve('DONE'))
 			}, error => {
 				console.log(error)
+				this.setState({
+					error: error
+				})
 			})
 		})
 			.catch(err => {
@@ -153,7 +158,7 @@ class Weather extends Component {
 
 	render() {
 		const RefreshWeather = () => {
-			return (<button id='refresh_weather' onClick={this.handleRefresh}>Refresh weather</button>)
+			return (<FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>)
 		}
 		const CustomTooltip = ({ active, payload }) => {
 			if (active) {
@@ -187,14 +192,22 @@ class Weather extends Component {
 			</div>
 		</div>
 
-		if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
+		if (this.state.latitude === -1 || this.state.longitude === -1 || this.state.error.code === 2) {
+			return connectDropTarget(connectDragSource(
+				<div className="not_authenticated_wrapper">
+					<div className="not_authenticated">
+						<h6>Your position is not available at the moment</h6>
+						<Button onClick={this.handleRefresh}>Refresh</Button>
+					</div>
+				</div>))
+		} else if (localStorage.getItem('has_weather_details') === 'true' && weather !== null) {
 			weather = JSON.parse(weather)
 			const icon = this.getIcon(weather.icon, weather.sunset, weather.sunrise)
 			return connectDropTarget(connectDragSource(
 				<div>
 					<div className="coponent_title">
 						<h4>Weather in {location}</h4>
-						<FontAwesomeIcon className={this.state.rotate ? 'refresh refresh_clicked' : 'refresh'} icon='redo' cursor='pointer' onClick={this.handleRefresh} onAnimationEnd={() => this.setState({rotate: false})}/>
+						<RefreshWeather/>
 					</div>
 					<div className="container">
 						<div className="row">
@@ -242,7 +255,9 @@ class Weather extends Component {
 			))
 		} else {
 			return connectDropTarget(connectDragSource(
-				<RefreshWeather/>
+				<div>
+					<RefreshWeather/>
+				</div>
 			))
 		}
 	}
