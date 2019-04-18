@@ -19,7 +19,6 @@ import setAuthToken from './utils/setAuthToken'
 import { Provider } from 'react-redux'
 import store from './store'
 import Header from './staticComponents/header'
-import { toast } from 'react-toastify'
 
 library.add(fas)
 
@@ -59,7 +58,7 @@ class App extends Component {
 
     const background_url = localStorage.getItem('background_url')
     let url = ''
-    if (background_url)
+    if (background_url !== 'undefined')
       url = JSON.parse(background_url)
     if (typeof url === undefined)
       url = ''
@@ -70,14 +69,8 @@ class App extends Component {
       auth = true
       url = ''
     }
-    if (location === '/cal') {
-      toast('Calendar authentication successful!', {
-            className: 'success_notification',
-            bodyClassName: 'success_notification',
-            progressClassName: 'success_notification',
-        })
+    if (location === '/cal')
       window.location.href = '/'
-    }
     const header = auth ? '' : <Header/>
     const unsplashStyle = {
       backgroundImage: 'linear-gradient(to bottom, rgba(254, 243, 234, 0.8), rgba(254, 243, 234, 1)),url(' + url +')',
