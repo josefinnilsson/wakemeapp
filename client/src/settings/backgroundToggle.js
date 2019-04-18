@@ -26,11 +26,15 @@ class BackgroundToggle extends Component {
 	}
 
 	render() {
+		if (localStorage.getItem('background_url').includes('unsplash'))
+			localStorage.setItem('background', 'Unsplash')
+		else
+			localStorage.setItem('background', 'Minimalistic')
 		return (
 			<div className="background_toggle">
 				<Dropdown>
 					<Dropdown.Toggle className="settings_btn background_btn" id="dropdown-basic">
-						{this.state.background !== null ? this.state.background : 'Theme'}
+						{localStorage.background !== null && localStorage.getItem('background') !== null ? localStorage.getItem('background') : 'Theme'}
 					</Dropdown.Toggle>
 
 					<Dropdown.Menu>
