@@ -138,6 +138,9 @@ const CalendarAPI = {
                     resolve('AUTHORIZED')
                 }
             })
+            .catch(err => {
+                console.log(err)
+            })
         })
         .catch(err => {
             console.log(err)
@@ -174,6 +177,8 @@ const UserToken = {
             User.findOne( { email }, (err, user) => {
                 if (err) {
                     reject(err)
+                } else if (user === null) {
+                    reject(new Error({ msg: 'No user'}))
                 } else {
                     const _id = user._id
                     UserSettings.findOne( { _id }, (err, userSettings) => {

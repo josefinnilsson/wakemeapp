@@ -76,6 +76,8 @@ class Calendar extends Component {
 						this.setState({ authorized: true })
 						resolve('AUTHORIZED')
 					}
+				}).catch(err => {
+					console.log("Not authenticated")
 				})
 		})
 	}

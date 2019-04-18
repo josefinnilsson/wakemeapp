@@ -38,6 +38,8 @@ class News extends Component {
 				this.setState({
 					news: data
 				})
+			}).catch(err => {
+				console.log("Errors fetch news")
 			})
 	}
 

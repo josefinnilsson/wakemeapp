@@ -50,10 +50,24 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/../client/build/index.html'));
 })
 
+router.get('/checkUser/:email', (req, res) => {
+    const email = req.params.email
+    return new Promise(resolve => {
+        checkUser(email).then(result => {
+            resolve(result)
+        }).catch(err => {
+            console.log("HEJ: " + err)
+            res.send(500, {error: err})
+        })
+    }).then(userExists => {
+        res.json({ userExists: userExists })
+    })
+})
+
 const checkUser = function(email) {
     return new Promise(resolve => {
         User.find({ email: email }, (err, docs) => {
-            if (docs.length) {
+            if (docs.length > 0) {
                 resolve(true)
             } else {
                 resolve(false)
@@ -212,6 +226,8 @@ router.post('/updateUserSettings/:email', (req, res) => {
     const email = req.params.email
 
     User.findOne( { email }, (err, user) => {
+        if (err)
+            return res.send(500, {error: err})
         const query = {'_id': user._id}
         const { stationName, stationId, bus, metro, train, tram, ship } = sanitize(req.body)
         UserSettings.findOneAndUpdate(query, { stationName, stationId, bus, metro, train, tram, ship }, (err, userSettings) => {
@@ -226,6 +242,8 @@ router.post('/updateUserSettingsComponents/:email', (req, res) => {
     const email = req.params.email
 
     User.findOne({ email }, (err, user) => {
+        if (err)
+            return res.send(500, {error: err})
         const query = {'_id': user._id}
         const { firstComp, secondComp, thirdComp, fourthComp } = sanitize(req.body)
         UserSettings.findOneAndUpdate(query, { firstComp, secondComp, thirdComp, fourthComp }, (err, userSettings) => {
@@ -468,13 +486,17 @@ router.get('/news', (req, res) => {
         url: 'https://newsapi.org/v2/everything?sources=svenska-dagbladet&apiKey=' + api_key
     }
 
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         request(options, (err, res, body) => {
+            if (err)
+                reject(err)
             resolve(body)
         })
     }).then(body => {
-        let data = JSON.parse(body)
+        const data = JSON.parse(body)
         res.json(data)
+    }).catch(err => {
+        res.send(500, {error: err})
     })
 })
 
@@ -547,7 +569,7 @@ router.get('/calendar_authenticated:email', (req, res) => {
         res.json({ authorized: auth })
     })
     .catch(err => {
-        console.log(err)
+        return res.send(500, {error: err})
     })
 })
 

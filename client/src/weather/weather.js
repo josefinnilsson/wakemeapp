@@ -79,8 +79,12 @@ class Weather extends Component {
 							weather: data,
 							current_location: city.name
 						})
+					}).catch(err => {
+						console.log("Couldn't fetch current location")
 					})
-			})
+				}).catch(err => {
+					console.log("Couldn't fetch weather data")
+				})
 	}
 
 	getForecast(lat, long) {
@@ -93,6 +97,8 @@ class Weather extends Component {
 					forecast: data,
 					forecast_loading: false
 				})
+			}).catch(err => {
+				console.log("Couldn't fetch forecast")
 			})
 	}
 

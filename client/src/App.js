@@ -23,6 +23,25 @@ import { toast } from 'react-toastify'
 
 library.add(fas)
 
+if (localStorage.email && localStorage.getItem('email') !== '') {
+  console.log(localStorage.getItem('email'))
+  fetch('/checkUser/' + localStorage.getItem('email'))
+  .then(response => {
+    return response.json()
+  })
+  .then(result => {
+    if (result.userExists === false) {
+      localStorage.clear()
+      store.dispatch(logout())
+      window.location.href = "./login"
+    }
+  }).catch(err => {
+    localStorage.clear()
+    store.dispatch(logout())
+    window.location.href = "./login"
+  })
+}
+
 if (localStorage.jwt_token) {
   const token = localStorage.jwt_token
   setAuthToken(token)

@@ -58,6 +58,9 @@ class SL extends Component {
 					departures_no_real_time: data[1]
 				})
 			})
+			.catch(err => {
+				console.log("Couldn't fetch departures")
+			})
 	}
 
 	render() {
