@@ -23,7 +23,6 @@ import Header from './staticComponents/header'
 library.add(fas)
 
 if (localStorage.email && localStorage.getItem('email') !== '') {
-  console.log(localStorage.getItem('email'))
   fetch('/checkUser/' + localStorage.getItem('email'))
   .then(response => {
     return response.json()
@@ -58,8 +57,8 @@ class App extends Component {
 
     const background_url = localStorage.getItem('background_url')
     let url = ''
-    if (background_url !== 'undefined')
-      url = JSON.parse(background_url)
+    if (typeof background_url !== 'undefined')
+      url = background_url
     if (typeof url === undefined)
       url = ''
 
