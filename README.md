@@ -27,7 +27,7 @@ First, [install Node](https://docs.npmjs.com/getting-started/installing-node). T
 * `npm install` to install the frontend and backend dependencies.
 * `npm run start-dev` to start the server and client. The application can be visited at [localhost:3000](https://localhost:3000) and the server at [localhost:3001](https://localhost:3001).  
 
-*Note: Running the application locally requires you to have the correct environmental variables set up.*
+*Note: Running the application locally requires you to have the correct environmental variables set up and in order to get the SL stations your local database has to be configured.*
 
 ### API
 The application uses the following APIs:
