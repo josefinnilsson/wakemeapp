@@ -89,6 +89,10 @@ tspan {
   text-align: center;
 }
 
+.weather_drag {
+  min-height: 300px;
+}
+
 @media (max-width: 480px) {
   .weather_info {
     margin-top: 5%;

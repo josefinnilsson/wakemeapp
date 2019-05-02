@@ -210,7 +210,7 @@ class Weather extends Component {
 			weather = JSON.parse(weather)
 			const icon = this.getIcon(weather.icon, weather.sunset, weather.sunrise)
 			return connectDropTarget(connectDragSource(
-				<div>
+				<div className="weather_drag">
 					<div className="coponent_title">
 						<h4>Weather in {location}</h4>
 						<RefreshWeather/>
