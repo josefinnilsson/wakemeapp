@@ -25,7 +25,8 @@ class UserSettings extends Component {
 			tram: localStorage.getItem('user_tram') === 'true' ? true : false,
 			ship: localStorage.getItem('user_ship') === 'true' ? true : false,
 			search: '',
-			is_mounted: false
+			is_mounted: false,
+			account: ''
 		}
 
 		this.handleSaveSubmit = this.handleSaveSubmit.bind(this)
@@ -49,6 +50,20 @@ class UserSettings extends Component {
 						all_stations: result
 					})
 			})
+		fetch('/getCalendarId/' + localStorage.getItem('email'))
+			.then(response => {
+				return response.json()
+			})
+			.then (result => {
+				if (result.url)
+					return
+				this.setState({
+					account: result.id
+				})
+			})
+			.catch(err => {
+				console.log(err)
+			})
 	}
 
 	componentWillUnmount() {
@@ -61,7 +76,6 @@ class UserSettings extends Component {
 				return response.json()
 			})
 			.then(data => {
-				console.log(data)
 				if (data.url) {
 					window.location = data.url
 				}
@@ -168,6 +182,7 @@ class UserSettings extends Component {
 				<div className="settings_form_wrapper">
 					<div className="settings_form">
 						<h4>Calendar</h4>
+						{this.state.account !== '' ? (<h6>Current account: {this.state.account}</h6>) : (<h6>No account chosen yet!</h6>)}
 						<Button variant="primary" type="submit" onClick={this.changeAccount}>Change Account</Button>
 					</div>
 				</div>

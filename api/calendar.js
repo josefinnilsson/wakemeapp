@@ -145,6 +145,23 @@ const CalendarAPI = {
         .catch(err => {
             console.log(err)
         })
+    },
+    getCalendarId: function(auth) {
+        const calendar = google.calendar({ version: 'v3', auth: auth})
+        let hasPrimary = false
+        return new Promise((resolve,reject) => {
+            calendar.calendarList.list().then(res => {
+                let calendars = res.data.items
+                calendars.forEach(calendar => {
+                    if (calendar.primary === true) {
+                        hasPrimary = true
+                        resolve({id: calendar.id})
+                    }
+                })
+                if (!hasPrimary)
+                    reject({error: 'No calendar id'})
+            })
+        })
     }
 }
 

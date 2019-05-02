@@ -520,6 +520,20 @@ router.get('/nasa', (req, res) => {
     })
 })
 
+router.get('/getCalendarId/:email', (req, res) => {
+    CalendarAPI.authorize(res, req, req.params.email)
+    .then(result => {
+        CalendarAPI.getCalendarId(result)
+        .then(result => {
+            res.json(result)
+        })
+        .catch(err => {
+            console.log(err)
+            res.json({error_message: err})
+        })
+    })
+})
+
 router.get('/calendar/:email', (req, res) => {
     CalendarAPI.authorize(res, req, req.params.email)
     .then(result => {
