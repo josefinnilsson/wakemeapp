@@ -26,7 +26,8 @@ class UserSettings extends Component {
 			ship: localStorage.getItem('user_ship') === 'true' ? true : false,
 			search: '',
 			is_mounted: false,
-			account: ''
+			account: '',
+			loading: false,
 		}
 
 		this.handleSaveSubmit = this.handleSaveSubmit.bind(this)
@@ -39,7 +40,7 @@ class UserSettings extends Component {
 	}
 
 	componentDidMount() {
-		this.setState({ is_mounted: true })
+		this.setState({ is_mounted: true, loading: true })
 		fetch('/getAllStations')
 			.then(response => {
 				return response.json()
@@ -55,6 +56,7 @@ class UserSettings extends Component {
 				return response.json()
 			})
 			.then (result => {
+				this.setState({ loading: false })
 				if (result.url)
 					return
 				this.setState({
@@ -182,7 +184,7 @@ class UserSettings extends Component {
 				<div className="settings_form_wrapper">
 					<div className="settings_form">
 						<h4>Calendar</h4>
-						{this.state.account !== '' ? (<h6>Current account: {this.state.account}</h6>) : (<h6>No account chosen yet!</h6>)}
+						<h6>{this.state.loading ? '' : this.state.account !== '' ? ('Current account: ' + this.state.account) : 'No account chosen yet'}</h6>
 						<Button variant="primary" type="submit" onClick={this.changeAccount}>Change Account</Button>
 					</div>
 				</div>
