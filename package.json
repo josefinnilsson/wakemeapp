@@ -40,7 +40,7 @@
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.0",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "moment": "^2.24.0",
     "mongo-sanitize": "^1.0.1",
     "mongoose": "^5.4.17",
