@@ -44,7 +44,7 @@
     "moment": "^2.24.0",
     "mongo-sanitize": "^1.0.1",
     "mongoose": "^5.7.5",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "nodemon": "^1.18.10",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
