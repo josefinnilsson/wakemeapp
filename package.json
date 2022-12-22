@@ -38,7 +38,7 @@
     "googleapis": "^38.0.0",
     "gtoken": "^2.3.3",
     "is-empty": "^1.2.0",
-    "jsonwebtoken": "^8.5.0",
+    "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.13",
     "moment": "^2.24.0",
